@@ -1,0 +1,2 @@
+export * from './general'
+export {default as Home} from '../pages/home/Home'
