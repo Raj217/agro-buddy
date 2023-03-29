@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
+dotenv.config();
 import http from "http";
 import app  from "./app.js";
 
-dotenv.config();
 const server = http.createServer(app);
 
 const { API_PORT } = process.env;
