@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import "./Banner.css";
 
-function Banner() {
+// type: top-left, top-right, bottom-left, bottom-right
+// size: small, medium, large
+function Banner({ url, type = "top-left", size = "medium" }) {
   return (
-    <div>Banner</div>
-  )
+    <div className={size}>
+      <img src={url} className={type} />
+    </div>
+  );
 }
 
-export default Banner
+export default Banner;
