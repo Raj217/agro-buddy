@@ -17,7 +17,7 @@ export const theme = createTheme({
           ...(ownerState.variant === "contained" && {
             backgroundColor: Pallete.colorAccent,
             color: Pallete.colorPrimary,
-            padding: "10px 25px",
+            padding: "15px 25px",
             outline: "none",
             borderRadius: "25px",
             "&:hover": {
