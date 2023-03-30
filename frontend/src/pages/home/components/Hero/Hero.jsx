@@ -11,7 +11,6 @@ function Hero() {
         <Grid display='flex' flexDirection='column' alignItems='start' justifyContent='center' paddingLeft='100px' item md={6} sm={6} xs={12}  >
           <Typography
             fontWeight={700}
-            color='#213547'
             textAlign='left'
             sx={{ fontSize: { lg: '3rem', xs: '2.5rem' } }}
           >
@@ -20,7 +19,6 @@ function Hero() {
           <Typography
             fontSize='1rem'
             fontWeight={500}
-            color='#213547'
             textAlign='left'
             sx={{ lineHeight: { lg: '60px', xs: '80px' }, fontSize: { lg: '1rem', xs: '0.8rem' } }}
           >
