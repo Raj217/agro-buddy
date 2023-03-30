@@ -5,6 +5,7 @@ specifiers:
   '@emotion/styled': ^11.10.6
   '@mui/icons-material': ^5.11.11
   '@mui/material': ^5.10.15
+  '@mui/system': ^5.11.15
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
   '@vitejs/plugin-react': ^3.1.0
@@ -18,6 +19,7 @@ dependencies:
   '@emotion/styled': 11.10.6_y3jktkphxddpitstssvkgnnxe4
   '@mui/icons-material': 5.11.11_kvbnwlw2tmojduc3t3h4k3dxve
   '@mui/material': 5.11.15_we7fkeim3mnobwhg4eygxpogke
+  '@mui/system': 5.11.15_7q5gdzubmolj22qnry5jpfqmbe
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.9.0_biqbaboplfbrettd7655fr4n2y

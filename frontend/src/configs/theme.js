@@ -3,37 +3,37 @@ import * as Pallete from "./pallete";
 
 export const theme = createTheme({
   typography: {
-    fontFamily: "epilogue",
-  },
-  overrides: {
-    MuiButton: {
-      raisedPrimary: {},
+    allVariants: {
+      color: Pallete.dark,
     },
+    h2: {
+      // color: '#313137',
+    }
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({
           ...(ownerState.variant === "contained" && {
-            backgroundColor: Pallete.colorAccent,
-            color: Pallete.colorPrimary,
+            backgroundColor: Pallete.accent,
+            color: Pallete.primary,
             padding: "15px 25px",
             outline: "none",
             borderRadius: "25px",
             "&:hover": {
-              backgroundColor: Pallete.colorAccentDark,
-              color: Pallete.colorPrimary,
+              backgroundColor: Pallete.accentDark,
+              color: Pallete.primary,
               outline: "none",
             },
             "&:focus": {
-              backgroundColor: Pallete.colorAccentDark,
-              color: Pallete.colorPrimary,
+              backgroundColor: Pallete.accentDark,
+              color: Pallete.primary,
               outline: "none",
             },
           }),
           ...(ownerState.variant === "text" && {
             backgroundColor: "none",
-            color: Pallete.colorAccent,
+            color: Pallete.accent,
             padding: "10px 25px",
             outline: "none",
             borderRadius: "25px",
@@ -46,15 +46,15 @@ export const theme = createTheme({
           }),
           ...(ownerState.variant === "outline" && {
             backgroundColor: "none",
-            color: Pallete.colorAccent,
+            color: Pallete.accent,
             padding: "10px 25px",
             borderRadius: "25px",
-            outline: `2px solid ${Pallete.colorAccent}`,
+            outline: `2px solid ${Pallete.accent}`,
             "&:hover": {
-              outline: `2px solid ${Pallete.colorAccent}`,
+              outline: `2px solid ${Pallete.accent}`,
             },
             "&:focus": {
-              outline: `2px solid ${Pallete.colorAccent}`,
+              outline: `2px solid ${Pallete.accent}`,
             },
           }),
         }),
@@ -66,7 +66,7 @@ export const theme = createTheme({
           ...(ownerState.variant === "outlined" && {
             outline: "none",
             border: "none",
-            color: Pallete.colorAccent,
+            color: Pallete.accent,
             borderRadius: '100px',
             "&:hover": {
               outline: "none",
@@ -78,6 +78,6 @@ export const theme = createTheme({
           }),
         }),
       },
-    },
+    }
   },
 });
