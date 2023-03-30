@@ -6,7 +6,6 @@ import { TextField } from '@mui/material'
 function Home() {
   return (
     <div>
-      {/* <TextField variant='outlined' style={{ border: '2px solid green', outline: 'none' }} /> */}
       <Navbar />
       <Hero />
     </div>
