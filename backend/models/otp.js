@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 export const Constants = {
-  DEFAULT_VALIDITY_MILLIS: 1000 * 60 * 60 * 12, // 12*3 hour validity
+  DEFAULT_VALIDITY_MILLIS: 1000 * 60 * 60 * 12, // 12 hour validity
 };
 
 const OtpSchema = new Schema({
