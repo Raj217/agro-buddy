@@ -1,0 +1,14 @@
+form {
+    border-radius: 50px;
+    border-style: solid;
+}
+
+input {
+    border-radius: 50px;
+    background: none;
+    padding: 0 20px;
+    outline: none;
+    border: none;
+    font-family: "Epilogue";
+    font-size: 18px;
+}
