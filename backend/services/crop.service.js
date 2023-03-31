@@ -41,33 +41,28 @@ export const registerCropDetails = async (cropDetails, user) => {
   else crop = await Crop.create({ name, img, details: [cropNewDetails] });
 };
 
+// TODO: Add absolute values (should return the nearest values)
 export const getCropDetails = async (cropDetails) => {
   const {
     name,
-    nitrogen,
     fromNitrogenLevel,
     toNitrogenLevel,
-    phosphrous,
     fromPhosphrousLevel,
     toPhosphrousLevel,
-    potassium,
     fromPotassiumLevel,
     toPotassiumLevel,
-    temperature,
     fromTemperatureLevel,
     toTemperatureLevel,
-    humidity,
     fromHumidityLevel,
     toHumidityLevel,
-    pH,
     fromPHLevel,
     toPHLevel,
-    rainfall,
     fromRainfallLevel,
     toRainfallLevel,
   } = cropDetails;
-  let cropQuery = {};
-  if (!name) cropQuery["name"] = { name };
+  let cropNameQuery = {},
+    cropQuery = {};
+  if (!name) cropNameQuery["name"] = { name };
 
   if (!fromNitrogenLevel)
     cropQuery["details"]["nitrogen"] = { $gte: fromNitrogenLevel };
@@ -128,9 +123,13 @@ export const getCropDetails = async (cropDetails) => {
     cropIds.push(...crop.cropDetailIds);
   }
 
-  let cropDetails = CropDetails.find({
-    $and: { _id: cropIds, ...cropQuery },
+  let cropDetails = Crop.find({
+    $and: { ...cropNameQuery, cropDetails: { _id: cropIds, ...cropQuery } },
   });
 };
-export const updateCropDetails = async () => {};
-export const deleteCropDetails = async () => {};
+export const updateCropDetails = async (name, cropDetails) => {
+  await Crop.findOneAndUpdate({ name }, { cropDetails: cropDetails });
+};
+export const deleteCropDetails = async (name, cropDetails) => {
+  await Crop.findOneAndRemove({ name }, { cropDetails: cropDetails });
+};

@@ -1,4 +1,7 @@
 export const ExceptionCodes = {
+  REQUEST_FULFILLED: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
   BAD_INPUT: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
