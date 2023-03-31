@@ -1,6 +1,6 @@
 const UserRoles = {
-    ADMINISTRATOR: 'ADMINISTRATOR', USER: 'USER',
-    getAllRoles: ['ADMINISTRATOR', 'USER']
-}
+  ADMINISTRATOR: "ADMINISTRATOR",
+  USER: "USER",
+};
 
 export default UserRoles;

@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 
-app.all("/api/*", mainRoute);
+app.use("/api", mainRoute);
 
 app.use(Exception.defaultExceptionHandler);
 export default app;

@@ -11,7 +11,7 @@ const CropSchema = Schema(
         strength: 2,
       },
     },
-    img: { type: [String] },
+    images: { type: [String] },
     details: {
       type: [
         {

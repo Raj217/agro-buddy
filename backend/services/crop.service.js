@@ -1,54 +1,72 @@
-import UserRoles from "../models/constants";
-import Crop from "../models/crop";
-import Exception, { ExceptionCodes } from "../utils/Error";
+import UserRoles from "../models/constants.js";
+import Crop from "../models/crop.js";
+import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
-  if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
-      "You don't have enough privilege.",
-      ExceptionCodes.UNAUTHORIZED
-    );
-  }
-  const {
-    name,
-    nitrogen,
-    phosphrous,
-    potassium,
-    temperature,
-    humidity,
-    pH,
-    rainfall,
-    img,
-  } = cropDetails;
-  if (!name) throw Exception("Name is required", ExceptionCodes.BAD_INPUT);
+  // if (user.role != UserRoles.ADMINISTRATOR) {
+  //   throw Exception(
+  //     "You don't have enough privilege.",
+  //     ExceptionCodes.UNAUTHORIZED
+  //   );
+  // }
+  const { name, images } = cropDetails;
+  if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
+  let imgs = [];
+  if (images) imgs = images;
+  let cropNewDetails = {};
 
-  let cropNewDetails = {
-    nitrogen: nitrogen,
-    phosphrous: phosphrous,
-    potassium: potassium,
-    temperature: temperature,
-    humidity: humidity,
-    pH: pH,
-    rainfall: rainfall,
-  };
+  if (cropDetails.details) {
+    const {
+      nitrogen,
+      phosphorus,
+      potassium,
+      temperature,
+      humidity,
+      pH,
+      rainfall,
+    } = cropDetails.details;
+
+    cropNewDetails = {
+      nitrogen: nitrogen,
+      phosphorus: phosphorus,
+      potassium: potassium,
+      temperature: temperature,
+      humidity: humidity,
+      pH: pH,
+      rainfall: rainfall,
+    };
+  }
 
   let crop = await Crop.findOne({ name });
-  if (crop)
+  if (crop) {
+    if (crop.images.size > 0) {
+      imgs = [...crop.images, ...imgs];
+    }
     await Crop.findOneAndUpdate(
       { _id: crop._id },
-      { details: [...crop.details, cropNewDetails] }
+      { details: [...crop.details, cropNewDetails], images: images }
     );
-  else crop = await Crop.create({ name, img, details: [cropNewDetails] });
+  } else {
+    if (cropDetails.details === undefined) {
+      await Crop.create({ name, images });
+    } else {
+      await Crop.create({
+        name,
+        details: [cropNewDetails.size == 0 ? null : cropNewDetails],
+        images,
+      });
+    }
+  }
 };
 
 // TODO: Add absolute values (should return the nearest values)
-export const getCropDetails = async (cropDetails) => {
+export const getCropDetails = async (cropDetails, user) => {
   const {
     name,
     fromNitrogenLevel,
     toNitrogenLevel,
-    fromPhosphrousLevel,
-    toPhosphrousLevel,
+    fromphosphorusLevel,
+    tophosphorusLevel,
     fromPotassiumLevel,
     toPotassiumLevel,
     fromTemperatureLevel,
@@ -60,6 +78,8 @@ export const getCropDetails = async (cropDetails) => {
     fromRainfallLevel,
     toRainfallLevel,
   } = cropDetails;
+  if (user.role === undefined)
+    throw Exception("Unauthorized", ExceptionCodes.UNAUTHORIZED);
   let cropNameQuery = {},
     cropQuery = {};
   if (!name) cropNameQuery["name"] = { name };
@@ -72,12 +92,12 @@ export const getCropDetails = async (cropDetails) => {
       $lte: toNitrogenLevel,
     };
 
-  if (!fromPhosphrousLevel)
-    cropQuery["phosphorous"] = { $gte: fromPhosphrousLevel };
-  if (!toPhosphrousLevel)
-    cropQuery["phosphorous"] = {
-      ...cropQuery["phosphorous"],
-      $lte: toPhosphrousLevel,
+  if (!fromphosphorusLevel)
+    cropQuery["phosphorus"] = { $gte: fromphosphorusLevel };
+  if (!tophosphorusLevel)
+    cropQuery["phosphorus"] = {
+      ...cropQuery["phosphorus"],
+      $lte: tophosphorusLevel,
     };
 
   if (!fromPotassiumLevel)
@@ -123,11 +143,11 @@ export const getCropDetails = async (cropDetails) => {
     cropIds.push(...crop.cropDetailIds);
   }
 
-  let cropDetails = Crop.find({
+  cropDetails = Crop.find({
     $and: { ...cropNameQuery, cropDetails: { _id: cropIds, ...cropQuery } },
   });
 };
-export const updateCropDetails = async (name, cropDetails) => {
+export const updateCropDetails = async (name, cropDetails, user) => {
   if (user.role != UserRoles.ADMINISTRATOR) {
     throw Exception(
       "You don't have enough privilege.",
@@ -136,7 +156,7 @@ export const updateCropDetails = async (name, cropDetails) => {
   }
   await Crop.findOneAndUpdate({ name }, { cropDetails: cropDetails });
 };
-export const deleteCropDetails = async (name, cropDetails) => {
+export const deleteCropDetails = async (name, cropDetails, user) => {
   if (user.role != UserRoles.ADMINISTRATOR) {
     throw Exception(
       "You don't have enough privilege.",
@@ -146,7 +166,7 @@ export const deleteCropDetails = async (name, cropDetails) => {
   await Crop.findOneAndRemove({ name }, { cropDetails: cropDetails });
 };
 
-export const updateCrop = async (id, name, img, cropDetails) => {
+export const updateCrop = async (id, name, img, cropDetails, user) => {
   if (user.role != UserRoles.ADMINISTRATOR) {
     throw Exception(
       "You don't have enough privilege.",
