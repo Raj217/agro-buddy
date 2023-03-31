@@ -32,15 +32,17 @@ Example:
 }
 ```
 
-**name**: required | String
-**details**: optional | List
-**details.nitrogen**: optional | number
-**details.phosphorus**: optional | number
-**details.potassium**: optional | number
-**details.temperature**: optional | number
-**details.pH**: optional | number
-**details.rainfall**: optional | number
-**images**: optional | [String]
+
+**name**: required | String <br>
+**details**: optional | List <br>
+**details.nitrogen**: optional | number <br>
+**details.phosphorus**: optional | number <br>
+**details.potassium**: optional | number <br>
+**details.temperature**: optional | number <br>
+**details.pH**: optional | number <br>
+**details.rainfall**: optional | number <br>
+**images**: optional | [String] <br>
+
 
 <h2>Logic:</h2>
 
