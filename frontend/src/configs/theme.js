@@ -82,10 +82,19 @@ export const theme = createTheme({
           ...(ownerState.variant === "regular" && {
             backgroundColor: Pallete.primary,
             display: 'flex',
-            width: '100vw'
+            justifyContent: 'space-between',
+            width: '100vw',
+            height: '13vh',
           }),
         })
       }
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          height: '13vh',
+        })
+      },
     }
   },
 });
