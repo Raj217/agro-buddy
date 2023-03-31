@@ -1,3 +1,6 @@
+*{
+    font-family: "epilogue";
+}
 .about {
     /* height: 60vh; */
     width: 80vw;
@@ -10,11 +13,18 @@
     line-height: 1.35em;
     margin: 0 30px;
     font-size: 1.25rem;
+    /* font-family: "epilogue"; */
+}
+.about_agro{
+    padding-top: 45px;;
+    margin-left:20px;
+    text-align: center;
 }
 
 .about_image {
     width: 30vw;
     height: 30vw;
+    border-radius: 5rem 5rem 5rem 0.5rem;
     /* padding-left:2vh; */
 }
 
@@ -33,16 +43,14 @@
 .about_heading {
     /* width: 240px; */
     /* height: fit-content; */
+    font-family: "epilogue";
     margin-top: 2rem;
-    font-family: "Barlow Condensed";
     font-style: normal;
     font-weight: 600;
     font-size: 64px;
-    /* line-height: 84px; */
     text-align: center;
     color: #224259;
     margin-bottom: auto;
-
 }
 @media only screen and (max-width:1350px) {
     .about {
@@ -57,6 +65,7 @@
         font-size: 1.50em;
         margin: 15px;
         margin-bottom: 20px;
+        text-align: center;
     }
 
     .about_image {
@@ -88,6 +97,9 @@
     }
     .about_image {
         margin-left: 12px;
+    }
+    .about_agro{
+       text-align: left;
     }
 }
 

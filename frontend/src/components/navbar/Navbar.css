@@ -3,9 +3,20 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "epilogue";
+    font-size: 1rem;
     /* margin-bottom: auto; */
   }
+  /* .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  } */
+  @media screen and (min-width:760px){
+  .hello{
+    position: fixed;
+  }
   .navbar{
+    position: sticky;
     display:flex;
     justify-content: space-around;
     align-items: center;
@@ -14,8 +25,9 @@
     color: rgb(19, 19, 20);
     width: 100vw;
     margin-bottom: auto;
-    border:2px solid black;
+    /* border:2px solid black; */
     border-radius:5px;
+    box-shadow: 10px 5px 5px rgb(143, 142, 142);
   }
   .logo{
     font-size:30px;
@@ -26,22 +38,44 @@
     list-style: none;
     width:75%
   }
+  /* .nav-links:hover{
+   color:greenyellow
+  } */
   .nav-links .home{
   padding-right: 40px;
   }
   .mobileview{
     display:none;
   }
+}
   @media screen and (max-width:750px){
     .logo{
         display:flex;
         position:absolute;
-        top:15px;
-        left:35px;
-        text-align: center;
+        top:25px;
+        left:10px;
+        font-size: 35px;
+    }
+    .hello{
+      margin-top: 128px;
+      border-radius:5px;
+    box-shadow: 10px 5px 5px rgb(143, 142, 142);
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    height:0.5rem;
+    background-color: white;
+    color: rgb(19, 19, 20);
+    /* width: 100vw; */
+    /* margin-bottom: auto; */
     }
     .nav-links{
         display: none;
+    }
+    .nav{
+      border-radius:5px;
+    box-shadow: 10px 5px 5px rgb(143, 142, 142);
+    margin-bottom: 5000px;
     }
     .nav-links-mobile{
         position: absolute;
@@ -61,6 +95,7 @@
        
     }
     .mobileview{
+      margin-bottom: 1000px;
        display: block;
        position: absolute;
        font-size: 30px;
