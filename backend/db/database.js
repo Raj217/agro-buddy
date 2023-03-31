@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const { MONGO_URI } = process.env;
+const { MONGO_URL } = process.env;
 
 /// Couldn't find MONGO_URI in env
-if (MONGO_URI === undefined) {
+if (MONGO_URL === undefined) {
   console.log("Couldn't find mongo uri. Exiting now... ");
   process.exit(0);
 }
@@ -13,8 +13,10 @@ if (MONGO_URI === undefined) {
 export const connect = () => {
   // Connect to database
   mongoose
-    .connect(MONGO_URI)
-    .then(() => console.log("Successfully Connected to database"))
+    .connect(MONGO_URL)
+    .then(() =>
+      console.log(`Successfully Connected to database at ${MONGO_URL}`)
+    )
     .catch((err) => {
       console.log("Database connection failed. Due to  ");
       console.error(err);

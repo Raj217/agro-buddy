@@ -19,12 +19,6 @@ export const ExceptionCodes = {
 };
 
 class Exception extends Error {
-  static ExceptionCodes = {
-    BAD_INPUT: 400,
-    UNAUTHORIZED: 401,
-    FORBIDDEN: 403,
-  };
-
   constructor(message, statusCode, data) {
     super(message);
 
@@ -46,4 +40,4 @@ class Exception extends Error {
   }
 }
 
-export default Exception ;
+export default Exception;

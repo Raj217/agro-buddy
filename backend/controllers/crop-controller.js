@@ -12,7 +12,7 @@ export const register = async (req, res, next) => {
 };
 
 export const get = async (req, res, next) => {
-  CropService.getCropDetails(req.query)
+  CropService.getCropDetails(req.query, req.loggedInUser)
     .then((crops) => {
       res.status(ExceptionCodes.REQUEST_FULFILLED).json(crops);
     })
@@ -22,7 +22,7 @@ export const get = async (req, res, next) => {
 };
 
 export const updateCropDetails = async (req, res, next) => {
-  CropService.updateCropDetails(req.name, req.cropDetails)
+  CropService.updateCropDetails(req.name, req.cropDetails, req.loggedInUser)
     .then(() => {
       res.status(ExceptionCodes.REQUEST_FULFILLED).json();
     })
@@ -31,8 +31,8 @@ export const updateCropDetails = async (req, res, next) => {
     });
 };
 
-export const removeCropDetails = async (req, res, next) => {
-  CropService.deleteCropDetails(req.name, req.cropDetails)
+export const deleteCrop = async (req, res, next) => {
+  CropService.deleteCropDetails(req.name, req.cropDetails, req.loggedInUser)
     .then(() => {
       res.status(ExceptionCodes.REQUEST_FULFILLED).json();
     })
@@ -41,8 +41,14 @@ export const removeCropDetails = async (req, res, next) => {
     });
 };
 
-export const updateCrop = (req, res) => {
-  CropService.updateCrop(req.id, req.name, req.img, req.cropDetails)
+export const update = (req, res) => {
+  CropService.updateCrop(
+    req.id,
+    req.name,
+    req.img,
+    req.cropDetails,
+    req.loggedInUser
+  )
     .then(() => {
       res.status(ExceptionCodes.REQUEST_FULFILLED).json();
     })
