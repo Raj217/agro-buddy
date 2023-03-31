@@ -60,6 +60,8 @@ export const generateAndSendOtp = async (email) => {
 };
 
 // TODO: restrict signup for admin users
+
+// TODO: restrict signup for admin users
 export const signUp = async (inputUser) => {
   const { firstName, lastName, email, password, role } = inputUser;
   if (!firstName)
