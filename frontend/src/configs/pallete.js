@@ -9,3 +9,4 @@ export const colorAnalogous2 = "#31ad9a";
 export const colorTriadic1 = "#3182ad";
 export const colorTriadic2 = "#5c31ad";
 export const colorPrimary = "#fff";
+export const Dark = '#393940'

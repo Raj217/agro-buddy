@@ -1,0 +1,12 @@
+.icon-wrapper {
+    display: inline-block;
+    border-radius: 50%;
+    padding: 0.5em 0.6em;
+    background-color: #d8f4e2;
+}
+
+.alignment {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
