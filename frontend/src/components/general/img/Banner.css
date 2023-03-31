@@ -1,0 +1,23 @@
+img {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9/12;
+}
+
+
+.top-left {
+  border-radius: 0.5rem 5rem 5rem 5rem;
+}
+
+.top-right {
+  border-radius: 5rem 0.5rem 5rem 5rem;
+}
+
+.bottom-left {
+  border-radius: 5rem 5rem 5rem 0.5rem;
+}
+
+.bottom-right {
+  border-radius: 5rem 5rem 0.5rem 5rem;
+}
