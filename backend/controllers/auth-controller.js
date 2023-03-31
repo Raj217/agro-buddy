@@ -22,7 +22,6 @@ export const generateAndSendOtp = async (req, res, next) => {
 };
 
 export const signUp = async (req, res, next) => {
-  console.log("Okay bro")
   AuthService.signUp(req.body)
     .then((user) => {
       res.status(201).json(user);
