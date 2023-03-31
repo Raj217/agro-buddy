@@ -61,6 +61,7 @@ export const signUp = async (inputUser) => {
         const hashedPassword = bcrypt.hash(password, SALT_ROUNDS);
 
         const result = await User.create({ email, password: hashedPassword, firstName: firstName, lastName: lastName, role: role });
+        await generateAndSendOtp(email);
         
         const token = jwt.sign({ email: result.email, role: role }, 'test', { expiresIn: '1h' });
 
@@ -74,8 +75,6 @@ export const getUser = async (role, email) => {
     try {
         const existingUser = await User.findOne({ email });
         if (!existingUser) throw new Exception("User not found", 404);
-
-        // const token = jwt.sign({ email: existingUser.email }, 'test', { expiresIn: '1h' });
 
         return { user: existingUser };
     } catch (error) {
