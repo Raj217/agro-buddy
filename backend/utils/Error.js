@@ -1,4 +1,7 @@
 export const ExceptionCodes = {
+  REQUEST_FULFILLED: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
   BAD_INPUT: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
@@ -14,7 +17,13 @@ export const ExceptionCodes = {
   GATEWAY_TIMEOUT: 504,
   GATEWAY_ERROR: 505,
 };
+
 class Exception extends Error {
+  static ExceptionCodes = {
+    BAD_INPUT: 400,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+  };
 
   constructor(message, statusCode, data) {
     super(message);
