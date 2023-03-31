@@ -11,6 +11,104 @@ _Create a .env(root level) file with the following params:_
 
 ## Routes
 
+# Auth Routes
+
+**1. _POST - /api/auth/sign-up_**
+
+Example:
+
+```
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "johndoe@example.com",
+  "password": "buar13@iep",
+  "role": "USER"
+}
+```
+
+**firstName**: required | String <br>
+**lastName**: required | String <br>
+**email**: required | String <br>
+**password**: required | String <br>
+**role**: required | String <br>
+
+<h2>Logic:</h2>
+
+- if email and password are valid then data will be saved
+- password will be hashed before being saved
+- otp will be sent for verification
+
+**2. _POST - /api/auth/login_**
+
+Example:
+
+```
+{
+  "email": "johndoe@example.com",
+  "password": "buar13@iep"
+}
+```
+
+**email**: required | String <br>
+**password**: required | String <br>
+
+<h2>Logic:</h2>
+
+- if email and password are valid and correct data will be retrieved
+- otp will be sent for verification
+
+**3. _GET - /api/auth/user_**
+
+Example:
+
+```
+{
+  "email": "johndoe@example.com",
+  "role": "USER"
+}
+```
+
+**email**: required | String <br>
+**role**: required | String <br>
+
+<h2>Logic:</h2>
+
+- if email and password are valid and exists data will be retrieved
+
+**4. _POST - /api/auth/generate-otp_**
+
+Example:
+
+```
+{
+  "email": "johndoe@example.com"
+}
+```
+
+**email**: required | String <br>
+
+<h2>Logic:</h2>
+
+- create an otp with email and sent through mail
+
+**5. _POST - /api/auth/forget-password_**
+
+Example:
+
+```
+{
+  "email": "johndoe@example.com",
+  "password": "buar13@iep"
+}
+```
+
+**email**: required | String <br>
+
+<h2>Logic:</h2>
+
+- 
+
 # Crop Routes
 
 **1. _POST - /api/crop/register_**
@@ -31,7 +129,6 @@ Example:
   "images": ["test", "test2"]
 }
 ```
-
 
 **name**: required | String <br>
 **details**: optional | List <br>

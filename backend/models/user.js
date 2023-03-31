@@ -16,8 +16,6 @@ const userSchema = new Schema(
       },
     },
     role: { type: String, required: true, enum: UserRoles },
-  },
-  { timestamps: true }
-);
+}, {timestamps: true});
 
 export default model("User", userSchema);

@@ -45,8 +45,10 @@ export const generateAndSendOtp = async (email) => {
     }
 };
 
+// TODO: restrict signup for admin users
+
 export const signUp = async (inputUser) => {
-    const { firstName, lastName, email,confirmPassword, password, role } = inputUser;
+    const { firstName, lastName, email, confirmPassword, password, role } = inputUser;
     try {
         if (!email) throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
         if (!password) throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
@@ -63,7 +65,7 @@ export const signUp = async (inputUser) => {
         const result = await User.create({ email, password: hashedPassword, firstName: firstName, lastName: lastName, role: role });
         await generateAndSendOtp(email);
         
-        const token = jwt.sign({ email: result.email, role: role }, 'test', { expiresIn: '1h' });
+        const token = jwt.sign({ email: result.email, role: role }, 'test', { expiresIn: '20d' });
 
         return { token, user: result };
     } catch (error) {
