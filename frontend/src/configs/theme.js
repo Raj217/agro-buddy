@@ -6,9 +6,6 @@ export const theme = createTheme({
     allVariants: {
       color: Pallete.dark,
     },
-    h2: {
-      // color: '#313137',
-    }
   },
   components: {
     MuiButton: {
