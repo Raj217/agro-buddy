@@ -7,15 +7,11 @@ const userSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
-    password: {
-      type: String,
-      required: true,
-      validate: {
-        validator: Validators.validateMinPasswordSize,
-        message: "size must be at least 6",
-      },
-    },
+    password: { type: String, required: true },
     role: { type: String, required: true, enum: UserRoles },
-}, {timestamps: true});
+    isEmailVerified: { type: Boolean, required: true, default: false },
+  },
+  { timestamps: true }
+);
 
 export default model("User", userSchema);

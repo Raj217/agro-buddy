@@ -37,7 +37,7 @@ Example:
 
 - if email and password are valid then data will be saved
 - password will be hashed before being saved
-- otp will be sent for verification
+- otp will be sent for verification ot the provided email automatically
 
 **2. _POST - /api/auth/login_**
 
@@ -129,6 +129,7 @@ Example:
   "images": ["test", "test2"]
 }
 ```
+
 
 **name**: required | String <br>
 **details**: optional | List <br>
