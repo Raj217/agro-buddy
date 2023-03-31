@@ -1,5 +1,6 @@
 const UserRoles = {
-    ADMINISTRATOR: 'ADMINISTRATOR', USER: 'USER',
-}
+  ADMINISTRATOR: "ADMINISTRATOR",
+  USER: "USER",
+};
 
 export default UserRoles;

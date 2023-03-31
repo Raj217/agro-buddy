@@ -54,7 +54,6 @@ export const signUp = async (inputUser) => {
         if (!password) throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
 
         if (!Validators.isValidEmail(email)) throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
-        console.log("Here I am")
 
         const existingUser = await User.findOne({ email });
         if (existingUser) throw new Exception("User already exists", ExceptionCodes.CONFLICT);
