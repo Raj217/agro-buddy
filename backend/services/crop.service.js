@@ -3,12 +3,12 @@ import Crop from "../models/crop.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
-  // if (user.role != UserRoles.ADMINISTRATOR) {
-  //   throw Exception(
-  //     "You don't have enough privilege.",
-  //     ExceptionCodes.UNAUTHORIZED
-  //   );
-  // }
+  if (user.role != UserRoles.ADMINISTRATOR) {
+    throw Exception(
+      "You don't have enough privilege.",
+      ExceptionCodes.UNAUTHORIZED
+    );
+  }
   const { name, images } = cropDetails;
   if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
   let imgs = [];
