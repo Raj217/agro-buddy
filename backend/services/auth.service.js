@@ -96,3 +96,24 @@ export const forgotPassword = async (email) => {
         console.log(error);
     }
 };
+
+export const validateOtp = async (email, otp) => {
+    try {
+        if (!email) throw new Exception("Email not found", ExceptionCodes.NOT_FOUND);
+        if (!Validators.isValidEmail(email)) throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
+
+        const existingUser = await User.findOne({ email });
+        if (!existingUser) throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
+
+        const otpToken = await Otp.findOne({ emailOtp: otp });
+        if (!otpToken) throw new Exception("Otp not found", ExceptionCodes.NOT_FOUND);
+
+        if (otpToken.email!== email) throw new Exception("Otp not found", ExceptionCodes.NOT_FOUND);
+
+        await Otp.findByIdAndDelete({ _id: otpToken._id });
+
+        return { user: existingUser };
+    } catch (error) {
+        console.log(error);
+    }
+};
