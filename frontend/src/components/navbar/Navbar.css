@@ -14,10 +14,10 @@
   left: 10px;
   font-size: 35px;
 }
-img {
+/* img {
   height: 26px;
   width: 175px;
-}
+} */
 .nav-links {
   display: flex;
   justify-content: flex-end;
@@ -50,19 +50,14 @@ img {
   align-items: center;
 }
 .mobileview {
-  margin-bottom: 1000px;
-  display: block;
-  position: absolute;
-  font-size: 30px;
-  top: 15px;
-  right: 25px;
+  display: none;
 }
 
 .underline {
   width: 100px;
 }
 
-@media screen and (min-width: 760px) {
+@media screen and (max-width: 750px) {
   .navbar {
     display: flex;
     justify-content: space-around;
@@ -87,9 +82,15 @@ img {
   .nav-links .nav-link {
     padding-right: 40px;
     text-decoration: none;
+    display: none;
   }
   .mobileview {
-    display: none;
+    margin-bottom: 1000px;
+    display: block;
+    position: absolute;
+    font-size: 30px;
+    top: 15px;
+    right: 25px;
   }
 }
 /* @media screen and (max-width: 750px) {
