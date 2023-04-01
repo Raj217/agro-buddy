@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { useTheme } from "@mui/material";
+import * as Palette from "../../configs/pallete";
+// import { gr }
 import {
   AppBar,
   Toolbar,
   Typography,
   CssBaseline,
+  Button,
 } from "@mui/material";
 import Logo from "../../assets/logo.svg";
 import "./Navbar.css";
@@ -19,8 +24,11 @@ function Navbar() {
     { name: "Help", link: "/" },
   ];
   const [isActive, setIsActive] = React.useState("Home");
-  const [isMobile, setIsMobile] = useState(false);
+  const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
+  // const isMobile = theme.breakpoints.down('sm')
 
   return (
     <AppBar position="static" elevation={0}>
@@ -33,11 +41,11 @@ function Navbar() {
             alt="AgroBuddy"
           />
         </div>
-        <div className={!isMobile ? "nav-links" : "nav-links-mobile"}>
+        <div className={isNotMobile ? "nav-links" : `nav-links-mobile ${isIconClicked && "icon-active"}`}>
           {allNavLinks.map((link) => (
             <li
               key={link.name}
-              className="nav-link"
+              className={isNotMobile ? "nav-link" : `nav-link-mobile`}
               onClick={() => {
                 setIsActive(link.name);
                 navigate(link.link);
@@ -53,8 +61,18 @@ function Navbar() {
             </li>
           ))}
         </div>
-        <div className="mobileview" onClick={() => setIsMobile((prev)=>!prev)}>
-          {isMobile ? <MenuIcon /> : <MenuIcon />}
+        <div
+          className="mobileview"
+          onClick={() => {
+            setIsMobile((prev) => !prev);
+            setIsIconClicked(!isIconClicked);
+          }}
+        >
+          {isNotMobile ? (
+            <MenuIcon color="secondary" />
+          ) : (
+            <CloseIcon color="secondary" />
+          )}
         </div>
       </Toolbar>
     </AppBar>
