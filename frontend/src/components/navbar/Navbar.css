@@ -9,7 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* position: absolute; */
   top: 25px;
   left: 10px;
   font-size: 35px;
@@ -92,42 +91,3 @@ img {
     display: none;
   }
 }
-/* @media screen and (max-width: 750px) {
-  .navbar {
-    width: 100%;
-  }
-  .logo {
-    top: 25px;
-    left: 10px;
-    font-size: 35px;
-  }
-  .nav-links {
-    display: none;
-  }
-  .nav {
-    border-radius: 5px;
-    box-shadow: 10px 5px 5px rgb(143, 142, 142);
-    margin-bottom: 5000px;
-  }
-  .nav-links-mobile {
-    position: absolute;
-    display: block;
-    list-style: none;
-    background-color: aliceblue;
-    left: 0;
-    top: 75px;
-    transition: all 0.5s ease-out;
-    width: 100%;
-  }
-  .nav-link {
-    display: block;
-  }
-  .mobileview {
-    margin-bottom: 1000px;
-    display: block;
-    position: absolute;
-    font-size: 30px;
-    top: 15px;
-    right: 25px;
-  }
-} */
