@@ -75,6 +75,26 @@ export const theme = createTheme({
           }),
         }),
       },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...(ownerState.variant === "regular" && {
+            backgroundColor: Pallete.primary,
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100vw',
+            height: '13vh',
+          }),
+        })
+      }
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          height: '13vh',
+        })
+      },
     }
   },
 });
