@@ -7,7 +7,7 @@ if (config.TOKEN_KEY === undefined) {
 }
 
 export const verifyToken = (req, res, next) => {
-  const token = req.headers["access-token"];
+  const token = req.headers["authorization"];
 
   if (!token) {
     return res

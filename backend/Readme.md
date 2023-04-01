@@ -13,8 +13,10 @@ _Create a .env(root level) file with the following params:_
 
 # Auth Routes
 
-**1. _POST - /api/auth/sign-up_**
+<details>
+<summary> <b> 1. POST - /api/auth/sign-up </b> </summary>
 
+<br>
 Example:
 
 ```
@@ -38,9 +40,12 @@ Example:
 - if email and password are valid then data will be saved
 - password will be hashed before being saved
 - otp will be sent for verification ot the provided email automatically
+<br>
+</details>
+<details>
+<summary><b>2. POST - /api/auth/login </b></summary>
 
-**2. _POST - /api/auth/login_**
-
+<br>
 Example:
 
 ```
@@ -56,28 +61,25 @@ Example:
 <h2>Logic:</h2>
 
 - if email and password are valid and correct data will be retrieved
-- otp will be sent for verification
+- otp will be sent for verification if email is not verified
+<br>
+</details>
 
-**3. _GET - /api/auth/user_**
-
+<details>
+<summary><b>3. GET - /api/auth/user/:id </b></summary>
+<br>
 Example:
 
 ```
-{
-  "email": "johndoe@example.com",
-  "role": "USER"
-}
+http://localhost:4002/api/auth/user/:id
 ```
 
-**email**: required | String <br>
-**role**: required | String <br>
-
-<h2>Logic:</h2>
-
-- if email and password are valid and exists data will be retrieved
-
-**4. _POST - /api/auth/generate-otp_**
-
+<h2>Headers:</h2> 'authorization'
+<br>
+</details>
+<details>
+<summary><b>4. POST - /api/auth/generate-otp</b></summary>
+<br>
 Example:
 
 ```
@@ -91,9 +93,11 @@ Example:
 <h2>Logic:</h2>
 
 - create an otp with email and sent through mail
-
-**5. _POST - /api/auth/forget-password_**
-
+<br>
+</details>
+<details>
+<summary><b>5. POST - /api/auth/forget-password</b></summary>
+<br>
 Example:
 
 ```
@@ -106,13 +110,15 @@ Example:
 **email**: required | String <br>
 
 <h2>Logic:</h2>
-
-- 
+<br>
+</details>
+-
 
 # Crop Routes
 
-**1. _POST - /api/crop/register_**
-
+<detials>
+<summary><b>1. POST - /api/crop/register</b></summary>
+<br>
 Example:
 
 ```
@@ -130,7 +136,6 @@ Example:
 }
 ```
 
-
 **name**: required | String <br>
 **details**: optional | List <br>
 **details.nitrogen**: optional | number <br>
@@ -141,9 +146,9 @@ Example:
 **details.rainfall**: optional | number <br>
 **images**: optional | [String] <br>
 
-
 <h2>Logic:</h2>
 
 - if name found all the data will be saved to that else will create and store
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
+  <br></details>
