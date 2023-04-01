@@ -16,7 +16,6 @@ function Navbar() {
     <AppBar position='static' elevation={0}>
       <CssBaseline />
       <Toolbar variant="regular">
-        {/* <nav className="navbar"> */}
           <div variant="h5" fontWeight='bold' className="logo">
             <img src={Logo} alt="AgroBuddy" />
             </div>
@@ -36,7 +35,6 @@ function Navbar() {
           <div className="mobileview" onClick={() => setIsMobile(!isMobile)}>
             {isMobile ? <MenuIcon /> : <MenuIcon />}
           </div>
-        {/* </nav> */}
       </Toolbar>
     </AppBar>
   );
