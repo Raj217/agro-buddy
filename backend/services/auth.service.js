@@ -1,100 +1,126 @@
 import User from "../models/user.js";
-import * as bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import Otp, { Constants } from "../models/otp.js";
 import UserRoles from "../models/constants.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 import OtpGeneraor from "../utils/otp-generaor.js";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import * as NotificationService from "./notification.service.js";
 import Validators from "../utils/Validators.js";
 
-const { SALT_ROUNDS } = process.env
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 export const login = async (email, password, role) => {
-    try {
-        if (!email) throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-        if (!password) throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
-        
-        const existingUser = await User.findOne({ email });
-        if (!existingUser) throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
+  if (!email)
+    throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
+  if (!password)
+    throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
 
-        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-        if (!isPasswordValid) throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
+  if (!Validators.isValidEmail(email))
+    throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
-        const token = jwt.sign({ email: existingUser.email, role: role }, 'test', { expiresIn: '20d' });
+  const existingUser = await User.findOne({ email });
+  if (!existingUser)
+    throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
 
-        return { token, user: existingUser };
-    } catch (error) {
-        console.log(error);
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+  if (!isPasswordValid)
+    throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
+
+  if (!existingUser.isEmailVerified)
+    throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
+
+  const token = jwt.sign(
+    { email: existingUser.email, role: role, isEmailVerified: true },
+    PRIVATE_KEY,
+    {
+      expiresIn: "20d",
     }
+  );
+
+  return { token, user: existingUser };
 };
 
 export const generateAndSendOtp = async (email) => {
-    try {
-        const otp = await Otp.findOne({ email });
-        if (otp) await NotificationService.sendOtp(email, otp);
+  const user = await User.findOne({ email: email });
+  if (!user) throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
+  if (user && user.isEmailVerified)
+    throw new Exception("Email is already verified", ExceptionCodes.FORBIDDEN);
 
-        const otpGeneraor = new OtpGeneraor();
-        const otpToken = otpGeneraor.generate();
+  const otp = await Otp.findOne({ email });
+  let otpToken;
+  if (otp) otpToken = otp.emailOtp;
+  else {
+    otpToken = OtpGeneraor.generate(6);
+    await Otp.create({ email, emailOtp: otpToken });
+  }
 
-        await Otp.create({ email, emailOtp: otpToken });
-
-        await NotificationService.sendOtp(email, otpToken);
-    } catch (error) {
-        console.log(error);
-    }
+  await NotificationService.sendOtp(email, otpToken);
 };
 
 // TODO: restrict signup for admin users
 
+// TODO: restrict signup for admin users
 export const signUp = async (inputUser) => {
-    const { firstName, lastName, email, confirmPassword, password, role } = inputUser;
-    try {
-        if (!email) throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-        if (!password) throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
+  const { firstName, lastName, email, password, role } = inputUser;
+  if (!firstName)
+    throw new Exception("First name is required", ExceptionCodes.BAD_INPUT);
+  if (!lastName)
+    throw new Exception("Last name is required", ExceptionCodes.BAD_INPUT);
+  if (!role) throw new Exception("Role is required", ExceptionCodes.BAD_INPUT);
+  if (!email)
+    throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
+  if (!password)
+    throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
+  if (password.length < 6)
+    throw new Exception(
+      "Password must be at least 6 characters",
+      ExceptionCodes.BAD_INPUT
+    );
 
-        if (!Validators.isValidEmail(email)) throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
+  if (!Validators.isValidEmail(email))
+    throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser) throw new Exception("User already exists", ExceptionCodes.CONFLICT);
+  const existingUser = await User.findOne({ email });
+  if (existingUser)
+    throw new Exception("User already exists", ExceptionCodes.CONFLICT);
 
-        if (password !== confirmPassword) throw new Exception("Passwords do not match", ExceptionCodes.BAD_INPUT);
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-        const hashedPassword = bcrypt.hash(password, SALT_ROUNDS);
+  const result = await User.create({
+    email,
+    password: hashedPassword,
+    firstName: firstName,
+    lastName: lastName,
+    role: role,
+  });
+  await generateAndSendOtp(email);
 
-        const result = await User.create({ email, password: hashedPassword, firstName: firstName, lastName: lastName, role: role });
-        await generateAndSendOtp(email);
-        
-        const token = jwt.sign({ email: result.email, role: role }, 'test', { expiresIn: '20d' });
-
-        return { token, user: result };
-    } catch (error) {
-        console.log(error);
+  const token = jwt.sign(
+    { email: result.email, role: role, isEmailVerified: false },
+    PRIVATE_KEY,
+    {
+      expiresIn: "20d",
     }
+  );
+
+  return { token, user: result };
 };
 
 export const getUser = async (role, email) => {
-    try {
-        const existingUser = await User.findOne({ email });
-        if (!existingUser) throw new Exception("User not found", 404);
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) throw new Exception("User not found", 404);
 
-        return { user: existingUser };
-    } catch (error) {
-        console.log(error);
-    }
+  return { user: existingUser };
 };
 
 export const forgotPassword = async (email) => {
-    try {
-        if (!email) throw new Exception("Email not found", ExceptionCodes.NOT_FOUND);
-        if (!Validators.isValidEmail(email)) throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
+  if (!email) throw new Exception("Email not found", ExceptionCodes.NOT_FOUND);
+  if (!Validators.isValidEmail(email))
+    throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
-        const existingUser = await User.findOne({ email });
-
-
-    } catch (error) {
-        console.log(error);
-    }
+  const existingUser = await User.findOne({ email });
 };
 
 export const validateOtp = async (email, otp) => {
