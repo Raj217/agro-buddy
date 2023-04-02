@@ -10,7 +10,6 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '16px',
-        // marginTop: '100px',
         '& .MuiTextField-root': {
             margin: '8px',
             width: '300px',
