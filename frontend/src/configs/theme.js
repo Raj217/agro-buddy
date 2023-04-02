@@ -2,6 +2,35 @@ import { createTheme } from "@mui/material/styles";
 import * as Pallete from "./pallete";
 
 export const theme = createTheme({
+  palette: {
+    primary: {
+      light: Pallete.accentLight,
+      main: Pallete.accent,
+      dark: Pallete.accentDark,
+      contrastText: Pallete.primary,
+    },
+    secondary: {
+      light: '#ff7961',
+      main: Pallete.dark,
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+    action: {
+      light: '#ff7961',
+      main: Pallete.complementary,
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     allVariants: {
       color: Pallete.dark,
