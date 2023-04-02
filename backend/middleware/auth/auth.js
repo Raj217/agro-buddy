@@ -16,7 +16,7 @@ export const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = verify(token, config.TOKEN_KEY);
-    req.loggedInUser = decoded.user;
+    req.loggedInUser = decoded;
     if (!decoded.isEmailVerified)
       return res.status(ExceptionCodes.UNAUTHORIZED).send("Email not verified");
   } catch (err) {

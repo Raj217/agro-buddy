@@ -1,16 +1,14 @@
 import { Schema, model } from "mongoose";
 
-export const Constants = {
-  DEFAULT_VALIDITY_MILLIS: 1, // 12 hour validity
-};
-
-const OtpSchema = new Schema(
-  {
-    emailOtp: { type: String },
-    email: { type: String },
+const OtpSchema = new Schema({
+  emailOtp: { type: String },
+  email: { type: String },
+  createdAt: {
+    type: Date,
+    expires: "12h",
+    default: Date.now,
   },
-  { "createdAt": 1, expireAfterSeconds: Constants.DEFAULT_VALIDITY_MILLIS }
-);
+});
 
 OtpSchema.index({ email: 1 });
 
