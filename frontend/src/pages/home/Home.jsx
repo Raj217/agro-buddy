@@ -8,10 +8,11 @@ import SignIn from '../../components/forms/SignIn';
 function Home() {
   return (
     <div>
-      {/* <Navbar />
-      <Footer /> */}
+      {/* <Navbar /> */}
       {/* <SignUp /> */}
-      <SignIn />
+      {/* <SignIn /> */}
+      <Footer />
+
     </div>
   )
 }

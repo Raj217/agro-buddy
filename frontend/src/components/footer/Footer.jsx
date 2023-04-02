@@ -20,8 +20,7 @@ const Footer = () => {
                 height: "auto",
                 paddingTop: "1rem",
                 paddingBottom: "1rem",
-                bottom: '40px'
-                // bottom: '0'
+                bottom: '80px'
             }}
         >
             <Container maxWidth="lg" >
@@ -70,25 +69,23 @@ const Footer = () => {
                         </Typography>
                     </Grid>
                     <Grid item md={4} xs={12} >
-                        <Stack flexDirection='column' alignItems='center' rowGap='2rem'>
-                            <Stack flexDirection='row' justifyContent='center' gap={3}>
-                                <Link href='#' color={Palette.Dark} >
-                                    <InstagramIcon />
-                                </Link>
-                                <Link href='#' color={Palette.Dark}>
-                                    <FacebookIcon />
-                                </Link>
-                                <Link href='#' color={Palette.Dark}>
-                                    <LinkedInIcon />
-                                </Link>
-                                <Link href='#' color={Palette.Dark}>
-                                    <TwitterIcon />
-                                </Link>
-                            </Stack>
-                            <Typography color="textSecondary" variant="subtitle1">
-                                {`${new Date().getFullYear()} | All rights reserved `}
-                            </Typography>
+                        <Stack flexDirection='row' justifyContent='center' gap={3}>
+                            <Link href='#' color={Palette.Dark} >
+                                <InstagramIcon />
+                            </Link>
+                            <Link href='#' color={Palette.Dark}>
+                                <FacebookIcon />
+                            </Link>
+                            <Link href='#' color={Palette.Dark}>
+                                <LinkedInIcon />
+                            </Link>
+                            <Link href='#' color={Palette.Dark}>
+                                <TwitterIcon />
+                            </Link>
                         </Stack>
+                        <Typography color="textSecondary" variant="subtitle1">
+                            {`${new Date().getFullYear()} | All rights reserved `}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
@@ -97,4 +94,3 @@ const Footer = () => {
 }
 
 export default Footer
-
