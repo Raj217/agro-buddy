@@ -5,6 +5,7 @@ import Footer from '../../components/footer/Footer';
 import SignUp from '../../components/forms/SignUp';
 import SignIn from '../../components/forms/SignIn';
 
+
 function Home() {
   return (
     <div>
