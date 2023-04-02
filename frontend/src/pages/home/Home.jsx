@@ -6,7 +6,6 @@ import { TextField } from '@mui/material'
 function Home() {
   return (
     <div>
-      <Navbar />
       <Hero />
     </div>
   )
