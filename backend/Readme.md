@@ -8,13 +8,16 @@ _Create a .env(root level) file with the following params:_
     API_PORT=[example: 4002]
     TOKEN_KEY=[example: test]
     SALT_ROUNDS=[example:10]
+    FRONTEND_URL=[example:http://localhost:4002/api/auth]
 
 ## Routes
 
 # Auth Routes
 
-**1. _POST - /api/auth/sign-up_**
+<details>
+<summary> <b> 1. POST - /api/auth/sign-up </b> </summary>
 
+<br>
 Example:
 
 ```
@@ -38,9 +41,13 @@ Example:
 - if email and password are valid then data will be saved
 - password will be hashed before being saved
 - otp will be sent for verification ot the provided email automatically
+<br>
+</details>
 
-**2. _POST - /api/auth/login_**
+<details>
+<summary><b>2. POST - /api/auth/login </b></summary>
 
+<br>
 Example:
 
 ```
@@ -56,28 +63,13 @@ Example:
 <h2>Logic:</h2>
 
 - if email and password are valid and correct data will be retrieved
-- otp will be sent for verification
+- otp will be sent for verification if email is not verified
+<br>
+</details>
 
-**3. _GET - /api/auth/user_**
-
-Example:
-
-```
-{
-  "email": "johndoe@example.com",
-  "role": "USER"
-}
-```
-
-**email**: required | String <br>
-**role**: required | String <br>
-
-<h2>Logic:</h2>
-
-- if email and password are valid and exists data will be retrieved
-
-**4. _POST - /api/auth/generate-otp_**
-
+<details>
+<summary><b>3. POST - /api/auth/generate-otp</b></summary>
+<br>
 Example:
 
 ```
@@ -91,15 +83,18 @@ Example:
 <h2>Logic:</h2>
 
 - create an otp with email and sent through mail
+<br>
+</details>
 
-**5. _POST - /api/auth/forget-password_**
-
+<details>
+<summary><b>4. POST - /api/auth/validate-otp</b></summary>
+<br>
 Example:
 
 ```
 {
   "email": "johndoe@example.com",
-  "password": "buar13@iep"
+  "otp": "yVNrv7"
 }
 ```
 
@@ -107,12 +102,83 @@ Example:
 
 <h2>Logic:</h2>
 
-- 
+- create an otp with email and sent through mail
+<br>
+</details>
+
+<details>
+<summary><b>5. GET - /api/auth/user </b></summary>
+<br>
+Example:
+
+```
+http://localhost:4002/api/auth/user
+```
+
+<h2>Headers:</h2> 'authorization'
+<br>
+</details>
+
+<details>
+<summary><b>6. POST - /api/auth/forgot-password</b></summary>
+<br>
+Example:
+
+```
+{
+  "email": "johndoe@example.com"
+}
+```
+
+**email**: required | String <br>
+
+<br>
+</details>
+
+<details>
+<summary><b>7. POST - /api/auth/forgot-password?token</b></summary>
+<br>
+Example:
+
+- URL: http://localhost:8080/api/auth/forgot-password?token="123"
+
+```
+{
+  "email": "johndoe@example.com",
+  "newPassword": "testpassword"
+}
+```
+
+**email**: required | String <br>
+**newPassword**: required | String <br>
+
+<br>
+</details>
+
+<details>
+<summary><b>8. POST - /api/auth/change-password </b></summary>
+<br>
+Example:
+
+```
+{
+  "oldPassword": "oldPassword",
+  "newPassword": "newPassword"
+}
+```
+
+**oldPassword**: required | String <br>
+**newPassword**: required | String <br>
+
+<h2>Headers:</h2> 'authorization'
+<br>
+</details>
 
 # Crop Routes
 
-**1. _POST - /api/crop/register_**
-
+<detials>
+<summary><b>1. POST - /api/crop/register</b></summary>
+<br>
 Example:
 
 ```
@@ -130,7 +196,6 @@ Example:
 }
 ```
 
-
 **name**: required | String <br>
 **details**: optional | List <br>
 **details.nitrogen**: optional | number <br>
@@ -141,9 +206,9 @@ Example:
 **details.rainfall**: optional | number <br>
 **images**: optional | [String] <br>
 
-
 <h2>Logic:</h2>
 
 - if name found all the data will be saved to that else will create and store
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
+  <br></details>
