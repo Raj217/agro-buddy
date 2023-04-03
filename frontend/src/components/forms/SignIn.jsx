@@ -2,23 +2,7 @@ import React from 'react';
 import { Typography, TextField, Button } from '@mui/material';
 import { withStyles } from '@mui/styles';
 import './styles.css';
-const styles = {
-
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '16px',
-        '& .MuiTextField-root': {
-            margin: '8px',
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: '16px',
-        },
-    }
-}
+import { styles } from './styling.jsx';
 
 function SignIn(props) {
     const { classes } = props;

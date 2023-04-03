@@ -2,24 +2,7 @@ import React, { useState } from 'react'
 import { TextField, Button, Box, Stack, Typography, DialogTitle, Dialog } from '@mui/material'
 import './styles.css';
 import { withStyles } from '@mui/styles';
-
-const styles = {
-
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '16px',
-        '& .MuiTextField-root': {
-            margin: '8px',
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: '16px',
-        },
-    }
-}
+import { styles } from './styling.jsx';
 
 function SignUp(props) {
     const { classes } = props;
