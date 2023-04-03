@@ -52,3 +52,7 @@ __fixtures__/custom-modules-dir/patches/
 
 .env
 .npmrc
+
+venv
+.idea
+__pycache__

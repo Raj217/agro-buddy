@@ -4,6 +4,13 @@ from api import API
 base_setup = BaseSetup()
 api = API()
 
+try:
+    import requests
+except ModuleNotFoundError:
+    print("requests module not found. Downloading...")
+    base_setup.install_package('requests')
+
+
 base_setup.build_virtual_env()
 
 backend_url = input("Please enter the backend url: ")
