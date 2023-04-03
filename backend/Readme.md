@@ -212,3 +212,38 @@ Example:
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
   <br></details>
+
+<details>
+<summary><b>2. GET-/api/crop?<quries></b></summary>
+<br>
+Example:
+
+```
+http://localhost:4002/api/crop?nitrogen=10
+```
+
+- Queries \*
+<br>
+**name**: optional | String <br>
+**nitrogen**: optional | number <br>
+**fromNitrogenLevel**: optional | number <br>
+**toNitrogenLevel**: optional | number <br>
+**phosphorus**: optional | number <br>
+**fromPhosphorusLevel**: optional | number <br>
+**toPhosphorusLevel**: optional | number <br>
+**potassium**: optional | number <br>
+**fromPotassiumLevel**: optional | number <br>
+**toPotassiumLevel**: optional | number <br>
+**temperature**: optional | number <br>
+**fromTemperatureLevel**: optional | number <br>
+**toTemperatureLevel**: optional | number <br>
+**humidity**: optional | number <br>
+**fromHumidityLevel**: optional | number <br>
+**toHumidityLevel**: optional | number <br>
+**ph**: optional | number <br>
+**fromPHLevel**: optional | number <br>
+**toPHLevel**: optional | number <br>
+**rainfall**: optional | number <br>
+**fromRainfallLevel**: optional | number <br>
+**toRainfallLevel**: optional | number <br>
+</details>

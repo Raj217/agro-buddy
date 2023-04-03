@@ -12,7 +12,7 @@ const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 const TOKEN_KEY = process.env.TOKEN_KEY;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-export const login = async (email, password, role) => {
+export const login = async (email, password) => {
   /// Check if required parameters are present
   if (!email)
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
@@ -35,7 +35,11 @@ export const login = async (email, password, role) => {
     throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
 
   const token = jwt.sign(
-    { email: existingUser.email, role: role, isEmailVerified: true },
+    {
+      email: existingUser.email,
+      role: existingUser.role,
+      isEmailVerified: true,
+    },
     TOKEN_KEY,
     {
       expiresIn: "20d",
@@ -277,7 +281,10 @@ export const changePassword = async (email, oldPassword, newPassword) => {
     existingUser.password
   );
   if (!isOldPasswordValid)
-    throw new Exception("Old Password didn't match", ExceptionCodes.UNAUTHORIZED);
+    throw new Exception(
+      "Old Password didn't match",
+      ExceptionCodes.UNAUTHORIZED
+    );
 
   const newHashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
 
