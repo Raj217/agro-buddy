@@ -277,7 +277,7 @@ export const changePassword = async (email, oldPassword, newPassword) => {
     existingUser.password
   );
   if (!isOldPasswordValid)
-    throw new Exception("Password didn't match", ExceptionCodes.UNAUTHORIZED);
+    throw new Exception("Old Password didn't match", ExceptionCodes.UNAUTHORIZED);
 
   const newHashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
 

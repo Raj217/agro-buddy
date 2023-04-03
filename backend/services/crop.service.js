@@ -1,21 +1,22 @@
+import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
 import Crop from "../models/crop.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
   if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
+    throw new Exception(
       "You don't have enough privilege.",
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  const { name, images } = cropDetails;
+  const { name, images, details } = cropDetails;
   if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
   let imgs = [];
   if (images) imgs = images;
-  let cropNewDetails = {};
+  let cropNewDetails;
 
-  if (cropDetails.details) {
+  if (details) {
     const {
       nitrogen,
       phosphorus,
@@ -24,7 +25,7 @@ export const registerCropDetails = async (cropDetails, user) => {
       humidity,
       pH,
       rainfall,
-    } = cropDetails.details;
+    } = details;
 
     cropNewDetails = {
       nitrogen: nitrogen,
@@ -38,24 +39,32 @@ export const registerCropDetails = async (cropDetails, user) => {
   }
 
   let crop = await Crop.findOne({ name });
-  if (crop) {
-    if (crop.images.size > 0) {
-      imgs = [...crop.images, ...imgs];
-    }
-    await Crop.findOneAndUpdate(
-      { _id: crop._id },
-      { details: [...crop.details, cropNewDetails], images: images }
-    );
-  } else {
-    if (cropDetails.details === undefined) {
-      await Crop.create({ name, images });
+  let updateFields = {};
+  if (cropNewDetails !== undefined) {
+    if (crop !== null && crop.details.length > 0) {
+      updateFields = {
+        details: [...crop.details, cropNewDetails],
+      };
     } else {
-      await Crop.create({
-        name,
-        details: [cropNewDetails.size == 0 ? null : cropNewDetails],
-        images,
-      });
+      updateFields = {
+        details: [cropNewDetails],
+      };
     }
+  }
+  if (imgs.length > 0) {
+    if (crop !== null && crop.images.length > 0) {
+      updateFields["images"] = [...crop.images, ...images];
+    } else {
+      updateFields["images"] = images;
+    }
+  }
+  if (crop) {
+    await Crop.findByIdAndUpdate({ _id: crop._id }, updateFields);
+  } else {
+    await Crop.create({
+      name,
+      ...updateFields,
+    });
   }
 };
 

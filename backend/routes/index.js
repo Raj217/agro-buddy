@@ -6,7 +6,6 @@ import { verifyToken } from "../middleware/auth/auth.js";
 const router = Router();
 
 router.use("/auth", AuthRoutes);
-// router.use("/crop", verifyToken, CropRoutes);
-router.use("/crop", CropRoutes);
+router.use("/crop", verifyToken, CropRoutes);
 
 export default router;
