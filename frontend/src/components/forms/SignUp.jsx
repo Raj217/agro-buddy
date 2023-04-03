@@ -53,7 +53,7 @@ function SignUp(props) {
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <div className={classes.root}>
-                    <DialogTitle fontSize={30} fontWeight={60}>
+                    <DialogTitle fontSize={30} fontWeight={600}>
                         SignUp
                     </DialogTitle>
                     <TextField label='First Name' variant='filled' required

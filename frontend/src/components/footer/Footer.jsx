@@ -10,7 +10,6 @@ import Link from '@mui/material/Link';
 import * as Palette from '../../configs/pallete';
 import './Footer.css'
 
-
 const Fotter = () => {
     return (
         <Box
@@ -22,7 +21,6 @@ const Fotter = () => {
                 paddingTop: "1rem",
                 paddingBottom: "1rem",
                 bottom: '80px'
-                // bottom: '0'
             }}
         >
             <Container maxWidth="lg" >
@@ -99,3 +97,4 @@ const Fotter = () => {
 }
 
 export default Fotter
+
