@@ -16,7 +16,6 @@ const Fotter = () => {
         <Box
             sx={{
                 position: 'fixed',
-                left: 0,
                 width: "100%",
                 height: "auto",
                 paddingTop: "1rem",
@@ -26,7 +25,7 @@ const Fotter = () => {
             }}
         >
             <Container maxWidth="lg" >
-                <Grid container >
+                <Grid container alignItems="center" rowSpacing='3rem'>
                     <Grid item md={4} xs={12} paddingLeft='50px'
                         sx={{ paddingLeft: { xs: '3rem', md: '2rem' }, paddingRight: { xs: '3rem', md: '2rem' } }}
                     >
@@ -37,8 +36,7 @@ const Fotter = () => {
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio deserunt ex consequatur beatae expedita sunt dignissimos voluptates eum cum debitis
                         </Typography>
                     </Grid>
-                    <Grid item md={4} xs={12} sx={{ paddingLeft: { xs: '3rem', md: '2rem' }, paddingRight: { xs: '3rem', md: '2rem' } }} >
-
+                    <Grid item md={4} xs={12} sx={{ paddingLeft: { xs: '3rem', md: '2rem' }, paddingRight: { xs: '3rem', md: '2rem' } }}>
                         <div className="alignment">
                             <div className="icon-wrapper" >
                                 <LocationOnIcon textAlign='left' style={{ color: Palette.colorAccent, fontSize: '22px' }} />
@@ -72,7 +70,6 @@ const Fotter = () => {
                         </Typography>
                     </Grid>
                     <Grid item md={4} xs={12} >
-
                         <Stack flexDirection='row' justifyContent='center' gap={3}>
                             <Link href='#' color={Palette.Dark} >
                                 <InstagramIcon />
@@ -87,8 +84,7 @@ const Fotter = () => {
                                 <TwitterIcon />
                             </Link>
                         </Stack>
-
-                        <Typography color="textSecondary" variant="subtitle1" textAlign='center' >
+                        <Typography color="textSecondary" variant="subtitle1">
                             {`${new Date().getFullYear()} | All rights reserved `}
                         </Typography>
                     </Grid>
@@ -97,5 +93,4 @@ const Fotter = () => {
         </Box>
     )
 }
-
 export default Fotter
