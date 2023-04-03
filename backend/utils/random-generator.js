@@ -1,6 +1,7 @@
-class OtpGenerator {
-  static _getRandomCharacter() {
-    let characters = [
+class RandomGenerator {
+  static _getRandomCharacter(useCharacter = false) {
+    let nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let chars = [
       "A",
       "B",
       "C",
@@ -53,26 +54,20 @@ class OtpGenerator {
       "x",
       "y",
       "z",
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
     ];
-    return characters[Math.floor(Math.random() * characters.length)];
+    let netArr = nums;
+    if (useCharacter) {
+      netArr = [...netArr, ...chars];
+    }
+    return netArr[Math.floor(Math.random() * netArr.length)];
   }
-  static generate(len) {
+  static generate(len, useChar = false) {
     let otp = "";
     for (let i = 0; i < len; i++) {
-      otp += OtpGenerator._getRandomCharacter();
+      otp += RandomGenerator._getRandomCharacter(useChar);
     }
     return otp;
   }
 }
 
-export default OtpGenerator;
+export default RandomGenerator;
