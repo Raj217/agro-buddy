@@ -3,10 +3,10 @@ import { ExceptionCodes } from "../utils/Error.js";
 
 export const login = async (req, res, next) => {
   AuthService.login(req.body.email, req.body.password)
-    .then(() => {
+    .then((token) => {
       res
         .status(ExceptionCodes.REQUEST_FULFILLED)
-        .json({ message: "Hello again!" });
+        .json({ message: "Hello again!", ...token });
     })
     .catch((err) => {
       next(err);
@@ -28,8 +28,12 @@ export const generateAndSendOtp = async (req, res, next) => {
 
 export const signUp = async (req, res, next) => {
   AuthService.signUp(req.body)
-    .then(() => {
-      res.status(ExceptionCodes.CREATED).json({ message: "welcome aboard" });
+    .then((token) => {
+      res.status(ExceptionCodes.CREATED).json({
+        message:
+          "Welcome aboard, A verification mail has been sent to your mail",
+        ...token,
+      });
     })
     .catch((err) => {
       next(err);
