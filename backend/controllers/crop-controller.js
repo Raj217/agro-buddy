@@ -3,8 +3,10 @@ import { ExceptionCodes } from "../utils/Error.js";
 
 export const register = async (req, res, next) => {
   CropService.registerCropDetails(req.body, req.loggedInUser)
-    .then((crop) => {
-      res.status(ExceptionCodes.CREATED).json(crop);
+    .then(() => {
+      res
+        .status(ExceptionCodes.CREATED)
+        .json({ messsage: "Crop registered successfully" });
     })
     .catch((err) => {
       next(err);
