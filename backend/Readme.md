@@ -203,6 +203,7 @@ Example:
 **details.potassium**: optional | number <br>
 **details.temperature**: optional | number <br>
 **details.pH**: optional | number <br>
+**details.humidity**: optional | number <br>
 **details.rainfall**: optional | number <br>
 **images**: optional | [String] <br>
 

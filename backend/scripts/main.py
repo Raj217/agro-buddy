@@ -1,17 +1,12 @@
-from base_setup import BaseSetup
+from helper import Helper
 from api import API
 
-base_setup = BaseSetup()
+helper = Helper()
 api = API()
 
-try:
-    import requests
-except ModuleNotFoundError:
-    print("requests module not found. Downloading...")
-    base_setup.install_package('requests')
-
-
-base_setup.build_virtual_env()
+helper.build_virtual_env()
+helper.activate_virtual_env()
+helper.install_requirements()
 
 backend_url = input("Please enter the backend url: ")
 api.set_backend_url(backend_url)
@@ -19,3 +14,9 @@ api.set_backend_url(backend_url)
 email = input("Please enter your email: ")
 password = input("Please enter your password: ")
 api.login(email, password)
+print("Logged in")
+
+print("Adding data")
+api.read_data()
+api.add_to_backend()
+print("Added data successfully")
