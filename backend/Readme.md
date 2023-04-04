@@ -10,6 +10,16 @@ _Create a .env(root level) file with the following params:_
     SALT_ROUNDS=[example:10]
     FRONTEND_URL=[example:http://localhost:4002/api/auth]
 
+### Script
+
+** Python must be installed **
+
+Add the dataset at _backend/scripts/crops.xlsx_
+
+```
+pnpm run add-crops
+```
+
 ## Routes
 
 # Auth Routes
@@ -203,6 +213,7 @@ Example:
 **details.potassium**: optional | number <br>
 **details.temperature**: optional | number <br>
 **details.pH**: optional | number <br>
+**details.humidity**: optional | number <br>
 **details.rainfall**: optional | number <br>
 **images**: optional | [String] <br>
 
