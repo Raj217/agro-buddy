@@ -1,6 +1,8 @@
 from helper import Helper
 from api import API
 
+print("Initializing")
+
 helper = Helper()
 api = API()
 
