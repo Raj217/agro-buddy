@@ -11,6 +11,11 @@ class Validators {
       min: 6,
     });
   };
+  static validateOtp = (otp) => {
+    return isInt(otp, {
+      min: 6,
+    });
+  }
 }
 
 export default Validators;
