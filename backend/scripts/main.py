@@ -1,14 +1,13 @@
 from helper import Helper
-from api import API
 
 print("Initializing")
-
 helper = Helper()
+
+helper.install_requirements()
+
+from api import API
 api = API()
 
-helper.build_virtual_env()
-helper.activate_virtual_env()
-helper.install_requirements()
 
 backend_url = input("Please enter the backend url: ")
 api.set_backend_url(backend_url)
