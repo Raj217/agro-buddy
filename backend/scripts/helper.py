@@ -25,7 +25,7 @@ class Helper:
 
     def install_requirements(self):
         self.ask_for_proxy()
-        os.system(f"python -m pip --proxy ${self.proxy} install -r scripts/requirements.txt")
+        os.system(f"python -m pip {f'--proxy {self.proxy} ' if len(self.proxy) > 0 else ''}install -r scripts/requirements.txt")
 
     @staticmethod
     # Print iterations progress
