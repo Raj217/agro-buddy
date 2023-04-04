@@ -1,23 +1,22 @@
 import os
-import pandas
 from sys import platform
 
 
 class Helper:
-    # ============================== Scripts ==============================
+    # 
+    @staticmethod
+    def activate_virtual_env():
+        try:
+            os.system("cd scripts/venv/Scripts")
+            os.system("activate")
+            print("Activated Virtual Environment")
+        except:
+            print("Couldn't activate virtual environment. Exiting...")
+            exit(0)
+# ============================== Scripts ==============================
     _build_virtual_env = " -m venv venv"
     proxy = ""
     _did_ask_for_proxy = False
-
-    def build_virtual_env(self):
-        if not os.path.exists(os.path.join(os.path.curdir, 'venv')):
-            try:
-                print("Creating Virtual Environment")
-                os.system(("python" if platform.startswith("win") else "python3") + self._build_virtual_env)
-                print("Virtual environment created successfully")
-            except:
-                print("Encountered Error. Exiting...")
-                exit(0)
 
     def ask_for_proxy(self):
         if not self._did_ask_for_proxy:
@@ -26,17 +25,7 @@ class Helper:
 
     def install_requirements(self):
         self.ask_for_proxy()
-        os.system(f"python -m pip --proxy ${self.proxy} install -r requirements.txt")
-
-    @staticmethod
-    def activate_virtual_env():
-        try:
-            os.system("cd venv/Scripts")
-            os.system("activate")
-            print("Activated Virtual Environment")
-        except:
-            print("Couldn't activate virtual environment. Exiting...")
-            exit(0)
+        os.system(f"python -m pip --proxy ${self.proxy} install -r scripts/requirements.txt")
 
     @staticmethod
     # Print iterations progress
