@@ -8,6 +8,7 @@ const CropSchema = Schema(
       unique: true,
       trim: true,
       collation: {
+        locale: "en",
         strength: 2,
       },
     },

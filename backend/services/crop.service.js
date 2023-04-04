@@ -68,6 +68,32 @@ export const registerCropDetails = async (cropDetails, user) => {
   }
 };
 
+const genQuery = (absolute, from, to) => {
+  let cropQuery = {};
+  if (absolute) {
+    cropQuery = {
+      $gte: Math.floor(absolute),
+      $lte: Math.floor(absolute),
+    };
+  } else {
+    if (from && Math.floor(to)) {
+      cropQuery = {
+        $gte: from,
+        $lte: Math.floor(to),
+      };
+    } else if (from) {
+      cropQuery = {
+        $gte: Math.floor(from),
+      };
+    } else if (to) {
+      cropQuery = {
+        $lte: Math.floor(to),
+      };
+    }
+  }
+  return cropQuery;
+};
+
 // TODO: Add absolute values (should return the nearest values)
 export const getCropDetails = async (cropDetails, user) => {
   const {
@@ -96,106 +122,47 @@ export const getCropDetails = async (cropDetails, user) => {
   } = cropDetails;
   if (user.role !== UserRoles.ADMIN)
     throw new Exception("Unauthorized", ExceptionCodes.UNAUTHORIZED);
-  let cropNameQuery = {},
-    cropQuery = {};
-  if (name) cropNameQuery["name"] = { name };
+  let query = {},
+    cropQuery = [];
 
-  if (nitrogen)
-    cropQuery["details"]["nitrogen"] = { $gte: nitrogen, $lte: nitrogen };
-  if (fromNitrogenLevel)
-    cropQuery["details"]["nitrogen"] = {
-      ...cropQuery["nitrogen"],
-      $lte: fromNitrogenLevel,
-    };
-  if (toNitrogenLevel)
-    cropQuery["nitrogen"] = {
-      ...cropQuery["nitrogen"],
-      $gte: toNitrogenLevel,
-    };
+  query = genQuery(nitrogen, fromNitrogenLevel, toNitrogenLevel);
+  if (nitrogen || fromNitrogenLevel || toNitrogenLevel)
+    cropQuery.push({ "details.nitrogen": query });
 
-  if (phosphorus)
-    cropQuery["phosphorus"] = { $gte: phosphorus, $lte: phosphorus };
-  if (fromPhosphorusLevel)
-    cropQuery["phosphorus"] = {
-      ...cropQuery["phosphorus"],
-      $lte: fromPhosphorusLevel,
-    };
-  if (toPhosphorusLevel)
-    cropQuery["phosphorus"] = {
-      ...cropQuery["phosphorus"],
-      $gte: toPhosphorusLevel,
-    };
+  query = genQuery(phosphorus, fromPhosphorusLevel, toPhosphorusLevel);
+  if (phosphorus || fromPhosphorusLevel || toPhosphorusLevel)
+    cropQuery.push({ "details.phosphorous": query });
 
-  if (potassium) cropQuery["potassium"] = { $gte: potassium, $lte: potassium };
-  if (fromPotassiumLevel)
-    cropQuery["potassium"] = {
-      ...cropQuery["potassium"],
-      $lte: fromPotassiumLevel,
-    };
-  if (toPotassiumLevel)
-    cropQuery["potassium"] = {
-      ...cropQuery["potassium"],
-      $gte: toPotassiumLevel,
-    };
+  query = genQuery(potassium, fromPotassiumLevel, toPotassiumLevel);
+  if (potassium || fromPotassiumLevel || toPotassiumLevel)
+    cropQuery.push({ "details.potassium": query });
 
-  if (temperature)
-    cropQuery["temperature"] = { $gte: temperature, $lte: temperature };
-  if (fromTemperatureLevel)
-    cropQuery["temperature"] = {
-      ...cropQuery["temperature"],
-      $lte: fromTemperatureLevel,
-    };
-  if (toTemperatureLevel)
-    cropQuery["temperature"] = {
-      ...cropQuery["temperature"],
-      $gte: toTemperatureLevel,
-    };
+  query = genQuery(temperature, fromTemperatureLevel, toTemperatureLevel);
+  if (temperature || fromPotassiumLevel || toPotassiumLevel)
+    cropQuery.push({ "details.temperature": query });
 
-  if (humidity) cropQuery["humidity"] = { $gte: humidity, $lte: humidity };
-  if (fromHumidityLevel)
-    cropQuery["humidity"] = {
-      ...cropQuery["humidity"],
-      $lte: fromHumidityLevel,
-    };
-  if (toHumidityLevel)
-    cropQuery["humidity"] = {
-      ...cropQuery["humidity"],
-      $gte: toHumidityLevel,
-    };
+  query = genQuery(humidity, fromHumidityLevel, toHumidityLevel);
+  if (humidity || fromHumidityLevel || toHumidityLevel)
+    cropQuery.push({ "details.humidity": query });
 
-  if (ph) cropQuery["pH"] = { $gte: ph, $lte: ph };
-  if (fromPHLevel)
-    cropQuery["pH"] = {
-      ...cropQuery["pH"],
-      $lte: fromPHLevel,
-    };
-  if (toPHLevel)
-    cropQuery["pH"] = {
-      ...cropQuery["pH"],
-      $gte: toPHLevel,
-    };
+  query = genQuery(ph, fromPHLevel, toPHLevel);
+  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ "details.ph": query });
 
-  if (rainfall) cropQuery["rainfall"] = { $gte: rainfall, $lte: rainfall };
-  if (fromRainfallLevel)
-    cropQuery["rainfall"] = {
-      ...cropQuery["rainfall"],
-      $lte: fromRainfallLevel,
-    };
-  if (toRainfallLevel)
-    cropQuery["rainfall"] = {
-      ...cropQuery["rainfall"],
-      $gte: toRainfallLevel,
-    };
+  query = genQuery(rainfall, fromRainfallLevel, toRainfallLevel);
+  if (rainfall || fromRainfallLevel || toRainfallLevel)
+    cropQuery.push({ "details.rainfall": query });
 
-  let crops = Crop.find({ $and: { cropQuery } });
   let cropIds = [];
-  for (var crop in crops) {
-    cropIds.push(crop.cropDetailIds);
+  if (name) {
+    const crops = await Crop.find({ name: name }).collation({
+      locale: "en",
+      strength: 2,
+    });
+    for (var crop of crops) {
+      cropIds.push(crop._id);
+    }
   }
-
-  cropDetails = await Crop.find({
-    $and: { ...cropNameQuery, cropDetails: { _id: cropIds, ...cropQuery } },
-  });
+  
   return { cropDetails };
 };
 
