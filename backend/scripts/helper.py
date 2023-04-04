@@ -1,7 +1,7 @@
 import os
+import pandas
 
-
-class BaseSetup:
+class Helper:
     # ============================== Scripts ==============================
     _build_virtual_env = "python -m venv venv"
     proxy = ""
@@ -25,6 +25,9 @@ class BaseSetup:
     def install_package(self, module: str):
         self.ask_for_proxy()
         os.system(f"python -m {f'--proxy {self.proxy}' if (len(self.proxy)>0) else ''} {module}")
+
+    def activate_virtual_env(self):
+        os.system(f"source venv/bin/activate")
 
 
 
