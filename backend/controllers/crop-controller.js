@@ -23,36 +23,36 @@ export const get = async (req, res, next) => {
     });
 };
 
-export const updateCropDetails = async (req, res, next) => {
-  CropService.updateCropDetails(req.name, req.cropDetails, req.loggedInUser)
-    .then(() => {
-      res.status(ExceptionCodes.REQUEST_FULFILLED).json();
-    })
-    .catch((err) => {
-      next();
-    });
-};
-
 export const deleteCrop = async (req, res, next) => {
-  CropService.deleteCropDetails(req.name, req.cropDetails, req.loggedInUser)
+  CropService.deleteCropDetails(req.query.id, req.query.crop, req.loggedInUser)
     .then(() => {
-      res.status(ExceptionCodes.REQUEST_FULFILLED).json();
+      res
+        .status(ExceptionCodes.REQUEST_FULFILLED)
+        .json({ message: "Deleted successfully" });
     })
     .catch((err) => {
       next(err);
     });
 };
 
-export const update = (req, res) => {
-  CropService.updateCrop(
-    req.id,
-    req.name,
-    req.img,
-    req.cropDetails,
-    req.loggedInUser
-  )
+export const update = async (req, res, next) => {
+  CropService.updateCrop(req.body, req.loggedInUser)
     .then(() => {
-      res.status(ExceptionCodes.REQUEST_FULFILLED).json();
+      res
+        .status(ExceptionCodes.REQUEST_FULFILLED)
+        .json({ message: "Updated successfully" });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+export const updateImage = async (req, res, next) => {
+  CropService.updateImage(req.body, req.loggedInUser)
+    .then(() => {
+      res
+        .status(ExceptionCodes.REQUEST_FULFILLED)
+        .json({ message: "Updated images successfully" });
     })
     .catch((err) => {
       next(err);
