@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Stack, Button, Grid, TextField, Container, Box } from '@mui/material';
 import Banner from '../../../../components/general/img/Banner';
 import './Hero.css';
-
+import SignUp from '../../../../components/forms/SignUp';
 
 function Hero() {
   return (
@@ -24,7 +24,8 @@ function Hero() {
           >
             we believe Future of Food is here
           </Typography>
-          <Button variant='contained'>Sign Up</Button>
+          {/* <Button variant='contained'>Sign Up</Button> */}
+          <SignUp />
         </Grid>
         <Grid
           sx={{ paddingLeft: { lg: '120px' } }}
