@@ -34,9 +34,11 @@ export const updateCropDetails = async (req, res, next) => {
 };
 
 export const deleteCrop = async (req, res, next) => {
-  CropService.deleteCropDetails(req.name, req.cropDetails, req.loggedInUser)
+  CropService.deleteCropDetails(req.query.id, req.query.crop, req.loggedInUser)
     .then(() => {
-      res.status(ExceptionCodes.REQUEST_FULFILLED).json();
+      res
+        .status(ExceptionCodes.REQUEST_FULFILLED)
+        .json({ message: "Deleted successfully" });
     })
     .catch((err) => {
       next(err);
@@ -52,7 +54,9 @@ export const update = (req, res) => {
     req.loggedInUser
   )
     .then(() => {
-      res.status(ExceptionCodes.REQUEST_FULFILLED).json();
+      res
+        .status(ExceptionCodes.REQUEST_FULFILLED)
+        .json({ message: "Updated successfully" });
     })
     .catch((err) => {
       next(err);

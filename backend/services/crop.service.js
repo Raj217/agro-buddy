@@ -1,6 +1,7 @@
 import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
 import Crop from "../models/crop.js";
+import Images from "../models/images.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
@@ -10,65 +11,49 @@ export const registerCropDetails = async (cropDetails, user) => {
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  const { name, images, details } = cropDetails;
+  const {
+    name,
+    images,
+    nitrogen,
+    phosphorus,
+    potassium,
+    temperature,
+    humidity,
+    pH,
+    rainfall,
+  } = cropDetails;
+
   if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
   let imgs = [];
   if (images) imgs = images;
-  let cropNewDetails;
+  let cropNewDetails = {
+    name: name,
+  };
 
-  if (details) {
-    const {
-      nitrogen,
-      phosphorus,
-      potassium,
-      temperature,
-      humidity,
-      pH,
-      rainfall,
-    } = details;
+  if (nitrogen) cropNewDetails["nitrogen"] = nitrogen;
+  if (phosphorus) cropNewDetails["phosphorus"] = phosphorus;
+  if (potassium) cropNewDetails["potassium"] = potassium;
+  if (temperature) cropNewDetails["temperature"] = temperature;
+  if (humidity) cropNewDetails["humidity"] = humidity;
+  if (pH) cropNewDetails["pH"] = pH;
+  if (rainfall) cropNewDetails["rainfall"] = rainfall;
 
-    cropNewDetails = {
-      nitrogen: nitrogen,
-      phosphorus: phosphorus,
-      potassium: potassium,
-      temperature: temperature,
-      humidity: humidity,
-      pH: pH,
-      rainfall: rainfall,
-    };
-  }
-
-  let crop = await Crop.findOne({ name });
-  let updateFields = {};
-  if (cropNewDetails !== undefined) {
-    if (crop !== null && crop.details.length > 0) {
-      updateFields = {
-        details: [...crop.details, cropNewDetails],
-      };
-    } else {
-      updateFields = {
-        details: [cropNewDetails],
-      };
-    }
-  }
   if (imgs.length > 0) {
-    if (crop !== null && crop.images.length > 0) {
-      updateFields["images"] = [...crop.images, ...images];
+    const cropImages = await Images.findOne({ name });
+    if (cropImages !== null && cropImages.images.length > 0) {
+      await Images.findByIdAndUpdate(
+        { _id: cropImages._id },
+        { images: [...cropImages.images, ...imgs] }
+      );
     } else {
-      updateFields["images"] = images;
+      await Images.create({ name, images: imgs });
     }
   }
-  if (crop) {
-    await Crop.findByIdAndUpdate({ _id: crop._id }, updateFields);
-  } else {
-    await Crop.create({
-      name,
-      ...updateFields,
-    });
-  }
+
+  await Crop.create(cropNewDetails);
 };
 
-const genQuery = (absolute, from, to) => {
+const _genQuery = (absolute, from, to) => {
   let cropQuery = {};
   if (absolute) {
     cropQuery = {
@@ -125,30 +110,30 @@ export const getCropDetails = async (cropDetails, user) => {
   let query = {},
     cropQuery = [];
 
-  query = genQuery(nitrogen, fromNitrogenLevel, toNitrogenLevel);
+  query = _genQuery(nitrogen, fromNitrogenLevel, toNitrogenLevel);
   if (nitrogen || fromNitrogenLevel || toNitrogenLevel)
-    cropQuery.push({ "details.nitrogen": query });
+    cropQuery.push({ "nitrogen": query });
 
-  query = genQuery(phosphorus, fromPhosphorusLevel, toPhosphorusLevel);
+  query = _genQuery(phosphorus, fromPhosphorusLevel, toPhosphorusLevel);
   if (phosphorus || fromPhosphorusLevel || toPhosphorusLevel)
-    cropQuery.push({ "details.phosphorous": query });
+    cropQuery.push({ "phosphorous": query });
 
-  query = genQuery(potassium, fromPotassiumLevel, toPotassiumLevel);
+  query = _genQuery(potassium, fromPotassiumLevel, toPotassiumLevel);
   if (potassium || fromPotassiumLevel || toPotassiumLevel)
-    cropQuery.push({ "details.potassium": query });
+    cropQuery.push({ "potassium": query });
 
-  query = genQuery(temperature, fromTemperatureLevel, toTemperatureLevel);
+  query = _genQuery(temperature, fromTemperatureLevel, toTemperatureLevel);
   if (temperature || fromPotassiumLevel || toPotassiumLevel)
-    cropQuery.push({ "details.temperature": query });
+    cropQuery.push({ "temperature": query });
 
-  query = genQuery(humidity, fromHumidityLevel, toHumidityLevel);
+  query = _genQuery(humidity, fromHumidityLevel, toHumidityLevel);
   if (humidity || fromHumidityLevel || toHumidityLevel)
-    cropQuery.push({ "details.humidity": query });
+    cropQuery.push({ "humidity": query });
 
-  query = genQuery(ph, fromPHLevel, toPHLevel);
-  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ "details.ph": query });
+  query = _genQuery(ph, fromPHLevel, toPHLevel);
+  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ "ph": query });
 
-  query = genQuery(rainfall, fromRainfallLevel, toRainfallLevel);
+  query = _genQuery(rainfall, fromRainfallLevel, toRainfallLevel);
   if (rainfall || fromRainfallLevel || toRainfallLevel)
     cropQuery.push({ "details.rainfall": query });
 
@@ -162,7 +147,7 @@ export const getCropDetails = async (cropDetails, user) => {
       cropIds.push(crop._id);
     }
   }
-  
+
   return { cropDetails };
 };
 
@@ -175,14 +160,25 @@ export const updateCropDetails = async (name, cropDetails, user) => {
   }
   await Crop.findOneAndUpdate({ name }, { cropDetails: cropDetails });
 };
-export const deleteCropDetails = async (name, cropDetails, user) => {
-  if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
+export const deleteCropDetails = async (id, crop, user) => {
+  if (user.role !== UserRoles.ADMIN) {
+    throw new Exception(
       "You don't have enough privilege.",
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  await Crop.findOneAndRemove({ name }, { cropDetails: cropDetails });
+
+  if (id) await Crop.findByIdAndRemove({ _id: id });
+  else if (crop)
+    await Crop.deleteMany({ name: crop }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else
+    throw new Exception(
+      "Either id or crop is required",
+      ExceptionCodes.BAD_INPUT
+    );
 };
 
 export const updateCrop = async (id, name, img, cropDetails, user) => {
