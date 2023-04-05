@@ -1,6 +1,8 @@
 import API from './api'
 
-export const signup = (user) => API.post('/signup', user);
+export const signup = (user) => API.post('/sign-up', user, {
+    headers: { "Content-Type": "application/json" }
+});
 
 export const login = (user) => API.post('/login', user);
 

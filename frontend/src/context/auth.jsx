@@ -4,46 +4,47 @@ import { signup, login, getUser, generateOtp, forgotPassword } from '../api'
 const AuthContext = createContext();
 
 
-export const AuthContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
+
 
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
             console.log(data);
-    
+
             return { data };
         } catch (error) {
             console.log(error);
         }
     };
-    
+
     const logIn = async (formData) => {
         try {
             const { data } = await login(formData);
             console.log(data);
-    
+
             return { data };
         } catch (error) {
             console.log(error);
         }
     };
-    
+
     const getUserDetails = async (userId) => {
         try {
             const { data } = await getUser(userId);
             console.log(data);
-    
+
             return { data };
         } catch (error) {
             console.log(error);
         }
     };
-    
+
     const generateOtpandMail = async (email) => {
         try {
             const { data } = await generateOtp(email);
             console.log(data);
-    
+
             return { data };
         } catch (error) {
             console.log(error);
@@ -73,5 +74,6 @@ export const AuthContextProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 };
+export default AuthContextProvider;
+export { AuthContext };
 
-export const useAuthContext = () => useContext(AuthContext);
