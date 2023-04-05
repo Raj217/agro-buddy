@@ -2,7 +2,7 @@ import { useContext, createContext } from 'react'
 
 const CropContext = createContext();
 
-export const CropContextProvider = ({ children }) => {
+export default CropContextProvider = ({ children }) => {
     return (
         <CropContext.Provider value={{}}>
             {children}
@@ -10,4 +10,5 @@ export const CropContextProvider = ({ children }) => {
     )
 };
 
-export const useCropContext = () => useContext(CropContext);
+export { CropContext };
+

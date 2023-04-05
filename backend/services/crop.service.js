@@ -1,6 +1,7 @@
 import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
 import Crop from "../models/crop.js";
+import Images from "../models/images.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
@@ -10,62 +11,75 @@ export const registerCropDetails = async (cropDetails, user) => {
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  const { name, images, details } = cropDetails;
+  const {
+    name,
+    images,
+    nitrogen,
+    phosphorus,
+    potassium,
+    temperature,
+    humidity,
+    pH,
+    rainfall,
+  } = cropDetails;
+
   if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
   let imgs = [];
   if (images) imgs = images;
-  let cropNewDetails;
+  let cropNewDetails = {
+    name: name,
+  };
 
-  if (details) {
-    const {
-      nitrogen,
-      phosphorus,
-      potassium,
-      temperature,
-      humidity,
-      pH,
-      rainfall,
-    } = details;
+  if (nitrogen) cropNewDetails["nitrogen"] = nitrogen;
+  if (phosphorus) cropNewDetails["phosphorus"] = phosphorus;
+  if (potassium) cropNewDetails["potassium"] = potassium;
+  if (temperature) cropNewDetails["temperature"] = temperature;
+  if (humidity) cropNewDetails["humidity"] = humidity;
+  if (pH) cropNewDetails["pH"] = pH;
+  if (rainfall) cropNewDetails["rainfall"] = rainfall;
 
-    cropNewDetails = {
-      nitrogen: nitrogen,
-      phosphorus: phosphorus,
-      potassium: potassium,
-      temperature: temperature,
-      humidity: humidity,
-      pH: pH,
-      rainfall: rainfall,
-    };
-  }
-
-  let crop = await Crop.findOne({ name });
-  let updateFields = {};
-  if (cropNewDetails !== undefined) {
-    if (crop !== null && crop.details.length > 0) {
-      updateFields = {
-        details: [...crop.details, cropNewDetails],
-      };
-    } else {
-      updateFields = {
-        details: [cropNewDetails],
-      };
-    }
-  }
   if (imgs.length > 0) {
-    if (crop !== null && crop.images.length > 0) {
-      updateFields["images"] = [...crop.images, ...images];
+    const cropImages = await Images.findOne({ name }).collation({
+      strength: 2,
+      locale: "en",
+    });
+    if (cropImages !== null) {
+      await Images.findByIdAndUpdate(
+        { _id: cropImages._id },
+        { images: [...cropImages.images, ...imgs] }
+      );
     } else {
-      updateFields["images"] = images;
+      await Images.create({ name, images: imgs });
     }
   }
-  if (crop) {
-    await Crop.findByIdAndUpdate({ _id: crop._id }, updateFields);
+
+  await Crop.create(cropNewDetails);
+};
+
+const _genQuery = (absolute, from, to) => {
+  let cropQuery = {};
+  if (absolute) {
+    cropQuery = {
+      $gte: Math.floor(absolute),
+      $lte: Math.floor(absolute),
+    };
   } else {
-    await Crop.create({
-      name,
-      ...updateFields,
-    });
+    if (from && Math.floor(to)) {
+      cropQuery = {
+        $gte: from,
+        $lte: Math.floor(to),
+      };
+    } else if (from) {
+      cropQuery = {
+        $gte: Math.floor(from),
+      };
+    } else if (to) {
+      cropQuery = {
+        $lte: Math.floor(to),
+      };
+    }
   }
+  return cropQuery;
 };
 
 // TODO: Add absolute values (should return the nearest values)
@@ -96,137 +110,139 @@ export const getCropDetails = async (cropDetails, user) => {
   } = cropDetails;
   if (user.role !== UserRoles.ADMIN)
     throw new Exception("Unauthorized", ExceptionCodes.UNAUTHORIZED);
-  let cropNameQuery = {},
-    cropQuery = {};
-  if (name) cropNameQuery["name"] = { name };
+  let query = {},
+    cropQuery = [];
 
-  if (nitrogen)
-    cropQuery["details"]["nitrogen"] = { $gte: nitrogen, $lte: nitrogen };
-  if (fromNitrogenLevel)
-    cropQuery["details"]["nitrogen"] = {
-      ...cropQuery["nitrogen"],
-      $lte: fromNitrogenLevel,
-    };
-  if (toNitrogenLevel)
-    cropQuery["nitrogen"] = {
-      ...cropQuery["nitrogen"],
-      $gte: toNitrogenLevel,
-    };
+  if (name) cropQuery.push({ name });
+  query = _genQuery(nitrogen, fromNitrogenLevel, toNitrogenLevel);
+  if (nitrogen || fromNitrogenLevel || toNitrogenLevel)
+    cropQuery.push({ nitrogen: query });
 
-  if (phosphorus)
-    cropQuery["phosphorus"] = { $gte: phosphorus, $lte: phosphorus };
-  if (fromPhosphorusLevel)
-    cropQuery["phosphorus"] = {
-      ...cropQuery["phosphorus"],
-      $lte: fromPhosphorusLevel,
-    };
-  if (toPhosphorusLevel)
-    cropQuery["phosphorus"] = {
-      ...cropQuery["phosphorus"],
-      $gte: toPhosphorusLevel,
-    };
+  query = _genQuery(phosphorus, fromPhosphorusLevel, toPhosphorusLevel);
+  if (phosphorus || fromPhosphorusLevel || toPhosphorusLevel)
+    cropQuery.push({ phosphorous: query });
 
-  if (potassium) cropQuery["potassium"] = { $gte: potassium, $lte: potassium };
-  if (fromPotassiumLevel)
-    cropQuery["potassium"] = {
-      ...cropQuery["potassium"],
-      $lte: fromPotassiumLevel,
-    };
-  if (toPotassiumLevel)
-    cropQuery["potassium"] = {
-      ...cropQuery["potassium"],
-      $gte: toPotassiumLevel,
-    };
+  query = _genQuery(potassium, fromPotassiumLevel, toPotassiumLevel);
+  if (potassium || fromPotassiumLevel || toPotassiumLevel)
+    cropQuery.push({ potassium: query });
 
-  if (temperature)
-    cropQuery["temperature"] = { $gte: temperature, $lte: temperature };
-  if (fromTemperatureLevel)
-    cropQuery["temperature"] = {
-      ...cropQuery["temperature"],
-      $lte: fromTemperatureLevel,
-    };
-  if (toTemperatureLevel)
-    cropQuery["temperature"] = {
-      ...cropQuery["temperature"],
-      $gte: toTemperatureLevel,
-    };
+  query = _genQuery(temperature, fromTemperatureLevel, toTemperatureLevel);
+  if (temperature || fromPotassiumLevel || toPotassiumLevel)
+    cropQuery.push({ temperature: query });
 
-  if (humidity) cropQuery["humidity"] = { $gte: humidity, $lte: humidity };
-  if (fromHumidityLevel)
-    cropQuery["humidity"] = {
-      ...cropQuery["humidity"],
-      $lte: fromHumidityLevel,
-    };
-  if (toHumidityLevel)
-    cropQuery["humidity"] = {
-      ...cropQuery["humidity"],
-      $gte: toHumidityLevel,
-    };
+  query = _genQuery(humidity, fromHumidityLevel, toHumidityLevel);
+  if (humidity || fromHumidityLevel || toHumidityLevel)
+    cropQuery.push({ humidity: query });
 
-  if (ph) cropQuery["pH"] = { $gte: ph, $lte: ph };
-  if (fromPHLevel)
-    cropQuery["pH"] = {
-      ...cropQuery["pH"],
-      $lte: fromPHLevel,
-    };
-  if (toPHLevel)
-    cropQuery["pH"] = {
-      ...cropQuery["pH"],
-      $gte: toPHLevel,
-    };
+  query = _genQuery(ph, fromPHLevel, toPHLevel);
+  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ ph: query });
 
-  if (rainfall) cropQuery["rainfall"] = { $gte: rainfall, $lte: rainfall };
-  if (fromRainfallLevel)
-    cropQuery["rainfall"] = {
-      ...cropQuery["rainfall"],
-      $lte: fromRainfallLevel,
-    };
-  if (toRainfallLevel)
-    cropQuery["rainfall"] = {
-      ...cropQuery["rainfall"],
-      $gte: toRainfallLevel,
-    };
+  query = _genQuery(rainfall, fromRainfallLevel, toRainfallLevel);
+  if (rainfall || fromRainfallLevel || toRainfallLevel)
+    cropQuery.push({ rainfall: query });
 
-  let crops = Crop.find({ $and: { cropQuery } });
-  let cropIds = [];
-  for (var crop in crops) {
-    cropIds.push(crop.cropDetailIds);
-  }
-
-  cropDetails = await Crop.find({
-    $and: { ...cropNameQuery, cropDetails: { _id: cropIds, ...cropQuery } },
+  const crops = await Crop.find({ $and: cropQuery }).collation({
+    locale: "en",
+    strength: 2,
   });
-  return { cropDetails };
+
+  const cropNames = new Set();
+  for (var crop of crops) {
+    cropNames.add(crop.name);
+  }
+  const images = await Images.find({ name: { $in: [...cropNames] } });
+  return { crops, images };
 };
 
-export const updateCropDetails = async (name, cropDetails, user) => {
-  if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
+export const deleteCropDetails = async (id, crop, user) => {
+  if (user.role !== UserRoles.ADMIN) {
+    throw new Exception(
       "You don't have enough privilege.",
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  await Crop.findOneAndUpdate({ name }, { cropDetails: cropDetails });
-};
-export const deleteCropDetails = async (name, cropDetails, user) => {
-  if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
-      "You don't have enough privilege.",
-      ExceptionCodes.UNAUTHORIZED
+
+  if (id) await Crop.findByIdAndRemove({ _id: id });
+  else if (crop)
+    await Crop.deleteMany({ name: crop }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else
+    throw new Exception(
+      "Either id or crop is required",
+      ExceptionCodes.BAD_INPUT
     );
-  }
-  await Crop.findOneAndRemove({ name }, { cropDetails: cropDetails });
 };
 
-export const updateCrop = async (id, name, img, cropDetails, user) => {
-  if (user.role != UserRoles.ADMINISTRATOR) {
-    throw Exception(
+export const updateCrop = async (vals, user) => {
+  const {
+    id,
+    name,
+    images,
+    nitrogen,
+    phosphorus,
+    potassium,
+    temperature,
+    humidity,
+    pH,
+    rainfall,
+  } = vals;
+
+  if (user.role !== UserRoles.ADMIN) {
+    throw new Exception(
       "You don't have enough privilege.",
       ExceptionCodes.UNAUTHORIZED
     );
   }
-  await Crop.findOneAndUpdate(
-    { _id: id },
-    { name, img, cropDetails: cropDetails }
-  );
+
+  let cropNewDetails = {
+    name: name,
+  };
+
+  if (nitrogen) cropNewDetails["nitrogen"] = nitrogen;
+  if (phosphorus) cropNewDetails["phosphorus"] = phosphorus;
+  if (potassium) cropNewDetails["potassium"] = potassium;
+  if (temperature) cropNewDetails["temperature"] = temperature;
+  if (humidity) cropNewDetails["humidity"] = humidity;
+  if (pH) cropNewDetails["pH"] = pH;
+  if (rainfall) cropNewDetails["rainfall"] = rainfall;
+
+  await Crop.findOneAndUpdate({ _id: id }, cropNewDetails);
+
+  if (images !== undefined) {
+    if (name === undefined)
+      throw new Exception(
+        "Please specify the crop name",
+        ExceptionCodes.BAD_INPUT
+      );
+    await Images.findOneAndUpdate({ name: name }, { $push: { images } });
+  }
+};
+
+export const updateImage = async (vals, user) => {
+  if (user.role !== UserRoles.ADMIN) {
+    throw new Exception(
+      "You don't have enough privilege.",
+      ExceptionCodes.UNAUTHORIZED
+    );
+  }
+
+  const { name, images } = vals;
+  if (name === undefined)
+    throw new Exception("Name is required.", ExceptionCodes.BAD_INPUT);
+
+  const img = await Images.findOne({ name }).collation({
+    strength: 2,
+    locale: "en",
+  });
+  const updateObject = {
+    name: name,
+    images: images,
+    __v: img.__v,
+  };
+  if (img) {
+    img.images = images;
+    await Images.findOneAndReplace({ _id: img._id }, updateObject);
+  }
 };

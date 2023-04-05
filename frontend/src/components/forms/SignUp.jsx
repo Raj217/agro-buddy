@@ -1,22 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { TextField, Button, Box, Stack, Typography, DialogTitle, Dialog } from '@mui/material'
 import './styles.css';
 import { withStyles } from '@mui/styles';
 import { styles } from './styling.jsx';
+import { AuthContext } from '../../context/auth';
 
 function SignUp(props) {
     const { classes } = props;
+
+    const { login, signup } = useContext(AuthContext);
+
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [paswords, setPaswords] = useState('');
 
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        role: 'ADMIN',
+    });
+
     const [open, setOpen] = useState(false);
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(firstName, lastName, email, paswords);
+        // await login(user);
+        await signup(user);
+
         handleClose();
     }
 
@@ -40,16 +54,16 @@ function SignUp(props) {
                         SignUp
                     </DialogTitle>
                     <TextField label='First Name' variant='filled' required
-                        onChange={e => setFirstName(e.target.value)}
+                        onChange={e => setUser({ ...user, firstName: e.target.value })}
                     />
                     <TextField label="Last Name" variant="filled" required
-                        onChange={e => setLastName(e.target.value)}
+                        onChange={e => setUser({ ...user, lastName: e.target.value })}
                     />
-                    <TextField type='email' label="Email" variant="filled" required
-                        onChange={e => setEmail(e.target.value)}
+                    <TextField type='Email' label="Email" variant="filled" required
+                        onChange={e => setUser({ ...user, email: e.target.value })}
                     />
                     <TextField type='password' label="Password" variant="filled" required
-                        onChange={e => setPaswords(e.target.value)}
+                        onChange={e => setUser({ ...user, password: e.target.value })}
                     />
                     <div>
                         <Button variant='outline' onClick={handleClose}>Cancel</Button>

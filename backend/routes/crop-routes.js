@@ -3,10 +3,10 @@ import * as CropDetails from "../controllers/crop-controller.js";
 
 const router = Router();
 
-router.post("/create", CropDetails.register);
-// router.get("/", CropDetails.get);
-// router.put("/update-details", CropDetails.updateCropDetails);
-// router.put("/update", CropDetails.update);
-// router.delete("/delete", CropDetails.deleteCrop);
+router.post("", CropDetails.register);
+router.get("", CropDetails.get);
+router.patch("", CropDetails.update);
+router.delete("", CropDetails.deleteCrop);
+router.put("/image", CropDetails.updateImage);
 
 export default router;

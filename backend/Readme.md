@@ -186,7 +186,7 @@ Example:
 
 # Crop Routes
 
-<detials>
+<details>
 <summary><b>1. POST - /api/crop/register</b></summary>
 <br>
 Example:
@@ -194,14 +194,13 @@ Example:
 ```
 {
   "name": "rice",
-  "details": {
-    "nitrogen": 10,
-    "phosphorus": 100,
-    "potassium": 100,
-    "temperature": 19.2,
-    "pH": 8.3,
-    "rainfall": 20.2
-  },
+  "nitrogen": 10,
+  "phosphorus": 100,
+  "potassium": 100,
+  "temperature": 19.2,
+  "humidity": 19.2,
+  "pH": 8.3,
+  "rainfall": 20.2
   "images": ["test", "test2"]
 }
 ```
@@ -222,18 +221,19 @@ Example:
 - if name found all the data will be saved to that else will create and store
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
-  <br></details>
+<br>
+</details>
 
 <details>
-<summary><b>2. GET-/api/crop?<quries></b></summary>
+<summary><b>2. GET-/api/crop<quries></b></summary>
 <br>
 Example:
 
 ```
-http://localhost:4002/api/crop?nitrogen=10
+http://localhost:4002/api/crop?nitrogen=10&name=rice
 ```
 
-- Queries \*
+- Queries
 <br>
 **name**: optional | String <br>
 **nitrogen**: optional | number <br>
@@ -257,4 +257,49 @@ http://localhost:4002/api/crop?nitrogen=10
 **rainfall**: optional | number <br>
 **fromRainfallLevel**: optional | number <br>
 **toRainfallLevel**: optional | number <br>
+</details>
+
+<details>
+<summary><b>3. DELETE - /api/crop/delete </b></summary>
+<br>
+Example:
+
+```
+http://localhost:4002/api/crop/delete?crop=rice
+```
+
+- Queries
+  <br>
+  **id**: optional | String <br>
+  **crop**: optional | String <br>
+
+</details>
+
+<details>
+<summary><b>4. PATCH - /api/crop/update </b></summary>
+<br>
+Example:
+
+```
+{
+  "id": 167834,
+  "nitrogen": 10
+}
+```
+
+NOTE: If name is provided, it is meant to update the images so images must be passed
+
+- Queries
+  <br>
+  **id**: optional | String <br>
+  **name**: optional | String <br>
+  **images**: optional | [String] <br>
+  **nitrogen**: optional | number <br>
+  **phosphorus**: optional | number <br>
+  **potassium**: optional | number <br>
+  **temperature**: optional | number <br>
+  **humidity**: optional | number <br>
+  **pH**: optional | number <br>
+  **rainfall**: optional | number <br>
+
 </details>

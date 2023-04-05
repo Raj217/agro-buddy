@@ -45,8 +45,8 @@ class API:
             exit(0)
 
     def read_data(self):
-        self._details_df = pd.read_excel("crops.xlsx", sheet_name=0)
-        self._images_df = pd.read_excel("crops.xlsx", sheet_name=1)
+        self._details_df = pd.read_excel("scripts/crops.xlsx", sheet_name=0)
+        self._images_df = pd.read_excel("scripts/crops.xlsx", sheet_name=1)
 
     @staticmethod
     def _to_dict(data: dict) -> dict:
@@ -54,19 +54,19 @@ class API:
 
         if data["details"].notnull().any():
             if not pd.isna(data["details"]["Nitrogen"]):
-                out["details"]["nitrogen"] = data["details"]["Nitrogen"]
+                out["nitrogen"] = data["details"]["Nitrogen"]
             if not pd.isna(data["details"]["Phosphorus"]):
-                out["details"]["phosphorus"] = data["details"]["Phosphorus"]
+                out["phosphorus"] = data["details"]["Phosphorus"]
             if not pd.isna(data["details"]["Potassium"]):
-                out["details"]["potassium"] = data["details"]["Potassium"]
+                out["potassium"] = data["details"]["Potassium"]
             if not pd.isna(data["details"]["Temperature"]):
-                out["details"]["temperature"] = data["details"]["Temperature"]
+                out["temperature"] = data["details"]["Temperature"]
             if not pd.isna(data["details"]["pH"]):
-                out["details"]["pH"] = data["details"]["pH"]
+                out["pH"] = data["details"]["pH"]
             if not pd.isna(data["details"]["Rainfall"]):
-                out["details"]["rainfall"] = data["details"]["Rainfall"]
+                out["rainfall"] = data["details"]["Rainfall"]
             if not pd.isna(data["details"]["Humidity"]):
-                out["details"]["humidity"] = data["details"]["Humidity"]
+                out["humidity"] = data["details"]["Humidity"]
 
         return out
 
