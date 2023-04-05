@@ -5,7 +5,7 @@ const OtpSchema = new Schema({
   email: { type: String },
   createdAt: {
     type: Date,
-    expires: "12h",
+    expires: "2h",
     default: Date.now,
   },
 });

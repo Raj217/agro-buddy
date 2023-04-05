@@ -15,6 +15,7 @@ const AuthContextProvider = ({ children }) => {
             return { data };
         } catch (error) {
             console.log(error);
+            alert(error.response.data.message);
         }
     };
 
@@ -26,6 +27,7 @@ const AuthContextProvider = ({ children }) => {
             return { data };
         } catch (error) {
             console.log(error);
+            alert(error.response.data.message);
         }
     };
 
@@ -37,6 +39,7 @@ const AuthContextProvider = ({ children }) => {
             return { data };
         } catch (error) {
             console.log(error);
+            alert(error.response.data.message);
         }
     };
 
@@ -48,6 +51,7 @@ const AuthContextProvider = ({ children }) => {
             return { data };
         } catch (error) {
             console.log(error);
+            alert(error.response.data.message);
         }
     };
 
@@ -59,6 +63,7 @@ const AuthContextProvider = ({ children }) => {
             return { data };
         } catch (error) {
             console.log(error);
+            alert(error.response.data.message);
         }
     };
 

@@ -24,7 +24,6 @@ function Hero() {
           >
             we believe Future of Food is here
           </Typography>
-          {/* <Button variant='contained'>Sign Up</Button> */}
           <SignUp />
         </Grid>
         <Grid

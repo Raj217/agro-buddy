@@ -3,6 +3,7 @@ export const styles = {
 
     root: {
         display: 'flex',
+        border: 'none',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
