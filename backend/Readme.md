@@ -221,7 +221,7 @@ Example:
 - if name found all the data will be saved to that else will create and store
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
-  <br>
+<br>
 </details>
 
 <details>
@@ -272,5 +272,34 @@ http://localhost:4002/api/crop/delete?crop=rice
   <br>
   **id**: optional | String <br>
   **crop**: optional | String <br>
+
+</details>
+
+<details>
+<summary><b>4. PATCH - /api/crop/update </b></summary>
+<br>
+Example:
+
+```
+{
+  "id": 167834,
+  "nitrogen": 10
+}
+```
+
+NOTE: If name is provided, it is meant to update the images so images must be passed
+
+- Queries
+  <br>
+  **id**: optional | String <br>
+  **name**: optional | String <br>
+  **images**: optional | [String] <br>
+  **nitrogen**: optional | number <br>
+  **phosphorus**: optional | number <br>
+  **potassium**: optional | number <br>
+  **temperature**: optional | number <br>
+  **humidity**: optional | number <br>
+  **pH**: optional | number <br>
+  **rainfall**: optional | number <br>
 
 </details>
