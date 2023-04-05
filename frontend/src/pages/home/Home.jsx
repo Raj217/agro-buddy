@@ -13,6 +13,7 @@ function Home() {
   return (
     <div>
       <Hero />
+      {/* <SignIn /> */}
     </div>
   )
 }

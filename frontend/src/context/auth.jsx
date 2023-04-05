@@ -1,20 +1,25 @@
 import { useContext, createContext } from 'react'
 import { signup, login, getUser, generateOtp, forgotPassword } from '../api'
-
+// import { ToastProvider, useToasts } from 'react-toast-notifications';
+import toast from 'react-hot-toast';
 const AuthContext = createContext();
 
 
 const AuthContextProvider = ({ children }) => {
+
+    // const { addToast } = useToasts();
 
 
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
             console.log(data);
-
+            localStorage.setItem("token", data.token);
+            toast.success(data.message);
             return { data };
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
         }
     };
 
@@ -22,10 +27,11 @@ const AuthContextProvider = ({ children }) => {
         try {
             const { data } = await login(formData);
             console.log(data);
-
+            toast.success(data.message);
             return { data };
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
         }
     };
 
@@ -33,10 +39,12 @@ const AuthContextProvider = ({ children }) => {
         try {
             const { data } = await getUser(userId);
             console.log(data);
-
+            toast.success(data.message);
             return { data };
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
+
         }
     };
 
@@ -44,10 +52,12 @@ const AuthContextProvider = ({ children }) => {
         try {
             const { data } = await generateOtp(email);
             console.log(data);
-
+            toast.success(data.message);
             return { data };
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
+
         }
     };
 
@@ -55,10 +65,12 @@ const AuthContextProvider = ({ children }) => {
         try {
             const { data } = await forgotPassword(email);
             console.log(data);
-
+            toast.success(data.message);
             return { data };
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
+
         }
     };
 
