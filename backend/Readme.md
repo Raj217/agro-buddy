@@ -12,7 +12,7 @@ _Create a .env(root level) file with the following params:_
 
 ### Script
 
-** Python must be installed **
+**Python must be installed**
 
 Add the dataset at _backend/scripts/crops.xlsx_
 

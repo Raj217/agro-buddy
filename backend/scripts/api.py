@@ -45,8 +45,8 @@ class API:
             exit(0)
 
     def read_data(self):
-        self._details_df = pd.read_excel("crops.xlsx", sheet_name=0)
-        self._images_df = pd.read_excel("crops.xlsx", sheet_name=1)
+        self._details_df = pd.read_excel("scripts/crops.xlsx", sheet_name=0)
+        self._images_df = pd.read_excel("scripts/crops.xlsx", sheet_name=1)
 
     @staticmethod
     def _to_dict(data: dict) -> dict:
