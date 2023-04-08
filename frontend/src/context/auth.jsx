@@ -7,7 +7,6 @@ const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
 
-    // const { addToast } = useToasts();
 
 
     const signUp = async (formData) => {
