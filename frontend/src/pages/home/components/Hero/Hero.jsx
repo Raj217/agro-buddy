@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography, Stack, Button, Grid, TextField, Container, Box } from '@mui/material';
 import Banner from '../../../../components/general/img/Banner';
-import './Hero.css';
 import SignUp from '../../../../components/forms/SignUp';
+import { AuthContext } from '../../../../context/auth';
+import './Hero.css';
 
 function Hero() {
+  const { loggedIn } = useContext(AuthContext);
   return (
     <Box paddingTop='80px' >
       <Grid container rowSpacing='30px'>
@@ -24,7 +26,11 @@ function Hero() {
           >
             we believe Future of Food is here
           </Typography>
-          <SignUp />
+          { loggedIn ? (
+            <Button variant='contained' >Explore</Button>
+          ) : (
+            <SignUp />
+          ) }
         </Grid>
         <Grid
           sx={{ paddingLeft: { lg: '120px' } }}

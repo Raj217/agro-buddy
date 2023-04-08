@@ -10,12 +10,6 @@ function SignUp(props) {
 
     const { signup } = useContext(AuthContext);
 
-
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [paswords, setPaswords] = useState('');
-
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',

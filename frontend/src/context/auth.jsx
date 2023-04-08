@@ -6,12 +6,14 @@ const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
 
+    let loggedIn = localStorage.getItem('token');
+
 
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
             console.log(data);
-
+            localStorage.setItem('token', data.token);
             return { data };
         } catch (error) {
             console.log(error);
@@ -69,6 +71,7 @@ const AuthContextProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
+            loggedIn,
             login: logIn,
             signup: signUp,
             getUserDetails: getUserDetails,

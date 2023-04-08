@@ -7,7 +7,7 @@ export const sendEmail = async (email, message) => {
     to_email: email,
     message: message
   };
-  emailjs.send("service_edmmy8i", "template_d7ej8aj", templateParams).then(
+  emailjs.send(process.env.SERVICE_ID, process.env.TEMPLATE_ID, templateParams).then(
     function (response) {
       console.log("SUCCESS!", response.status, response.text);
     },
