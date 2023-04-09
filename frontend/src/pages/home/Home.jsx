@@ -13,14 +13,14 @@ import ResetPassword from '../../components/ResetPassword/ResetPassword';
 function Home() {
   return (
     <div>
-      {/* <Hero /> */}
+      <Hero />
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
       {/* <SearchCrops />
       <SearchCard /> */}
       {/* <ForgotPassword /> */}
-      <ResetPassword />
+      {/* <ResetPassword /> */}
     </div>
   )
 }

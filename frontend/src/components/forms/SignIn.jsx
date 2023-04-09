@@ -30,7 +30,7 @@ export default function SignIn() {
     event.preventDefault();
     try {
       await login(user);
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +51,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+          Sign in
           </Typography>
           <Box
             component="form"
@@ -68,7 +68,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(e)=>setUser({ ...user, email: e.target.value })}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
             <TextField
               margin="normal"
@@ -79,7 +79,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(e)=>setUser({ ...user, password: e.target.value })}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             <Button
               type="submit"
@@ -95,12 +95,20 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs style={{cursor: 'pointer'}}>
-                <Typography variant="body2" color={Palette.triadic1}>
-                  Forgot password?
-                </Typography>
+              <Grid item xs>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate("/forgot-password")}
+                >
+                  <Typography variant="body2" color={Palette.triadic1}>
+                    Forgot password?
+                  </Typography>
+                </div>
               </Grid>
-              <div style={{cursor: 'pointer'}} onClick={() => navigate("/sign-up")}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/sign-up")}
+              >
                 <Typography variant="body2" color={Palette.triadic1}>
                   Don't have an account? Sign Up
                 </Typography>
