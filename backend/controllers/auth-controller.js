@@ -81,10 +81,10 @@ export const forgotPassword = async (req, res, next) => {
 export const validateOtp = async (req, res, next) => {
   const { email, otp } = req.body;
   AuthService.validateOtp(email, otp)
-    .then(() => {
+    .then((token) => {
       res
         .status(ExceptionCodes.REQUEST_FULFILLED)
-        .json({ message: "OTP Validated successfully" });
+        .json({ message: "OTP Validated successfully", ...token });
     })
     .catch((err) => {
       next(err);
