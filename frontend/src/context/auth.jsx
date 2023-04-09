@@ -73,6 +73,7 @@ const AuthContextProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
+            loggedIn,
             login: logIn,
             signup: signUp,
             getUserDetails: getUserDetails,
