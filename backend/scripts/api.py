@@ -13,7 +13,7 @@ class API:
     _login_path = "/api/auth/login"
     _details_df = pd.DataFrame()
     _images_df = pd.DataFrame()
-    _create_crop_path = "/api/crop/create"
+    _create_crop_path = "/api/crop/"
 
     def __init__(self):
         os.environ["NO_PROXY"] = "localhost"
