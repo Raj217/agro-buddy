@@ -6,9 +6,6 @@ const AuthContext = createContext();
 
 
 const AuthContextProvider = ({ children }) => {
-
-
-
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
@@ -26,6 +23,7 @@ const AuthContextProvider = ({ children }) => {
         try {
             const { data } = await login(formData);
             console.log(data);
+            localStorage.setItem("token", data.token);
             toast.success(data.message);
             return { data };
         } catch (error) {
@@ -85,6 +83,9 @@ const AuthContextProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 };
+
+
+
 export default AuthContextProvider;
 export { AuthContext };
 

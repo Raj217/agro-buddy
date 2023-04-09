@@ -1,11 +1,13 @@
 import API from './api'
 
-export const register = (cropDetails, user) => API.post('/register', cropDetails, user);
+export const register = (cropDetails, user) => API.post('/crop', cropDetails, user);
+export const getCropDetails = (cropDetails, token) => API.get(`/crop?name=${cropDetails}`, {
+    headers: { "Content-Type": "application/json", "authorization": localStorage.getItem("token") }
 
-export const getCropDetails = (cropDetails, user) => API.get('/get', cropDetails, user);
+});
 
-export const updateCropDetails = (cropDetails, user) => API.put('/update-details', cropDetails, user);
+export const updateCropDetails = (cropDetails, user) => API.put('/crop', cropDetails, user);
 
-export const deleteCropDetails = (cropDetails, user) => API.delete('/delete', cropDetails, user);
+export const deleteCropDetails = (cropDetails, user) => API.delete('/crop', cropDetails, user);
 
-export const updateCrop = (crop, user) => API.put('/update', crop, user);
+export const updateCrop = (crop, user) => API.put('/crop/update', crop, user);
