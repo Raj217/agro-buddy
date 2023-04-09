@@ -28,7 +28,12 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(user);
+    try {
+      await login(user);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
