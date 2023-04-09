@@ -77,8 +77,8 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
     email,
     otpToken,
     mailValidity === true
-      ? "Your mail verification OTP is"
-      : "Your reset password OTP is"
+      ? "Your mail verification OTP is "
+      : "Your reset password OTP is "
   );
 };
 
@@ -121,16 +121,6 @@ export const signUp = async (inputUser) => {
     role: role,
   });
   await generateAndSendOtp(email);
-
-  const token = jwt.sign(
-    { email: result.email, role: role, isEmailVerified: false },
-    TOKEN_KEY,
-    {
-      expiresIn: "20d",
-    }
-  );
-
-  return { token };
 };
 
 export const getUser = async (email) => {
