@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import * as Pallete from '../../../configs/pallete'
 import './styles.css';
 
-function CustomTextField({ type = "text", height = 50, width = 500, hasButton=false, buttonText }) {
+function CustomTextField({ type = "text", height = 50, width = 500, hasButton = false, buttonText }) {
 
   const [focus, setFocus] = React.useState(false);
 
@@ -16,17 +16,17 @@ function CustomTextField({ type = "text", height = 50, width = 500, hasButton=fa
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
-      borderColor: (!focus) ? Pallete.colorAccent : Pallete.colorAccentDark,
+      borderColor: (!focus) ? Pallete.accent : Pallete.accentDark,
       borderWidth: (!focus) ? 2.5 : 3.5,
-      }}>
+    }}>
       <input
         type={type}
-        style={{ height: height, width: width,}}
+        style={{ height: height, width: width, }}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
       />
       {(hasButton) && (
-        <Button variant="contained" style={{boxShadow: 0, height: height, width: height*2.5, borderRadius: '45px'}} >{buttonText}</Button>
+        <Button variant="contained" style={{ boxShadow: 0, height: height, width: height * 2.5, borderRadius: '45px' }} >{buttonText}</Button>
       )}
     </form>
   );

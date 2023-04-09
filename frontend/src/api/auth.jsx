@@ -1,15 +1,15 @@
 import API from './api'
 
-export const signup = (user) => API.post('/sign-up', user, {
+export const signup = (user) => API.post('/auth/sign-up', user, {
     headers: { "Content-Type": "application/json" }
 });
 
-export const login = (user) => API.post('/login', user);
+export const login = (user) => API.post('/auth/login', user);
 
-export const getUser = (id) => API.get(`/user/${id}`);
+export const getUser = (id) => API.get(`/auth/user/${id}`);
 
-export const forgotPassword = (email) => API.post('/forgot-password', email);
+export const forgotPassword = (email) => API.post('/auth/forgot-password', email);
 
-export const resetPassword = (email) => API.post('/reset-password', email);
+export const resetPassword = (email) => API.post('/auth/reset-password', email);
 
-export const generateOtp = (email) => API.post('/generate-otp', email);
+export const generateOtp = (email) => API.post('/auth/generate-otp', email);

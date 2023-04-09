@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/auth';
 function SignUp(props) {
     const { classes } = props;
 
-    const { login, signup } = useContext(AuthContext);
+    const { signup } = useContext(AuthContext);
 
 
     const [firstName, setFirstName] = useState('');
@@ -28,9 +28,7 @@ function SignUp(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // await login(user);
         await signup(user);
-
         handleClose();
     }
 
