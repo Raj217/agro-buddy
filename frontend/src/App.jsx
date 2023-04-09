@@ -5,6 +5,7 @@ import About from './pages/about/About'
 import Navbar from "./components/navbar/Navbar";
 import SignIn from "./components/forms/SignIn";
 import SignUp from "./components/forms/SignUp";
+import GenerateOtp from "./pages/Otp/GenerateOtp";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/otp" element={<GenerateOtp />} />
       </Routes>
     </div>
   );
