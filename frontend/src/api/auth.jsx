@@ -4,7 +4,9 @@ export const signup = (user) => API.post('/sign-up', user, {
     headers: { "Content-Type": "application/json" }
 });
 
-export const login = (user) => API.post('/login', user);
+export const login = (user) => API.post('/login', user, {
+    headers: { "Content-Type": "application/json" }
+});
 
 export const getUser = (id) => API.get(`/user/${id}`);
 

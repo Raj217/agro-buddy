@@ -73,7 +73,7 @@ function Navbar() {
             //   borderRadius: '10px',
             //   fontSize: '12px',
             // }} variant="outline">SignUp</Button>
-            <SignUp />
+            null
           )}
         </div>
         <div

@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { Typography, Stack, Button, Grid, TextField, Container, Box } from '@mui/material';
+import { Typography, Stack, Button, Grid, Box } from '@mui/material';
 import Banner from '../../../../components/general/img/Banner';
-import SignUp from '../../../../components/forms/SignUp';
 import { AuthContext } from '../../../../context/auth';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
 function Hero() {
   const { loggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <Box paddingTop='80px' >
       <Grid container rowSpacing='30px'>
@@ -29,7 +30,7 @@ function Hero() {
           { loggedIn ? (
             <Button variant='contained' >Explore</Button>
           ) : (
-            <SignUp />
+            <Button variant='contained' onClick={()=>navigate('/sign-in')}>Sign In</Button>
           ) }
         </Grid>
         <Grid

@@ -12,8 +12,6 @@ const AuthContextProvider = ({ children }) => {
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
-            console.log(data);
-            localStorage.setItem('token', data.token);
             return { data };
         } catch (error) {
             console.log(error);
