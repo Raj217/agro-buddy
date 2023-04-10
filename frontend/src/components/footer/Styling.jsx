@@ -1,5 +1,5 @@
 
-export const styles = {
+export const Wrapper = {
 
     root: {
         display: 'flex',

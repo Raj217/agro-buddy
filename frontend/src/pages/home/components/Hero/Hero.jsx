@@ -1,10 +1,13 @@
-import React from 'react';
-import { Typography, Stack, Button, Grid, TextField, Container, Box } from '@mui/material';
+import React, { useContext } from 'react';
+import { Typography, Stack, Button, Grid, Box } from '@mui/material';
 import Banner from '../../../../components/general/img/Banner';
+import { AuthContext } from '../../../../context/auth';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
-
 function Hero() {
+  const { loggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <Box paddingTop='80px' >
       <Grid container rowSpacing='30px'>
@@ -24,7 +27,11 @@ function Hero() {
           >
             we believe Future of Food is here
           </Typography>
-          <Button variant='contained'>Sign Up</Button>
+          { loggedIn ? (
+            <Button variant='contained' >Explore</Button>
+          ) : (
+            <Button variant='contained' onClick={()=>navigate('/sign-in')}>Sign In</Button>
+          ) }
         </Grid>
         <Grid
           sx={{ paddingLeft: { lg: '120px' } }}
