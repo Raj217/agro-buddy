@@ -46,7 +46,7 @@ export default function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Reset Password?
                     </Typography>
                     <Box
                         component="form"
@@ -58,11 +58,11 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
+                            name="password"
+                            label="New Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                         />
                         <TextField
@@ -70,7 +70,7 @@ export default function SignIn() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Confirm New Password"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -87,20 +87,9 @@ export default function SignIn() {
                                 "&:hover": { backgroundColor: Palette.accentDark },
                             }}
                         >
-                            Sign In
+                            Submit
                         </Button>
-                        <Grid container>
-                            <Grid item xs style={{ cursor: 'pointer' }}>
-                                <Typography variant="body2" color={Palette.triadic1}>
-                                    Forgot password?
-                                </Typography>
-                            </Grid>
-                            <div style={{ cursor: 'pointer' }} onClick={() => navigate("/sign-up")}>
-                                <Typography variant="body2" color={Palette.triadic1}>
-                                    Don't have an account? Sign Up
-                                </Typography>
-                            </div>
-                        </Grid>
+
                     </Box>
                 </Box>
             </Container>

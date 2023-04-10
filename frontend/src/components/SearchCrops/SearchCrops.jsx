@@ -15,6 +15,7 @@ function SearchCrops() {
 
     const handleSearch = async () => {
         if (search) {
+            console.log(search);
             const { data } = await getCropDetails(search);
             setCropsData(data.crops);
         }

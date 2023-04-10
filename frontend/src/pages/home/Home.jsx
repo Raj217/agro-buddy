@@ -9,6 +9,7 @@ import SearchCrops from '../../components/SearchCrops/SearchCrops';
 import SearchCard from '../../components/SearchCrops/SearchCard';
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
+import Charts from '../../components/content/Charts';
 
 function Home() {
   return (
@@ -17,10 +18,12 @@ function Home() {
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      {/* <SearchCrops />
-      <SearchCard /> */}
-      {/* <ForgotPassword /> */}
-      <ResetPassword />
+      <SearchCrops />
+      {/* <SearchCard />  */}
+      {/* <ForgotPassword />
+      <ResetPassword /> */}
+      {/* <Footer /> */}
+      <Charts />
     </div>
   )
 }

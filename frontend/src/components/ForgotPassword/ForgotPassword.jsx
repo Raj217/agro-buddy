@@ -65,7 +65,7 @@ function ForgotPassword() {
                                 "&:hover": { backgroundColor: Palette.accentDark },
                             }}
                         >
-                            Submit
+                            Generate OTP
                         </Button>
 
                     </Box>
