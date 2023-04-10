@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "add-crops": "python scripts/main.py"
+    "add-crops": "python scripts/crops-db/main.py"
   },
   "keywords": [],
   "author": "",
