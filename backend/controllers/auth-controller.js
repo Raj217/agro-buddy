@@ -28,11 +28,10 @@ export const generateAndSendOtp = async (req, res, next) => {
 
 export const signUp = async (req, res, next) => {
   AuthService.signUp(req.body)
-    .then((token) => {
+    .then(() => {
       res.status(ExceptionCodes.CREATED).json({
         message:
           "Welcome aboard, A verification mail has been sent to your mail",
-        ...token,
       });
     })
     .catch((err) => {
@@ -82,10 +81,10 @@ export const forgotPassword = async (req, res, next) => {
 export const validateOtp = async (req, res, next) => {
   const { email, otp } = req.body;
   AuthService.validateOtp(email, otp)
-    .then(() => {
+    .then((token) => {
       res
         .status(ExceptionCodes.REQUEST_FULFILLED)
-        .json({ message: "OTP Validated successfully" });
+        .json({ message: "OTP Validated successfully", ...token });
     })
     .catch((err) => {
       next(err);

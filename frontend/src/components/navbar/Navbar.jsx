@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useTheme } from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import { useTheme, Avatar } from "@mui/material";
+import SignUp from "../forms/SignUp";
 import * as Palette from "../../configs/pallete";
-// import { gr }
+import { AuthContext } from "../../context/auth";
 import {
   AppBar,
   Toolbar,
@@ -28,7 +30,9 @@ function Navbar() {
   const navigate = useNavigate();
   const theme = useTheme();
   const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
+  const { loggedIn } = useContext(AuthContext);
   // const isMobile = theme.breakpoints.down('sm')
+  React.useEffect(() => {},[loggedIn]);
 
   return (
     <AppBar position="static" elevation={0}>
@@ -60,6 +64,20 @@ function Navbar() {
               ></div>
             </li>
           ))}
+          {loggedIn ? (
+            <Avatar>
+              <PersonIcon/>
+            </Avatar>
+          ) : (
+            // <Button sx={{
+            //   height: '40px',
+            //   width: '70px',
+            //   color: Palette.accent,
+            //   borderRadius: '10px',
+            //   fontSize: '12px',
+            // }} variant="outline">SignUp</Button>
+            null
+          )}
         </div>
         <div
           className="mobileview"

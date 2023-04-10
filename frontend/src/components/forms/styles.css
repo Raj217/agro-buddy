@@ -1,6 +1,19 @@
 .App {
     height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+}
+
+.signup-form {
+    width: 300px;
+}
+
+.signup-form div {
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form div .textfield {
+    margin: 0 10px;
 }

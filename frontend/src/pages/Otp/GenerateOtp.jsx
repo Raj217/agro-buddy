@@ -1,11 +1,9 @@
-import * as React from "react";
+import React from "react";
+import { MuiOtpInput } from "mui-one-time-password-input";
 import {
   Avatar,
   Button,
   CssBaseline,
-  TextField,
-  Link,
-  Grid,
   Box,
   Typography,
   Container,
@@ -15,21 +13,24 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
-import { forgotPassword } from "../../api";
+import { UserContext } from "../../context/user";
 
 const theme = createTheme();
 
-function ForgotPassword() {
-  const [user, setUser] = React.useState({
-    email: "",
-  });
+function GenerateOtp() {
+  const [otp, setOtp] = React.useState("");
+  const { user } = React.useContext(UserContext);
+  const { validateOtp } = React.useContext(AuthContext);
   const navigate = useNavigate();
-  const { forgotPassword } = React.useContext(AuthContext);
-
+  const handleChange = (newValue) => {
+    setOtp(newValue);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await forgotPassword(user);
-  };
+    await validateOtp(user.email, otp);
+    console.log(user.email, otp);
+    navigate('/');
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -45,24 +46,23 @@ function ForgotPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Forgot Password
+            Enter your OTP
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+          >
+            <MuiOtpInput
+              value={otp}
+              onChange={handleChange}
+              length={6}
+              display="flex"
+              border="none"
             />
-
-
             <Button
-              onClick={handleSubmit}
+              type="submit"
               fullWidth
               variant="contained"
               sx={{
@@ -72,7 +72,7 @@ function ForgotPassword() {
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
             >
-              Generate OTP
+              Verify
             </Button>
           </Box>
         </Box>
@@ -81,4 +81,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default GenerateOtp;

@@ -14,7 +14,7 @@ import Charts from '../../components/content/Charts';
 function Home() {
   return (
     <div>
-      {/* <Hero /> */}
+      <Hero />
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}

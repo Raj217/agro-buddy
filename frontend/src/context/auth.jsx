@@ -1,16 +1,15 @@
-import { useContext, createContext } from 'react'
-import { signup, login, getUser, generateOtp, forgotPassword } from '../api'
-// import { ToastProvider, useToasts } from 'react-toast-notifications';
+import { createContext } from 'react'
+import { signup, login, getUser, generateOtp, forgotPassword, validateOtp } from '../api'
 import toast from 'react-hot-toast';
 const AuthContext = createContext();
 
 
 const AuthContextProvider = ({ children }) => {
+    let loggedIn = localStorage.getItem('token') !== null;
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
             console.log(data);
-            localStorage.setItem("token", data.token);
             toast.success(data.message);
             return { data };
         } catch (error) {
@@ -71,13 +70,30 @@ const AuthContextProvider = ({ children }) => {
         }
     };
 
+    const verifyOtp = async (email, otp) => {
+        try {
+            const { data } = await validateOtp(email, otp);
+            console.log(data);
+            localStorage.setItem('token', data.token);
+            loggedIn = true;
+            toast.success(data.message);
+            return { data };
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+
+        }
+    };
+
     return (
         <AuthContext.Provider value={{
+            loggedIn,
             login: logIn,
             signup: signUp,
             getUserDetails: getUserDetails,
             generateOtp: generateOtpandMail,
             forgotPassword: forgotpassword,
+            validateOtp: verifyOtp,
         }}>
             {children}
         </AuthContext.Provider>
