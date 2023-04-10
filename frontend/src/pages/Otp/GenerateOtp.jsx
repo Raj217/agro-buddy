@@ -21,6 +21,10 @@ function GenerateOtp() {
   const handleChange = (newValue) => {
     setOtp(newValue);
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(otp);
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -41,6 +45,7 @@ function GenerateOtp() {
           <Box
             component="form"
             noValidate
+            onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
             <MuiOtpInput

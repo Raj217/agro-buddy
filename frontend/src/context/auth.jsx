@@ -6,11 +6,11 @@ const AuthContext = createContext();
 
 
 const AuthContextProvider = ({ children }) => {
+    let loggedIn = localStorage.getItem('token');
     const signUp = async (formData) => {
         try {
             const { data } = await signup(formData);
             console.log(data);
-            localStorage.setItem("token", data.token);
             toast.success(data.message);
             return { data };
         } catch (error) {
