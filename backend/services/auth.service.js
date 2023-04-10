@@ -77,8 +77,8 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
     email,
     otpToken,
     mailValidity === true
-      ? "Your mail verification OTP is"
-      : "Your reset password OTP is"
+      ? "Your mail verification OTP is "
+      : "Your reset password OTP is "
   );
 };
 
@@ -113,7 +113,7 @@ export const signUp = async (inputUser) => {
   /// New user thus hash the password
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-  const result = await User.create({
+  await User.create({
     email,
     password: hashedPassword,
     firstName: firstName,
@@ -121,16 +121,6 @@ export const signUp = async (inputUser) => {
     role: role,
   });
   await generateAndSendOtp(email);
-
-  const token = jwt.sign(
-    { email: result.email, role: role, isEmailVerified: false },
-    TOKEN_KEY,
-    {
-      expiresIn: "20d",
-    }
-  );
-
-  return { token };
 };
 
 export const getUser = async (email) => {
@@ -249,6 +239,20 @@ export const validateOtp = async (email, otp) => {
   await Otp.findByIdAndDelete({ _id: otpToken._id });
   /// Update user state with email is verified
   await User.findOneAndUpdate({ email }, { isEmailVerified: true });
+
+  const token = jwt.sign(
+    {
+      email: existingUser.email,
+      role: existingUser.role,
+      isEmailVerified: true,
+    },
+    TOKEN_KEY,
+    {
+      expiresIn: "20d",
+    }
+  );
+
+  return { token };
 };
 
 // TODO: Implement change password method

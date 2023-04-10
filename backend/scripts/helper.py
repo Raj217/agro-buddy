@@ -3,7 +3,6 @@ from sys import platform
 
 
 class Helper:
-    # 
     @staticmethod
     def activate_virtual_env():
         try:
