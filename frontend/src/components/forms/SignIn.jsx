@@ -88,6 +88,7 @@ export default function SignIn() {
               <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
+                onChange={(e)=>setUser({ ...user, password: e.target.value })}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

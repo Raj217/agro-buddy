@@ -55,9 +55,9 @@ function SearchCrops() {
         </Button>
       </Box>
       <div>
-        {cropsData.map((crop) => (
+        {/* {cropsData.map((crop) => (
           <SearchCard key={crop._id} data={crop} />
-        ))}
+        ))} */}
       </div>
     </Stack>
   );

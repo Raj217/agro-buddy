@@ -1,6 +1,5 @@
-import { useContext, createContext } from 'react'
+import { createContext } from 'react'
 import { signup, login, getUser, generateOtp, forgotPassword, validateOtp } from '../api'
-// import { ToastProvider, useToasts } from 'react-toast-notifications';
 import toast from 'react-hot-toast';
 const AuthContext = createContext();
 
