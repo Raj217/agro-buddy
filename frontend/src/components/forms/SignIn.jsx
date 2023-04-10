@@ -2,15 +2,21 @@ import * as React from "react";
 import {
   Avatar,
   Button,
+  FormControl,
   CssBaseline,
   TextField,
-  Link,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
   Grid,
   Box,
   Typography,
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
@@ -25,7 +31,12 @@ export default function SignIn() {
   });
   const navigate = useNavigate();
   const { login } = React.useContext(AuthContext);
+  const [showPassword, setShowPassword] = React.useState(false);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -51,7 +62,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-          Sign in
+            Sign in
           </Typography>
           <Box
             component="form"
@@ -70,17 +81,28 @@ export default function SignIn() {
               autoFocus
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
-            />
+            <FormControl variant="outlined" required fullWidth>
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
             <Button
               type="submit"
               fullWidth

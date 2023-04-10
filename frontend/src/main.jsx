@@ -6,8 +6,8 @@ import { ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./context/auth";
 import CropContextProvider from "./context/crops";
-import { Toaster } from 'react-hot-toast';
-
+import UserContextProvider from "./context/user";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -15,9 +15,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <AuthContextProvider>
           <CropContextProvider>
-            <App />
-            <Toaster position="top-center"
-              reverseOrder={false} />
+            <UserContextProvider>
+              <App />
+              <Toaster position="top-center" reverseOrder={false} />
+            </UserContextProvider>
           </CropContextProvider>
         </AuthContextProvider>
       </BrowserRouter>

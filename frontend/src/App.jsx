@@ -8,6 +8,7 @@ import SignUp from "./components/forms/SignUp";
 import GenerateOtp from "./pages/Otp/GenerateOtp";
 import Fotter from "./components/footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import Charts from "./components/contents/Charts";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       {/* <Fotter/> */}
+      {/* <Charts /> */}
     </div>
   );
 }

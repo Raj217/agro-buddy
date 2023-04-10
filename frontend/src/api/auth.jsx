@@ -13,3 +13,5 @@ export const forgotPassword = (email) => API.post('/auth/forgot-password', email
 export const resetPassword = (email) => API.post('/auth/reset-password', email);
 
 export const generateOtp = (email) => API.post('/auth/generate-otp', email);
+
+export const validateOtp = (email, otp) => API.post('/auth/validate-otp', {'email': email, 'otp': otp});

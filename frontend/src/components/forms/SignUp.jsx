@@ -2,38 +2,53 @@ import * as React from "react";
 import {
   Avatar,
   Button,
+  FormControl,
   CssBaseline,
   TextField,
-  Link,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
   Grid,
   Box,
   Typography,
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
+import { UserContext } from "../../context/user";
+import toast from 'react-hot-toast';
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const [user, setUser] = React.useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    role: 'USER'
-  });
+  const [confirmPassword, setConfirmPassword] = React.useState('')
+  const { user, setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
   const { signup } = React.useContext(AuthContext);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log(user);
-    await signup(user);
+    if (confirmPassword!== user.password) {
+      toast.error('Passwords do not match');
+      return;
+    }
+    if (user.firstName && user.lastName && user.email && user.password) {
+      console.log(user);
+      await signup(user);
+      navigate("/otp");
+    }
   };
 
   return (
@@ -69,7 +84,9 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  onChange={(e)=>setUser({ ...user, firstName: e.target.value })}
+                  onChange={(e) =>
+                    setUser({ ...user, firstName: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -80,7 +97,9 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  onChange={(e)=>setUser({ ...user, lastName: e.target.value })}
+                  onChange={(e) =>
+                    setUser({ ...user, lastName: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -91,19 +110,46 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={(e)=>setUser({ ...user, email: e.target.value })}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl variant="outlined" required fullWidth>
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    onChange={(e)=>setUser({ ...user, password: e.target.value })}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Comfirm Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  onChange={(e)=>setUser({ ...user, password: e.target.value })}
+                  onChange={(e) =>
+                    setConfirmPassword(e.target.value)
+                  }
                 />
               </Grid>
             </Grid>
@@ -121,7 +167,10 @@ export default function SignUp() {
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
-              <div style={{cursor: 'pointer'}} onClick={() => navigate("/sign-in")}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/sign-in")}
+              >
                 <Typography color={Palette.triadic1} variant="body2">
                   Already have an account? Sign in
                 </Typography>
