@@ -60,6 +60,7 @@ function ForgotPassword() {
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
 
+
             <Button
               onClick={handleSubmit}
               fullWidth
