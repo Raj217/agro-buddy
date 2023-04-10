@@ -108,8 +108,6 @@ export const getCropDetails = async (cropDetails, user) => {
     fromRainfallLevel,
     toRainfallLevel,
   } = cropDetails;
-  if (user.role !== UserRoles.ADMIN)
-    throw new Exception("Unauthorized", ExceptionCodes.UNAUTHORIZED);
   let query = {},
     cropQuery = [];
 

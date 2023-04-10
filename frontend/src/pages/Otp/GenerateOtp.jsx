@@ -13,17 +13,23 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
+import { UserContext } from "../../context/user";
 
 const theme = createTheme();
 
 function GenerateOtp() {
   const [otp, setOtp] = React.useState("");
+  const { user } = React.useContext(UserContext);
+  const { validateOtp } = React.useContext(AuthContext);
+  const navigate = useNavigate();
   const handleChange = (newValue) => {
     setOtp(newValue);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(otp);
+    await validateOtp(user.email, otp);
+    console.log(user.email, otp);
+    navigate('/');
   }
   return (
     <ThemeProvider theme={theme}>

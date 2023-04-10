@@ -32,6 +32,7 @@ function Navbar() {
   const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
   const { loggedIn } = useContext(AuthContext);
   // const isMobile = theme.breakpoints.down('sm')
+  React.useEffect(() => {},[loggedIn]);
 
   return (
     <AppBar position="static" elevation={0}>
@@ -64,7 +65,9 @@ function Navbar() {
             </li>
           ))}
           {loggedIn ? (
-            <Avatar src={PersonIcon} />
+            <Avatar>
+              <PersonIcon/>
+            </Avatar>
           ) : (
             // <Button sx={{
             //   height: '40px',

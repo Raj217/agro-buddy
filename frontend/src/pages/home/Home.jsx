@@ -17,8 +17,8 @@ function Home() {
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      {/* <SearchCrops />
-      <SearchCard /> */}
+      <SearchCrops />
+      {/* <SearchCard /> */}
       {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
     </div>
