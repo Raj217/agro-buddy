@@ -10,15 +10,14 @@ function SearchCrops() {
 
   const { getCropDetails } = useContext(CropContext);
 
-    const handleSearch = async () => {
-        if (search) {
-            console.log(search);
-            const { data } = await getCropDetails(search);
-            setCropsData(data.crops);
-        }
-
+  const handleSearch = async () => {
+    if (search) {
+      const { data } = await getCropDetails(search);
+      setCropsData(data);
     }
-  };
+
+  }
+
 
   return (
     <Stack p="20px" alignItems="center" justifyContent="center" mt="37px">
@@ -38,6 +37,9 @@ function SearchCrops() {
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
           placeholder="Search Crops"
           type="text"
+
+          onKeyPress={handleSearch}
+
         />
 
         <Button
