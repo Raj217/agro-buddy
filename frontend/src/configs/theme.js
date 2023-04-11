@@ -34,6 +34,7 @@ export const theme = createTheme({
   typography: {
     allVariants: {
       color: Pallete.dark,
+      fontFamily: 'Epilogue',
     },
   },
   components: {
