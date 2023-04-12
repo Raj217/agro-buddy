@@ -34,23 +34,23 @@ class API:
             print(res.json())
             exit(0)
 
-    def create_crop(self, name: str, images: list, details: pd.Series):
+    def create_crop(self, name: str, images: list, description: str, details: pd.Series):
         res = requests.post(
             self._backend_url+self._create_crop_path,
             headers={"content-type": "application/json", "authorization": self._token},
-            json=self._to_dict({"name": name, "images": images, "details": details})
+            json=self._to_dict({"name": name, "images": images, "description": description, "details": details})
         )
         if res.status_code < 200 or res.status_code >= 300:
             print(res.json())
             exit(0)
 
     def read_data(self):
-        self._details_df = pd.read_excel("scripts/crops.xlsx", sheet_name=0)
-        self._images_df = pd.read_excel("scripts/crops.xlsx", sheet_name=1)
+        self._details_df = pd.read_excel("scripts/crops-db/crops.xlsx", sheet_name=0)
+        self._images_df = pd.read_excel("scripts/crops-db/crops.xlsx", sheet_name=1)
 
     @staticmethod
     def _to_dict(data: dict) -> dict:
-        out = {"name": data["name"], "images": data['images'], "details": {}}
+        out = {"name": data["name"], "images": data['images'], "description": data["description"], "details": {}}
 
         if data["details"].notnull().any():
             if not pd.isna(data["details"]["Nitrogen"]):
@@ -79,19 +79,22 @@ class API:
             crop = self._details_df.iloc[details_index]
             current_crop = crop.Crop
             images = []
+            description=""
             while image_index < len(self._images_df) and self._images_df.iloc[image_index, 0] == current_crop:
                 if not pd.isna(self._images_df.iloc[image_index, 1]):
                     images.append(self._images_df.iloc[image_index, 1])
+                if not pd.isna(self._images_df.iloc[image_index, 2]):
+                    description = self._images_df.iloc[image_index, 2]
                 image_index += 1
 
             Helper.print_progress_bar(iteration=iteration, total=total)
-            self.create_crop(crop.Crop, images, crop.iloc[1:-1])
+            self.create_crop(crop.Crop, images, description, crop.iloc[1:-1])
             iteration += 1
             details_index += 1
             while details_index < len(self._details_df) and self._details_df.iloc[details_index, 0] == current_crop:
                 Helper.print_progress_bar(iteration=iteration, total=total)
                 iteration += 1
                 crop = self._details_df.iloc[details_index]
-                self.create_crop(crop.Crop, [], crop.iloc[1:-1])
+                self.create_crop(crop.Crop, [], "", crop.iloc[1:-1])
                 details_index += 1
         Helper.print_progress_bar(iteration=iteration, total=total, print_end="\n")

@@ -6,7 +6,7 @@ class Helper:
     @staticmethod
     def activate_virtual_env():
         try:
-            os.system("cd scripts/venv/Scripts")
+            os.system("cd scripts/crops-db/venv/Scripts")
             os.system("activate")
             print("Activated Virtual Environment")
         except:
@@ -24,7 +24,7 @@ class Helper:
 
     def install_requirements(self):
         self.ask_for_proxy()
-        os.system(f"python -m pip {f'--proxy {self.proxy} ' if len(self.proxy) > 0 else ''}install -r scripts/requirements.txt")
+        os.system(f"python -m pip {f'--proxy {self.proxy} ' if len(self.proxy) > 0 else ''}install -r scripts/crops-db/requirements.txt")
 
     @staticmethod
     # Print iterations progress
