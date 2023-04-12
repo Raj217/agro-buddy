@@ -1,11 +1,12 @@
 import { Schema, model } from "mongoose";
 
-const Image = Schema(
+const CropData = Schema(
   {
     name: { type: String },
     images: { type: [String] },
+    description: { type: String },
   },
   { timestamps: true }
 );
 
-export default model("Image", Image);
+export default model("CropData", CropData);

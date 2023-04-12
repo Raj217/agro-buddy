@@ -224,12 +224,14 @@ Example:
 **details.humidity**: optional | number <br>
 **details.rainfall**: optional | number <br>
 **images**: optional | [String] <br>
+**description**: optional | String <br>
 
 <h2>Logic:</h2>
 
 - if name found all the data will be saved to that else will create and store
 - images will be concatenated (unique urls)
 - details will be stored as an object and will be concatenated with previous ones.
+- if description is already present for the crop it overwrites the description.
 <br>
 </details>
 
