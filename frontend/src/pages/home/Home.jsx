@@ -19,19 +19,10 @@ function Home() {
   return (
     <div>
       <Hero />
-      {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
       <SearchCrops />
-      {/* <SearchCard />  */}
-      {/* <ForgotPassword />
-      <ResetPassword /> */}
       {/* <Footer /> */}
-
-      <Temperature />
-      <NPPData />
-      <TempVsRainfall />
-      <PhVsRainfall />
 
     </div>
   )
