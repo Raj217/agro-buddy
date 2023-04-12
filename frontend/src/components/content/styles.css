@@ -1,0 +1,12 @@
+.canvas-container {
+    height: 30em;
+    width: 160vw;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .canvas-container {
+        height: auto;
+        width: auto;
+    }
+}
