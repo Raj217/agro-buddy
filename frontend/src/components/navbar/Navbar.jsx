@@ -12,7 +12,6 @@ import {
   Toolbar,
   Typography,
   CssBaseline,
-  Button,
 } from "@mui/material";
 import Logo from "../../assets/logo.svg";
 import "./Navbar.css";
@@ -32,12 +31,12 @@ function Navbar() {
   const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
   const { loggedIn } = useContext(AuthContext);
   // const isMobile = theme.breakpoints.down('sm')
-  React.useEffect(() => {},[loggedIn]);
+  // React.useEffect(() => {},[loggedIn]);
 
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar style={{ backgroundColor: 'transparent' }} position="static" elevation={0}>
       <CssBaseline />
-      <Toolbar variant="regular">
+      <Toolbar style={{ backgroundColor: 'transparent' }} variant="regular">
         <div variant="h5" fontWeight="bold" className="logo">
           <img
             style={{ height: "26px", width: "175px" }}
@@ -65,7 +64,7 @@ function Navbar() {
             </li>
           ))}
           {loggedIn ? (
-            <Avatar>
+            <Avatar sx={{ display: 'none' }}>
               <PersonIcon/>
             </Avatar>
           ) : (

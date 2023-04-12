@@ -10,13 +10,11 @@ function SearchCrops() {
 
   const { getCropDetails } = useContext(CropContext);
 
-    const handleSearch = async () => {
-        if (search) {
-            console.log(search);
-            const { data } = await getCropDetails(search);
-            setCropsData(data.crops);
-        }
-
+  const handleSearch = async () => {
+    if (search) {
+      console.log(search);
+      const { data } = await getCropDetails(search);
+      setCropsData(data.crops);
     }
   };
 

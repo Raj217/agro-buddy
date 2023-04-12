@@ -13,7 +13,7 @@ import Charts from "./components/contents/Charts";
 function App() {
 
   return (
-    <div >
+    <div className="App">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
