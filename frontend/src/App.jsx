@@ -9,6 +9,7 @@ import GenerateOtp from "./pages/Otp/GenerateOtp";
 import Fotter from "./components/footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
+import Content from "./components/content/Content";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/otp" element={<GenerateOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/content" element={<Content />} />
       </Routes>
     </div>
   );

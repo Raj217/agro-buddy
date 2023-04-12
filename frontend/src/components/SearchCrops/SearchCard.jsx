@@ -45,7 +45,7 @@ function SearchCard({ key, data, search }) {
                 </Typography>
               </CardContent>
               <Stack alignItems="center">
-                <Link to="/details" style={{ textDecoration: "none" }}>
+                <Link to="/content" style={{ textDecoration: "none" }}>
                   <CardActions>
                     <Button size="small">Learn More</Button>
                   </CardActions>

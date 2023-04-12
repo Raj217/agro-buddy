@@ -51,8 +51,8 @@ function NPPData() {
 
 
     return (
-        <Stack width={500} display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px'>
-            <Typography>Nitrogen, Phosphorous and Potassium content</Typography>
+        <Stack width='40%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+            <Typography variant='h5' fontWeight={900}>Nitrogen, Phosphorous and Potassium content</Typography>
             <Pie data={data} />
         </Stack>
     );
