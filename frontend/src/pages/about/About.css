@@ -1,6 +1,18 @@
 *{
     font-family: "epilogue";
 }
+.About-section:before {
+    content: "";
+    position:absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
+    background-image: -moz-linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
+    height:100vh;
+    width:100%;
+    opacity: 0.7;
+}
 .about {
     /* height: 60vh; */
     width: 80vw;
@@ -44,7 +56,6 @@
     /* width: 240px; */
     /* height: fit-content; */
     font-family: "epilogue";
-    margin-top: 2rem;
     font-style: normal;
     font-weight: 600;
     font-size: 64px;
