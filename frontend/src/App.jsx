@@ -23,8 +23,6 @@ function App() {
         <Route path="/otp" element={<GenerateOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
-      {/* <Fotter/> */}
-      {/* <Charts /> */}
     </div>
   );
 }
