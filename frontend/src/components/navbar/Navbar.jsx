@@ -35,9 +35,9 @@ function Navbar() {
   React.useEffect(() => {},[loggedIn]);
 
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar position="static" elevation={0} >
       <CssBaseline />
-      <Toolbar variant="regular">
+      <Toolbar variant="regular" style={{backgroundColor:'#b3db76',boxShadow:' 10px 5px 5px rgb(143, 142, 142)',border:'1px solid black'}} >
         <div variant="h5" fontWeight="bold" className="logo">
           <img
             style={{ height: "26px", width: "175px" }}

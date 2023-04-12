@@ -9,7 +9,7 @@ function Hero() {
   const { loggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
-    <Box paddingTop='80px' >
+    <Box paddingTop='80px' style={{backgroundColor:'#dcedaf'}}>
       <Grid container rowSpacing='30px'>
         <Grid display='flex' flexDirection='column' alignItems='start' justifyContent='center' paddingLeft='100px' item md={6} sm={6} xs={12}  >
           <Typography

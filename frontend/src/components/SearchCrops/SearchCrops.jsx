@@ -18,8 +18,8 @@ function SearchCrops() {
   };
 
   return (
-    <Stack p="20px" alignItems="center" justifyContent="center" mt="37px">
-      <Box position="relative" mb="72px">
+    <Stack p="20px" alignItems="center" justifyContent="center" mt="37px" >
+      <Box position="relative" mb="72px" >
         <TextField
           sx={{
             input: {
@@ -55,9 +55,9 @@ function SearchCrops() {
         </Button>
       </Box>
       <div>
-        {/* {cropsData.map((crop) => (
+        {cropsData.map((crop) => (
           <SearchCard key={crop._id} data={crop} />
-        ))} */}
+        ))}
       </div>
     </Stack>
   );

@@ -4,7 +4,7 @@ import Banner from '../.././components/general/img/Banner';
 import './About.css'
 function About() {
   return (
-    <div>
+    <div className='about1'>
       {/* for image and details  */}
       <h3 className="about_heading">ABOUT US</h3>
       <div className="underline"></div>

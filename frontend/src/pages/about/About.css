@@ -1,6 +1,9 @@
 *{
     font-family: "epilogue";
 }
+.about1{
+    background-image: linear-gradient(to right, #f3f4f0 ,#dcedaf );
+}
 .about {
     /* height: 60vh; */
     width: 80vw;

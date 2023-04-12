@@ -13,7 +13,7 @@ import Charts from "./components/contents/Charts";
 function App() {
 
   return (
-    <div >
+    <div className="app" style={{backgroundColor:'#dcedaf'}}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
