@@ -1,6 +1,6 @@
 import React from 'react';
 import { CropContext } from '../../context/crops';
-import { Box } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 
 import {
     Chart as ChartJS,
@@ -24,23 +24,30 @@ ChartJS.register(
     Legend
 );
 
-function Charts() {
+function Temperature() {
     const { cropData } = React.useContext(CropContext);
-    console.log(cropData?.crops[0]?.name);
+    // console.log(cropData?.crops[0]?.name);
 
     const temperature = cropData?.crops?.map(obj => obj?.temperature);
-    console.log(temperature.length)
+    // console.log(temperature.length)
 
-    const multiplesOfFive = [];
-
-    for (let i = 1; i <= temperature.length; i += (temperature.length / 10)) {
-        multiplesOfFive.push(i);
+    const arr = [];
+    var n = 0;
+    if (temperature.length > 100) {
+        n = temperature.length;
+    }
+    else {
+        n = 100;
+    }
+    for (let i = 1; i <= n; i += 3) {
+        arr.push(i);
     }
 
-    const labels = multiplesOfFive;
+    const labels = arr;
 
 
     const data = {
+
         labels,
         datasets: [
             {
@@ -63,14 +70,15 @@ function Charts() {
                 display: true,
             },
         },
+
     };
 
     return (
-        // <Box width={1400} display='flex' justifyContent='center' alignItems='center'>
-        <Line width={100}
-            height={50} data={data} options={options} />
-        // </Box>
+        <Stack width={1100} margin='auto' >
+            <Line data={data} options={options} />
+        </Stack>
+
     )
 }
 
-export default Charts
+export default Temperature

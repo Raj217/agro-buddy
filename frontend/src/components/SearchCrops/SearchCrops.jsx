@@ -17,6 +17,14 @@ function SearchCrops() {
     }
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      const { data } = getCropDetails(search);
+      setCropsData(data);
+    }
+  }
+
+
 
   return (
     <Stack p="20px" alignItems="center" justifyContent="center" mt="37px">
@@ -37,7 +45,7 @@ function SearchCrops() {
           placeholder="Search Crops"
           type="text"
 
-          onKeyPress={handleSearch}
+          onKeyPress={handleKeyDown}
 
         />
 
