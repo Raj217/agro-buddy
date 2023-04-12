@@ -22,8 +22,8 @@ function Home() {
       {/* <SearchCard />  */}
       {/* <ForgotPassword />
       <ResetPassword /> */}
-      {/* <Footer /> */}
       {/* <Charts /> */}
+      <Footer />
     </div>
   )
 }

@@ -17,7 +17,7 @@ const cards = [1, 2, 3, 4, 5, 6];
 function SearchCard({ key, data, search }) {
   console.log(data);
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" >
       <Grid container spacing={2}>
         {cards.map(() => (
           <Grid item xs={12} sm={6} md={4}>
