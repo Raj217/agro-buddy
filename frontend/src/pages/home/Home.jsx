@@ -23,7 +23,7 @@ function Home() {
       {/* <ForgotPassword />
       <ResetPassword /> */}
       {/* <Footer /> */}
-      <Charts />
+      {/* <Charts /> */}
     </div>
   )
 }

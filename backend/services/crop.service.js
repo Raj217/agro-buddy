@@ -1,7 +1,8 @@
 import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
+import { spawn } from "child_process";
 import Crop from "../models/crop.js";
-import Images from "../models/images.js";
+import CropData from "../models/crop-data.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
@@ -21,6 +22,7 @@ export const registerCropDetails = async (cropDetails, user) => {
     humidity,
     pH,
     rainfall,
+    description,
   } = cropDetails;
 
   if (!name) throw new Exception("Name is required", ExceptionCodes.BAD_INPUT);
@@ -38,19 +40,27 @@ export const registerCropDetails = async (cropDetails, user) => {
   if (pH) cropNewDetails["pH"] = pH;
   if (rainfall) cropNewDetails["rainfall"] = rainfall;
 
-  if (imgs.length > 0) {
-    const cropImages = await Images.findOne({ name }).collation({
-      strength: 2,
-      locale: "en",
-    });
-    if (cropImages !== null) {
-      await Images.findByIdAndUpdate(
-        { _id: cropImages._id },
-        { images: [...cropImages.images, ...imgs] }
-      );
-    } else {
-      await Images.create({ name, images: imgs });
+  const cropImages = await CropData.findOne({ name }).collation({
+    strength: 2,
+    locale: "en",
+  });
+
+  let data = {};
+  if (cropImages !== null) {
+    let images = cropImages.images;
+    if (imgs.length > 0) {
+      images = [...images, ...imgs];
     }
+    data = { images };
+    if (description) data = { ...data, description };
+    await CropData.findByIdAndUpdate({ _id: cropImages._id }, data);
+  } else {
+    data = { name };
+    if (imgs.length > 0) {
+      data = { ...data, images: imgs };
+    }
+    if (description) data = { ...data, description };
+    await CropData.create(data);
   }
 
   await Crop.create(cropNewDetails);
@@ -148,7 +158,7 @@ export const getCropDetails = async (cropDetails, user) => {
   for (var crop of crops) {
     cropNames.add(crop.name);
   }
-  const images = await Images.find({ name: { $in: [...cropNames] } });
+  const images = await CropData.find({ name: { $in: [...cropNames] } });
   return { crops, images };
 };
 
@@ -214,7 +224,7 @@ export const updateCrop = async (vals, user) => {
         "Please specify the crop name",
         ExceptionCodes.BAD_INPUT
       );
-    await Images.findOneAndUpdate({ name: name }, { $push: { images } });
+    await CropData.findOneAndUpdate({ name: name }, { $push: { images } });
   }
 };
 
@@ -230,7 +240,7 @@ export const updateImage = async (vals, user) => {
   if (name === undefined)
     throw new Exception("Name is required.", ExceptionCodes.BAD_INPUT);
 
-  const img = await Images.findOne({ name }).collation({
+  const img = await CropData.findOne({ name }).collation({
     strength: 2,
     locale: "en",
   });
@@ -241,6 +251,6 @@ export const updateImage = async (vals, user) => {
   };
   if (img) {
     img.images = images;
-    await Images.findOneAndReplace({ _id: img._id }, updateObject);
+    await CropData.findOneAndReplace({ _id: img._id }, updateObject);
   }
 };

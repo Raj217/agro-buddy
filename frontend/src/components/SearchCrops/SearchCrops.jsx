@@ -15,7 +15,6 @@ function SearchCrops() {
       const { data } = await getCropDetails(search);
       setCropsData(data);
     }
-
   }
 
 
