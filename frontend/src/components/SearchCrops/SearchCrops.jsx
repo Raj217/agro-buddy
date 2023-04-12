@@ -15,8 +15,15 @@ function SearchCrops() {
       const { data } = await getCropDetails(search);
       setCropsData(data);
     }
-
   }
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      const { data } = getCropDetails(search);
+      setCropsData(data);
+    }
+  }
+
 
 
   return (
@@ -38,7 +45,7 @@ function SearchCrops() {
           placeholder="Search Crops"
           type="text"
 
-          onKeyPress={handleSearch}
+          onKeyPress={handleKeyDown}
 
         />
 
