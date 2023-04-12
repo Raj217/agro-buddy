@@ -11,5 +11,6 @@ export const analogous2 = "#31ad9a";
 export const triadic1 = "#3182ad";
 export const triadic2 = "#5c31ad";
 export const primary = "#fff";
+export const secondary = "#B2B2B2";
 export const dark = "#393940";
 
