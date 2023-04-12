@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { CropContext } from "../../context/crops";
 import "./styles.css";
-import SearchCard from "./SearchCard";
 
 function SearchCrops() {
   const [search, setSearch] = useState("");
