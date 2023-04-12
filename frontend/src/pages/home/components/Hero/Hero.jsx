@@ -20,7 +20,12 @@ function Hero() {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            paddingLeft="100px"
+            sx={{
+              paddingLeft: {
+                'md': '100px',
+                'sm': '70px'
+              }
+            }}
             item
             md={6}
             sm={6}
