@@ -113,7 +113,7 @@ export const theme = createTheme({
             backgroundColor: Pallete.primary,
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100vw',
+            width: '100%',
             height: '13vh',
           }),
         })

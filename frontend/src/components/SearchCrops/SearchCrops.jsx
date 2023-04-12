@@ -72,7 +72,9 @@ function SearchCrops() {
         ))} */}
       </div>
     </Stack>
-  );
-}
+  )};
+
+  
+      
 
 export default SearchCrops;
