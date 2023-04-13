@@ -13,6 +13,7 @@ function SearchCrops() {
   const handleSearch = async () => {
     if (search) {
       const { data } = await getCropDetails(search);
+      // console.log(data);
       setCropsData(data);
     }
   }
@@ -20,6 +21,8 @@ function SearchCrops() {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       const { data } = getCropDetails(search);
+
+      // console.log(data['preview']);
       setCropsData(data);
     }
   }

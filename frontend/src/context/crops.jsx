@@ -5,7 +5,7 @@ const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
   const [cropData, setCropData] = React.useState({
-    crops: [{
+    preview: [{
       _id: "",
       nitrogen: "",
       phosphorus: "",
@@ -29,7 +29,6 @@ const CropContextProvider = ({ children }) => {
   const getCrops = async (inputData) => {
     try {
       const { data } = await getCropDetails(inputData);
-      console.log(data);
       setCropData(data);
       return { data };
     } catch (error) {
