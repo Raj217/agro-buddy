@@ -1,5 +1,6 @@
 import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
+import { writeFileSync, readFileSync } from "fs";
 import { spawn } from "child_process";
 import Crop from "../models/crop.js";
 import CropData from "../models/crop-data.js";
@@ -149,18 +150,57 @@ export const getCropDetails = async (cropDetails, user) => {
   if (rainfall || fromRainfallLevel || toRainfallLevel)
     cropQuery.push({ rainfall: query });
 
-  const crops = await Crop.find({ $and: cropQuery }).collation({
+  let crops = await Crop.find({ $and: cropQuery }).collation({
     locale: "en",
     strength: 2,
   });
 
   const cropNames = new Set();
+  const ids = [];
   for (var crop of crops) {
     cropNames.add(crop.name);
+    ids.push(crop._id);
   }
   const images = await CropData.find({ name: { $in: [...cropNames] } });
-  return { crops, images };
+
+  const aggeregate = await Crop.aggregate([
+    { $match: { "_id": { $in: ids } } },
+    {
+      $group: {
+        _id: "$name",
+        nitrogen: { $avg: "$nitrogen" },
+        phosphorous: {$avg: "$phosphorus" },
+        potassium: {$avg: "$potassium" },
+        temperature: {$avg: "$temperature" },
+        humidity: {$avg: "$humidity" },
+        pH: {$avg: "$pH" },
+        rainfall: {$avg: "$rainfall" },
+      },
+    },
+  ]);
+
+  return { aggeregate, crops, images };
 };
+
+function cluster(crops) {
+  const python = spawn("python", [
+    "scripts/cluster/main.py",
+    JSON.stringify(crops),
+  ]);
+
+  return new Promise((resolve, reject) => {
+    python.stdout.on("data", function (data) {
+      console.log(data.toString());
+      resolve(JSON.parse(data.toString().replaceAll("'", "")));
+    });
+    python.on("end", function () {
+      resolve("closed");
+    });
+    python.on("error", function (err) {
+      reject(err);
+    });
+  });
+}
 
 export const deleteCropDetails = async (id, crop, user) => {
   if (user.role !== UserRoles.ADMIN) {
