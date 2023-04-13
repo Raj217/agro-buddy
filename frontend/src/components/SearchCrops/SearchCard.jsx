@@ -11,12 +11,21 @@ import {
   Grid,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { CropContext } from '../../context/crops';
+
 
 const cards = [1, 2, 3, 4, 5, 6];
 
-function SearchCard({ key, data, search }) {
-  console.log(data);
+function SearchCard() {
+
+  const { cropData } = React.useContext(CropContext);
+  let name = cropData.crops[0].name;
+
+  let image = cropData.images[0];
+  console.log(image);
+
   return (
+
     <Container maxWidth="lg" >
       <Grid container spacing={2}>
         {cards.map(() => (
@@ -34,8 +43,7 @@ function SearchCard({ key, data, search }) {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {/* {data.name} */}
-                  Banana
+                  {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
