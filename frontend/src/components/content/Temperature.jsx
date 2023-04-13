@@ -26,18 +26,16 @@ ChartJS.register(
 
 function Temperature() {
     const { cropData } = React.useContext(CropContext);
-    // console.log(cropData?.crops[0]?.name);
 
     const temperature = cropData?.crops?.map(obj => obj?.temperature);
-    // console.log(temperature.length)
 
     const arr = [];
     var n = 0;
-    if (temperature.length > 100) {
+    if (temperature.length >= 100) {
         n = temperature.length;
     }
     else {
-        n = 100;
+        n = 50;
     }
     for (let i = 1; i <= n; i += 3) {
         arr.push(i);
@@ -74,7 +72,8 @@ function Temperature() {
     };
 
     return (
-        <Stack width={1100} margin='auto' >
+        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+            <Typography fontWeight={900} variant='h5'>Temperature</Typography>
             <Line data={data} options={options} />
         </Stack>
 

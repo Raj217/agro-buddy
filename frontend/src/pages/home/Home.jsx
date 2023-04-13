@@ -27,12 +27,7 @@ function Home() {
       {/* <ForgotPassword />
       <ResetPassword /> */}
       {/* <Footer /> */}
-
-      <Temperature />
-      <NPPData />
-      <TempVsRainfall />
-      <PhVsRainfall />
-      <Footer />
+      <SearchCard />
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { CropContext } from "../../context/crops";
-import "./styles.css";
 import SearchCard from "./SearchCard";
+import "./styles.css";
 
 function SearchCrops() {
   const [search, setSearch] = useState("");
@@ -67,14 +67,13 @@ function SearchCrops() {
         </Button>
       </Box>
       <div>
-        {/* {cropsData.map((crop) => (
-          <SearchCard key={crop._id} data={crop} />
-        ))} */}
+
       </div>
     </Stack>
-  )};
+  )
+};
 
-  
-      
+
+
 
 export default SearchCrops;
