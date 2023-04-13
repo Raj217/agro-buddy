@@ -13,7 +13,7 @@ import Charts from "./components/contents/Charts";
 function App() {
 
   return (
-    <div className="app" style={{backgroundColor:'#dcedaf'}}>
+    <div className="App">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -23,8 +23,6 @@ function App() {
         <Route path="/otp" element={<GenerateOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
-      {/* <Fotter/> */}
-      {/* <Charts /> */}
     </div>
   );
 }

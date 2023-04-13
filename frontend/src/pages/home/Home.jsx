@@ -22,7 +22,7 @@ function Home() {
       {/* <SearchCard />  */}
       {/* <ForgotPassword />
       <ResetPassword /> */}
-      <Charts />
+      {/* <Charts /> */}
       <Footer />
     </div>
   )
