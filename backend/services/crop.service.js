@@ -75,20 +75,12 @@ export const getCropDetails = async (cropDetails, user) => {
     );
   }
 
-  let crops = await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
-    locale: "en",
-    strength: 2,
-  });
-
-  const cropNames = new Set();
-  const ids = [];
-  for (var crop of crops) {
-    cropNames.add(crop.name);
-    ids.push(crop._id);
-  }
-  const images = await CropData.find({ name: { $in: [...cropNames] } });
-
-  return { crops, images };
+  if (cropDetails.length > 0)
+    return await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else return {};
 };
 
 export const getCropPreview = async (cropDetails, user) => {
@@ -99,10 +91,13 @@ export const getCropPreview = async (cropDetails, user) => {
     );
   }
 
-  const crops = await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
-    locale: "en",
-    strength: 2,
-  });
+  let crops;
+  if (cropDetails.length > 0)
+    crops = await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else crops = await Crop.find();
 
   const cropNames = new Set();
   const ids = [];
