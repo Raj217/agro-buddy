@@ -15,14 +15,13 @@ function Navbar() {
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
-    { name: "Help", link: "/" },
   ];
-  let currentPage
+  let currentPage;
   allNavLinks.forEach((link) => {
     if (link.link.localeCompare(window.location.pathname) === 0) {
       currentPage = link.name;
     }
-  })
+  });
   const [isActive, setIsActive] = React.useState(currentPage);
   const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
@@ -80,6 +79,9 @@ function Navbar() {
           className={`nav-links-mobile ${
             !isIconClicked ? "icon-not-active" : "icon-active"
           }`}
+          style={{
+            display: isNotMobile && "none",
+          }}
         >
           {allNavLinks.map((link) => (
             <li

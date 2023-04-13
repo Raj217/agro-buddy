@@ -5,21 +5,20 @@ const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
   const [cropData, setCropData] = React.useState({
-    crops: [{
-      _id: "",
+    preview: [{
+      humidity: "",
       nitrogen: "",
+      pH: "",
       phosphorus: "",
       potassium: "",
-      temperature: "",
-      humidity: "",
-      pH: "",
       rainfall: "",
-      createdAt: "",
-      updatedAt: ""
+      temperature: "",
+      _id: "",
     }],
     images: [{
       createdAt: "",
-      images: [""],
+      description: "",
+      images: ["", ""],
       name: "",
       updatedAt: "",
       _id: ""

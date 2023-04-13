@@ -29,25 +29,27 @@
 }
 .nav-links-mobile {
   position: absolute;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  backdrop-filter: blur(25px);
+  /* backdrop-filter: blur(25px); */
+  background-color: #F5F9F9;
   top: 13vh;
   width: 100%;
 }
 .icon-not-active {
-  transition: all 0.5s 0.2s linear;
+  transition: all 0.3s 0.2s linear;
   transform: translateY(-100vh);
 }
 .icon-active {
   translate: 0;
-  transition: all 0.5s 0.2s linear;
+  transition: all 0.3s 0.2s linear;
 }
 .nav-link-mobile {
-  translate: 0;
   margin: 15px 0;
+  padding: 5px 0;
   cursor: pointer;
   display: flex;
   flex-direction: column;

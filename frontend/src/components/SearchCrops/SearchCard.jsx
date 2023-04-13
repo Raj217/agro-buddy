@@ -19,9 +19,10 @@ const cards = [1, 2, 3, 4, 5, 6];
 function SearchCard() {
 
   const { cropData } = React.useContext(CropContext);
-  let name = cropData.crops[0].name;
+  let name = cropData.images[0].name;
 
-  let image = cropData.images[0];
+  let image = cropData.images[0].images[0];
+  let description = cropData.images[0].description;
   console.log(image);
 
   return (
@@ -38,7 +39,7 @@ function SearchCard() {
                   height: "300px",
                 }}
                 component="img"
-                image="https://source.unsplash.com/random"
+                image={image}
                 alt="crops"
               />
               <CardContent>
@@ -46,10 +47,7 @@ function SearchCard() {
                   {name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
-                  at id hic nihil eligendi asperiores placeat nostrum quis
-                  voluptatibus itaque enim, recusandae aspernatur quisquam odio
-                  nobis, impedit modi. Suscipit, eos.
+                  {description}
                 </Typography>
               </CardContent>
               <Stack alignItems="center">
