@@ -13,7 +13,17 @@ export const register = async (req, res, next) => {
     });
 };
 
-export const get = async (req, res, next) => {
+export const getPreview = async (req, res, next) => {
+  CropService.getCropPreview(req.query, req.loggedInUser)
+    .then((crops) => {
+      res.status(ExceptionCodes.REQUEST_FULFILLED).json(crops);
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+export const getDetails = async (req, res, next) => {
   CropService.getCropDetails(req.query, req.loggedInUser)
     .then((crops) => {
       res.status(ExceptionCodes.REQUEST_FULFILLED).json(crops);
