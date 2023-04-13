@@ -17,7 +17,13 @@ function Navbar() {
     { name: "Contact", link: "/contact" },
     { name: "Help", link: "/" },
   ];
-  const [isActive, setIsActive] = React.useState("Home");
+  let currentPage
+  allNavLinks.forEach((link) => {
+    if (link.link.localeCompare(window.location.pathname) === 0) {
+      currentPage = link.name;
+    }
+  })
+  const [isActive, setIsActive] = React.useState(currentPage);
   const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
