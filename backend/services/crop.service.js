@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import Crop from "../models/crop.js";
 import CropData from "../models/crop-data.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
-import { genRangeQuery, genAllQuery } from "./crop_query.service.js";
+import { genAllQuery, filterEmpty } from "./crop_helper.service.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
   if (user.role != UserRoles.ADMIN) {
@@ -75,12 +75,16 @@ export const getCropDetails = async (cropDetails, user) => {
     );
   }
 
-  if (cropDetails.length > 0)
-    return await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+  const query = genAllQuery(cropDetails);
+  if (query.length > 0) {
+    const crops = await Crop.find({
+      $and: query,
+    }).collation({
       locale: "en",
       strength: 2,
     });
-  else return {};
+    return filterEmpty(crops);
+  } else return {};
 };
 
 export const getCropPreview = async (cropDetails, user) => {
@@ -91,14 +95,18 @@ export const getCropPreview = async (cropDetails, user) => {
     );
   }
 
+  const query = genAllQuery(cropDetails);
   let crops;
-  if (cropDetails.length > 0)
-    crops = await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+  if (query.length > 0)
+    crops = await Crop.find({
+      $and: query,
+    }).collation({
       locale: "en",
       strength: 2,
     });
   else crops = await Crop.find();
 
+  crops = filterEmpty(crops);
   const cropNames = new Set();
   const ids = [];
   for (var crop of crops) {

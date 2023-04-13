@@ -58,6 +58,28 @@ export const genAllQuery = (cropDetails) => {
   return cropQuery;
 };
 
+export const isNotEmpty = (crop) => {
+  return (
+    crop["nitrogen"] = null ||
+    crop["phosphorus"] != null ||
+    crop["potassium"] != null ||
+    crop["temperature"] != null ||
+    crop["ph"] != null ||
+    crop["rainfall"] != null ||
+    crop["humidity"] != null
+  );
+};
+
+export const filterEmpty = (crops) => {
+  const filteredCrops = [];
+  for (var i=0; i<crops.length; i++) {
+    if (isNotEmpty(crops[i])) {
+      filteredCrops.push(crops[i]);
+    }
+  }
+  return filteredCrops;
+}
+
 export const genRangeQuery = (absolute, from, to) => {
   let cropQuery = {};
   if (absolute) {
