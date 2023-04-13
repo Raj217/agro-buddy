@@ -13,15 +13,11 @@ const Footer = () => {
     return (
         <div className='footer-section'>
       <div className="fcontainer">
-
-
         <div className="container1">
           <Link to="/"><img className='img-foot-centr' src={Logo} alt="logo" /></Link>
         </div>
-
-
         <div className="container2">
-          <h2 className='h2'>Organisation</h2>
+          {/* <h2 className='h2'>Website</h2> */}
           <ul className='no-bullets'>
             <li>
               <BiUserCircle className='f_icon' /><span className='i-text'>Agro-Buddy</span>
@@ -44,7 +40,7 @@ const Footer = () => {
         </div>
 
 
-        <div className="container4">
+        {/* <div className="container4">
           <h2 className='h2' id='h'>Subscribe</h2>
           <p className='p1' style={{ marginTop: "2rem" }}>Keep yourself updated. Subscribe to our newsletter</p>
           <div className='fill'>
@@ -52,7 +48,7 @@ const Footer = () => {
             <MdSend className='send' />
           </div>
 
-        </div>
+        </div> */}
         <div className="container5">
           <p className='p2'>All Rights Reserved @Agro-Buddy</p>
         </div>

@@ -23,7 +23,7 @@ function Home() {
       {/* <Footer /> */}
       <SearchCrops />
       {/* <Footer /> */}
-
+      <SearchCard />
     </div>
   )
 }

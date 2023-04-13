@@ -1,9 +1,9 @@
-import { update } from "../controllers/crop-controller.js";
 import UserRoles from "../models/constants.js";
 import { spawn } from "child_process";
 import Crop from "../models/crop.js";
 import CropData from "../models/crop-data.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
+import { genRangeQuery, genAllQuery } from "./crop_query.service.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
   if (user.role != UserRoles.ADMIN) {
@@ -66,101 +66,85 @@ export const registerCropDetails = async (cropDetails, user) => {
   await Crop.create(cropNewDetails);
 };
 
-const _genQuery = (absolute, from, to) => {
-  let cropQuery = {};
-  if (absolute) {
-    cropQuery = {
-      $gte: Math.floor(absolute),
-      $lte: Math.floor(absolute),
-    };
-  } else {
-    if (from && Math.floor(to)) {
-      cropQuery = {
-        $gte: from,
-        $lte: Math.floor(to),
-      };
-    } else if (from) {
-      cropQuery = {
-        $gte: Math.floor(from),
-      };
-    } else if (to) {
-      cropQuery = {
-        $lte: Math.floor(to),
-      };
-    }
-  }
-  return cropQuery;
-};
-
 // TODO: Add absolute values (should return the nearest values)
 export const getCropDetails = async (cropDetails, user) => {
-  const {
-    name,
-    nitrogen,
-    fromNitrogenLevel,
-    toNitrogenLevel,
-    phosphorus,
-    fromPhosphorusLevel,
-    toPhosphorusLevel,
-    potassium,
-    fromPotassiumLevel,
-    toPotassiumLevel,
-    temperature,
-    fromTemperatureLevel,
-    toTemperatureLevel,
-    humidity,
-    fromHumidityLevel,
-    toHumidityLevel,
-    ph,
-    fromPHLevel,
-    toPHLevel,
-    rainfall,
-    fromRainfallLevel,
-    toRainfallLevel,
-  } = cropDetails;
-  let query = {},
-    cropQuery = [];
+  if (user.isEmailVerified === false) {
+    throw new Exception(
+      "You need to verify your email to get crop details.",
+      ExceptionCodes.UNAUTHORIZED
+    );
+  }
 
-  if (name) cropQuery.push({ name });
-  query = _genQuery(nitrogen, fromNitrogenLevel, toNitrogenLevel);
-  if (nitrogen || fromNitrogenLevel || toNitrogenLevel)
-    cropQuery.push({ nitrogen: query });
+  if (cropDetails.length > 0)
+    return await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else return {};
+};
 
-  query = _genQuery(phosphorus, fromPhosphorusLevel, toPhosphorusLevel);
-  if (phosphorus || fromPhosphorusLevel || toPhosphorusLevel)
-    cropQuery.push({ phosphorous: query });
+export const getCropPreview = async (cropDetails, user) => {
+  if (user.isEmailVerified === false) {
+    throw new Exception(
+      "You need to verify your email to get crop details.",
+      ExceptionCodes.UNAUTHORIZED
+    );
+  }
 
-  query = _genQuery(potassium, fromPotassiumLevel, toPotassiumLevel);
-  if (potassium || fromPotassiumLevel || toPotassiumLevel)
-    cropQuery.push({ potassium: query });
-
-  query = _genQuery(temperature, fromTemperatureLevel, toTemperatureLevel);
-  if (temperature || fromPotassiumLevel || toPotassiumLevel)
-    cropQuery.push({ temperature: query });
-
-  query = _genQuery(humidity, fromHumidityLevel, toHumidityLevel);
-  if (humidity || fromHumidityLevel || toHumidityLevel)
-    cropQuery.push({ humidity: query });
-
-  query = _genQuery(ph, fromPHLevel, toPHLevel);
-  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ ph: query });
-
-  query = _genQuery(rainfall, fromRainfallLevel, toRainfallLevel);
-  if (rainfall || fromRainfallLevel || toRainfallLevel)
-    cropQuery.push({ rainfall: query });
-
-  const crops = await Crop.find({ $and: cropQuery }).collation({
-    locale: "en",
-    strength: 2,
-  });
+  let crops;
+  if (cropDetails.length > 0)
+    crops = await Crop.find({ $and: genAllQuery(cropDetails) }).collation({
+      locale: "en",
+      strength: 2,
+    });
+  else crops = await Crop.find();
 
   const cropNames = new Set();
+  const ids = [];
   for (var crop of crops) {
     cropNames.add(crop.name);
+    ids.push(crop._id);
   }
   const images = await CropData.find({ name: { $in: [...cropNames] } });
-  return { crops, images };
+
+  const preview = await Crop.aggregate([
+    { $match: { _id: { $in: ids } } },
+    {
+      $group: {
+        _id: "$name",
+        nitrogen: { $avg: "$nitrogen" },
+        phosphorous: { $avg: "$phosphorus" },
+        potassium: { $avg: "$potassium" },
+        temperature: { $avg: "$temperature" },
+        humidity: { $avg: "$humidity" },
+        pH: { $avg: "$pH" },
+        rainfall: { $avg: "$rainfall" },
+      },
+    },
+  ]);
+
+  return { preview, images };
 };
+
+function cluster(crops) {
+  const python = spawn("python", [
+    "scripts/cluster/main.py",
+    JSON.stringify(crops),
+  ]);
+
+  return new Promise((resolve, reject) => {
+    python.stdout.on("data", function (data) {
+      console.log(data.toString());
+      resolve(JSON.parse(data.toString().replaceAll("'", "")));
+    });
+    python.on("end", function () {
+      resolve("closed");
+    });
+    python.on("error", function (err) {
+      reject(err);
+    });
+  });
+}
 
 export const deleteCropDetails = async (id, crop, user) => {
   if (user.role !== UserRoles.ADMIN) {

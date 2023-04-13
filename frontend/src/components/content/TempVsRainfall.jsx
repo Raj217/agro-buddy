@@ -9,7 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { CropContext } from '../../context/crops';
 
 
@@ -29,8 +29,6 @@ function TempVsRainfall() {
     const temperature = cropData?.crops?.map(obj => obj?.temperature);
     const humidity = cropData?.crops?.map(obj => obj?.humidity);
     const rainfall = cropData?.crops?.map(obj => obj?.rainfall);
-
-    // console.log(temperature);
 
 
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -64,17 +62,16 @@ function TempVsRainfall() {
             },
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart',
             },
         },
     };
 
     return (
-        <Stack width={1100} margin='auto' >
+        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+            <Typography variant='h5' fontWeight={900}>Temperature, Rainfall and Humidity graph</Typography>
             <Bar options={options} data={data} />
         </Stack>
     );
-
 
 }
 

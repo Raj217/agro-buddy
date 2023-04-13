@@ -268,6 +268,53 @@ http://localhost:4002/api/crop?nitrogen=10&name=rice
 **rainfall**: optional | number <br>
 **fromRainfallLevel**: optional | number <br>
 **toRainfallLevel**: optional | number <br>
+
+<br>
+<h2>Logic:</h2>
+- Get crops preview (gives mean of all of the data grouped by crop name)
+- images are also provided for the crops
+- If no argument is provided then all the crops are returned
+</details>
+
+
+<details>
+<summary><b>2. GET-/api/crop/details<quries></b></summary>
+<br>
+Example:
+
+```
+http://localhost:4002/api/crop/details?nitrogen=10&name=rice
+```
+
+- Queries
+<br>
+**name**: optional | String <br>
+**nitrogen**: optional | number <br>
+**fromNitrogenLevel**: optional | number <br>
+**toNitrogenLevel**: optional | number <br>
+**phosphorus**: optional | number <br>
+**fromPhosphorusLevel**: optional | number <br>
+**toPhosphorusLevel**: optional | number <br>
+**potassium**: optional | number <br>
+**fromPotassiumLevel**: optional | number <br>
+**toPotassiumLevel**: optional | number <br>
+**temperature**: optional | number <br>
+**fromTemperatureLevel**: optional | number <br>
+**toTemperatureLevel**: optional | number <br>
+**humidity**: optional | number <br>
+**fromHumidityLevel**: optional | number <br>
+**toHumidityLevel**: optional | number <br>
+**ph**: optional | number <br>
+**fromPHLevel**: optional | number <br>
+**toPHLevel**: optional | number <br>
+**rainfall**: optional | number <br>
+**fromRainfallLevel**: optional | number <br>
+**toRainfallLevel**: optional | number <br>
+
+<br>
+<h2>Logic:</h2>
+- Get crops details which satisfy the above conditions
+- Images are not provided
 </details>
 
 <details>

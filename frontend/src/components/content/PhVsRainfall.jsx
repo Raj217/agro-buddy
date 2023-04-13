@@ -31,15 +31,15 @@ function PhVsRainfall() {
     const { cropData } = React.useContext(CropContext);
 
     const pH = cropData?.crops?.map(obj => obj?.pH);
-    const Rainfall = cropData?.crops?.map(obj => obj?.rainfall);
+    const Temperature = cropData?.crops?.map(obj => obj?.temperature);
 
     const arr = [];
     var n = 0;
-    if (pH.length > 100) {
+    if (pH.length >= 100) {
         n = pH.length;
     }
     else {
-        n = 100;
+        n = 50;
     }
     for (let i = 1; i <= n; i += 3) {
         arr.push(i);
@@ -57,11 +57,12 @@ function PhVsRainfall() {
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
+
             {
-                label: 'Rainfall',
-                data: Rainfall,
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                label: 'Temperature',
+                data: Temperature,
+                borderColor: 'rgb(0, 238, 0)',
+                backgroundColor: 'rgba(0,238,0, 0.5)',
             },
         ],
     };
@@ -75,13 +76,16 @@ function PhVsRainfall() {
             },
             title: {
                 display: true,
-                text: 'Chart.js Line Chart',
+
             },
         },
     };
 
     return (
-        <Stack width={1100} margin='auto' >
+        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px'>
+            <Typography variant='h5' fontWeight={900}>
+                pH vs Temperature
+            </Typography>
             <Line options={options} data={data} />
         </Stack>
     );
