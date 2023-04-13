@@ -21,7 +21,7 @@ function Navbar() {
   const allNavLinks = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
-    { name: "Contact", link: "/" },
+    { name: "Contact", link: "/contact" },
     { name: "Help", link: "/" },
   ];
   const [isActive, setIsActive] = React.useState("Home");

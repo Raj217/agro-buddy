@@ -28,8 +28,6 @@ function Home() {
       <ResetPassword /> */}
       {/* <Footer /> */}
       <SearchCard />
-
-
     </div>
   )
 }
