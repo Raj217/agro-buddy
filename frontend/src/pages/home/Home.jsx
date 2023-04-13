@@ -32,7 +32,7 @@ function Home() {
       <NPPData />
       <TempVsRainfall />
       <PhVsRainfall />
-
+      <Footer />
     </div>
   )
 }
