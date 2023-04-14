@@ -164,37 +164,6 @@
   bottom: 3px;
 }
 
-/* @media only screen and (max-width:1000px) and (min-width:661px){
-   .container4{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    }
-    .container3{
-      flex-grow: 6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-left: 80px;
-    }
-    .footer_social_Logo{
-    margin-bottom: 0 !important;
-    }
-    #link_ln{
-    position: relative;
-    right: 5px;
-    }
-   .h2{
-    display:flex; 
-    justify-content:center;
-    }
-   .p2{
-    padding-bottom: 1rem;
-    }
-  }  */
-
 @media only screen and (max-width: 1000px) {
   .img-foot-centr {
     height: 45px;

@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import "./styles.css";
-import { BsArrowThroughHeartFill } from "react-icons/bs";
 
 function Youtube() {
   return (
@@ -22,8 +21,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/9_Q4RBTd3ws"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen={true}
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -31,8 +30,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/QT4TWbPLrN8"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -40,8 +39,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/KfB2sx9uCkI"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -49,8 +48,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/SJv8bHTq4mU"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
       </Stack>
       <Stack
@@ -68,8 +67,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/R9pxFgJwxFE"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -77,8 +76,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/T0P8V3Ndbrs"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -86,8 +85,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/YDcakKDJWv0"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
         <iframe
           width="560"
@@ -95,8 +94,8 @@ function Youtube() {
           src="https://www.youtube.com/embed/syDRoJ1PdYI"
           title="YouTube video player"
           frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen="true"
         ></iframe>
       </Stack>
     </div>
