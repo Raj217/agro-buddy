@@ -4,27 +4,31 @@ import { CropContext } from "../../context/crops";
 import SearchCard from "./SearchCard";
 import "./styles.css";
 
+
 function SearchCrops() {
   const [search, setSearch] = useState("");
   const [cropsData, setCropsData] = useState([]);
 
   const { getCropDetails } = useContext(CropContext);
+  // console.log(getCropDetails);
 
   const handleSearch = async () => {
     if (search) {
       const { data } = await getCropDetails(search);
+      // console.log(data);
       setCropsData(data);
     }
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      const { data } = getCropDetails(search);
-      setCropsData(data);
+  const handleKeyDown = async (event) => {
+    if (search) {
+      if (event.key === 'Enter') {
+        const { data } = await getCropDetails(search);
+        // console.log(data);
+        setCropsData(data);
+      }
     }
   }
-
-
 
   return (
     <Stack p="20px" alignItems="center" justifyContent="center" mt="37px">

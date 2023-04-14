@@ -1,38 +1,32 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { getCropDetails } from "../api";
 
 const CropContext = createContext();
 
+import Crop from "../api/models/crop";
+
 const CropContextProvider = ({ children }) => {
-  const [cropData, setCropData] = React.useState({
-    crops: [{
-      _id: "",
-      nitrogen: "",
-      phosphorus: "",
-      potassium: "",
-      temperature: "",
-      humidity: "",
-      pH: "",
-      rainfall: "",
-      createdAt: "",
-      updatedAt: ""
-    }],
-    images: [{
-      createdAt: "",
-      images: [""],
-      name: "",
-      updatedAt: "",
-      _id: ""
-    }]
-  });
+
+  const crop = new Crop();
+
+  const [crops, setCropData] = useState();
+
 
   const getCrops = async (inputData) => {
     try {
       const { data } = await getCropDetails(inputData);
-      console.log(data);
-      setCropData(data);
+      crop.readDetails(data['preview']);
+      crop.readData(data['images'][0]);
+      // console.log(crop);
+
+      // console.log(data['preview']);
+      // console.log(data['images'][0]);
+      // console.log(data['images'][0]);
+      // console.log(data);
+      setCropData(crop);
       return { data };
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
   };
@@ -40,7 +34,7 @@ const CropContextProvider = ({ children }) => {
     <CropContext.Provider
       value={{
         getCropDetails: getCrops,
-        cropData,
+        crops,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import {
   Stack,
@@ -9,61 +9,102 @@ import {
   Typography,
   Container,
   Grid,
+  Box
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CropContext } from '../../context/crops';
-
-
-const cards = [1, 2, 3, 4, 5, 6];
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 function SearchCard() {
 
-  const { cropData } = React.useContext(CropContext);
-  let name = cropData.crops[0].name;
+  const { crops } = useContext(CropContext);
+  console.log(crops);
 
-  let image = cropData.images[0];
-  console.log(image);
+  const random = Math.floor(Math.random() * 3);
+
+  let image = crops?.cropData['images'][random];
+
+  let name = crops?.cropData.name;
+  let humidity = crops?.cropDetails[0]?.humidity;
+  let nitrogen = crops?.cropDetails[0]?.nitrogen;
+  let pH = crops?.cropDetails[0]?.pH;
+  let phosphorous = crops?.cropDetails[0]?.phosphorous;
+  let potassium = crops?.cropDetails[0]?.potassium;
+  let rainfall = crops?.cropDetails[0]?.rainfall;
+  let temperature = crops?.cropDetails[0]?.temperature;
+
+
+
 
   return (
 
-    <Container maxWidth="lg" >
-      <Grid container spacing={2}>
-        {cards.map(() => (
-          <Grid item xs={12} sm={6} md={4}>
-            <Card
-              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-            >
-              <CardMedia
-                style={{
-                  height: "300px",
-                }}
-                component="img"
-                image="https://source.unsplash.com/random"
-                alt="crops"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
-                  at id hic nihil eligendi asperiores placeat nostrum quis
-                  voluptatibus itaque enim, recusandae aspernatur quisquam odio
-                  nobis, impedit modi. Suscipit, eos.
-                </Typography>
-              </CardContent>
-              <Stack alignItems="center">
-                <Link to="/content" style={{ textDecoration: "none" }}>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Link>
-              </Stack>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+    <Container maxWidth="lg">
+
+      <Box margin='auto'
+        sx={{
+          width: { lg: '40%', md: '50%', xs: '80%' }
+        }}
+
+      >
+        <Card
+          sx={{ display: "flex", flexDirection: "column", width: '100%' }}
+        >
+          <Link to="/content" style={{ textDecoration: "none" }}>
+            <CardMedia
+              style={{
+                height: "300px",
+              }}
+              className="brighten"
+              component="img"
+              image={image}
+              alt="crops"
+            />
+          </Link>
+
+          <CardContent>
+            <Typography textAlign='center' gutterBottom variant="h4" component="div" lineHeight={3}>
+              {name}
+            </Typography>
+            <Stack display='flex' justifyContent='center' alignItems='center'>
+
+            </Stack>
+            <Stack display='flex' alignItems='center' justifyContent='center'>
+              <Typography variant="h7" lineHeight={2} >
+                pH = {pH} <RadioButtonCheckedIcon
+                  style={{
+                    color: pH > 7 ? '#1fc531' : pH >= 5 && pH < 7 ? '#f2db00' : '#ba1d00'
+                  }}
+                />
+              </Typography>
+              <Typography>
+                rainfall = {rainfall}
+                <RadioButtonCheckedIcon
+                  style={{
+                    color: rainfall >= 200 ? '#1fc531' : rainfall >= 100 && rainfall < 200 ? '#f2db00' : '#ba1d00'
+                  }} />
+              </Typography>
+              <Typography>
+                temperature = {temperature}
+                <RadioButtonCheckedIcon
+                  style={{
+                    color: temperature >= 30 ? '#1fc531' : temperature >= 20 && temperature < 30 ? '#f2db00' : '#ba1d00'
+                  }} />
+              </Typography>
+            </Stack>
+
+          </CardContent>
+          <Stack alignItems="center">
+            <Link to="/content" style={{ textDecoration: "none" }}>
+              <CardActions>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Link>
+          </Stack>
+        </Card>
+
+      </Box>
+
+    </Container >
   );
 }
 
