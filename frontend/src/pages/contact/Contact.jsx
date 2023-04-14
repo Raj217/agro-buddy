@@ -11,7 +11,7 @@ import "./Contact.css";
 const Contact = () => {
   return (
     <div className="contact">
-      <Typography gutterBottom variant="h3" align="center">
+      <Typography gutterBottom variant="h3" align="center" fontWeight='bold'>
         Contact Us
       </Typography>
       <Grid>
