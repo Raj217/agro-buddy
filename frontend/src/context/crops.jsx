@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
-import API from "../api/api";
 import Crop from "../api/models/crop";
+import API from "../api/api";
 
 const CropContext = createContext();
 
@@ -10,14 +10,22 @@ const CropContextProvider = ({ children }) => {
 
   const [crops, setCropData] = useState();
 
-  const getCropDetails = async (inputData) => {
+  const getCrops = async (inputData) => {
     try {
-      const { data } = api.getCropDetails(inputData);
-      console.log(data);
+      const { data } = await api.getCropDetails(inputData);
+      crop.readDetails(data);
+      setCropData(crop);
+      return { data };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getPreview = async (inputData) => {
+    try {
+      const { data } = await api.getCropPreview(inputData);
       crop.readDetails(data["preview"]);
       crop.readData(data["images"][0]);
       setCropData(crop);
-      return { data };
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +33,8 @@ const CropContextProvider = ({ children }) => {
   return (
     <CropContext.Provider
       value={{
-        getCropDetails,
+        getCropDetails: getCrops,
+        getCropPreview: getPreview,
         crops,
       }}
     >

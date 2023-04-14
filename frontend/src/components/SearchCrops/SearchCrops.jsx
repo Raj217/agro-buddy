@@ -4,13 +4,12 @@ import { CropContext } from "../../context/crops";
 import CropDetailsQuery from "../../api/models/cropDetailsQuery";
 import SearchCard from "./SearchCard";
 import "./styles.css";
-import { getCropPreview } from "../../../../backend/services/crop.service";
 
 function SearchCrops() {
   const [search, setSearch] = useState("");
   const [cropsData, setCropsData] = useState([]);
 
-  const { getCropDetails } = useContext(CropContext);
+  const { getCropDetails, getCropPreview } = useContext(CropContext);
   const cropDetails = new CropDetailsQuery();
   // console.log(getCropDetails);
   const format = () => {
@@ -20,9 +19,7 @@ function SearchCrops() {
   const handleSearch = async () => {
     format();
     if (search) {
-      const { data } = await getCropDetails(cropDetails);
-      console.log(data);
-      setCropsData(data);
+      await getCropPreview(cropDetails);
     }
   };
 
@@ -30,9 +27,7 @@ function SearchCrops() {
     format();
     if (search) {
       if (event.key === "Enter") {
-        const { data } = await getCropDetails(cropDetails);
-        console.log(data);
-        setCropsData(data);
+        await getCropPreview(cropDetails);
       }
     }
   };
