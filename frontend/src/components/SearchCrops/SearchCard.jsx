@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Card from "@mui/material/Card";
 import {
   Stack,
@@ -13,41 +13,51 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CropContext } from '../../context/crops';
-
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 function SearchCard() {
 
-  const { cropData } = React.useContext(CropContext);
-  console.log(cropData);
-  let name = cropData?.images[0]?.name;
-  const randomNumber = Math.floor(Math.random() * 3);
-  let image = cropData?.images[0]?.images[randomNumber];
-  let description = cropData?.images[0]?.description;
-  let humidity = cropData?.preview[0]?.humidity;
-  let nitrogen = cropData?.preview[0]?.nitrogen;
-  let pH = cropData?.preview[0]?.pH;
-  let phosphorous = cropData?.preview[0]?.phosphorous;
-  let potassium = cropData?.preview[0]?.potassium;
-  let rainfall = cropData?.preview[0]?.rainfall;
-  let temperature = cropData?.preview[0]?.temperature;
+  const { crops } = useContext(CropContext);
+  console.log(crops);
+
+  const random = Math.floor(Math.random() * 3);
+
+  let image = crops?.cropData['images'][random];
+
+  let name = crops?.cropData.name;
+  let humidity = crops?.cropDetails[0]?.humidity;
+  let nitrogen = crops?.cropDetails[0]?.nitrogen;
+  let pH = crops?.cropDetails[0]?.pH;
+  let phosphorous = crops?.cropDetails[0]?.phosphorous;
+  let potassium = crops?.cropDetails[0]?.potassium;
+  let rainfall = crops?.cropDetails[0]?.rainfall;
+  let temperature = crops?.cropDetails[0]?.temperature;
+
+
+
 
   return (
 
-    <Container maxWidth="lg" >
+    <Container maxWidth="lg">
 
-      <Box margin='auto' width='40%'>
+      <Box margin='auto'
+        sx={{
+          width: { lg: '40%', md: '50%', xs: '80%' }
+        }}
+
+      >
         <Card
-          sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+          sx={{ display: "flex", flexDirection: "column", width: '100%' }}
         >
           <Link to="/content" style={{ textDecoration: "none" }}>
             <CardMedia
               style={{
                 height: "300px",
               }}
+              className="brighten"
               component="img"
               image={image}
               alt="crops"
-              className="brighten"
             />
           </Link>
 
@@ -56,13 +66,29 @@ function SearchCard() {
               {name}
             </Typography>
             <Stack display='flex' justifyContent='center' alignItems='center'>
-              <Typography variant="h7" lineHeight={2}>
-                Humidity= {humidity}<br />
-                Nitrogen={nitrogen}<br />
-                pH={pH}<br />
-                phosphorous={phosphorous}<br />
-                rainfall={rainfall}<br />
-                temperature={temperature}
+
+            </Stack>
+            <Stack display='flex' alignItems='center' justifyContent='center'>
+              <Typography variant="h7" lineHeight={2} >
+                pH = {pH} <RadioButtonCheckedIcon
+                  style={{
+                    color: pH > 7 ? '#1fc531' : pH >= 5 && pH < 7 ? '#f2db00' : '#ba1d00'
+                  }}
+                />
+              </Typography>
+              <Typography>
+                rainfall = {rainfall}
+                <RadioButtonCheckedIcon
+                  style={{
+                    color: rainfall >= 200 ? '#1fc531' : rainfall >= 100 && rainfall < 200 ? '#f2db00' : '#ba1d00'
+                  }} />
+              </Typography>
+              <Typography>
+                temperature = {temperature}
+                <RadioButtonCheckedIcon
+                  style={{
+                    color: temperature >= 30 ? '#1fc531' : temperature >= 20 && temperature < 30 ? '#f2db00' : '#ba1d00'
+                  }} />
               </Typography>
             </Stack>
 
