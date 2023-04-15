@@ -38,7 +38,7 @@ function SearchCard({ query, crop }) {
     // navigate("/content")
   }
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth="lg">
       <Box
         margin="auto"
 
