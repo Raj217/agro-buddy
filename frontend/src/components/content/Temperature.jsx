@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CropContext } from '../../context/crops';
 import { Stack, Typography } from '@mui/material'
 
@@ -24,15 +24,17 @@ ChartJS.register(
     Legend
 );
 
-function Temperature() {
-    const { cropData } = React.useContext(CropContext);
+function Temperature({ crop }) {
 
-    const temperature = cropData?.crops?.map(obj => obj?.temperature);
+    const { crops } = useContext(CropContext);
+
+    const Temperature = crops?.get(crop)?.details?.map(detail => detail.temperature);
+
 
     const arr = [];
     var n = 0;
-    if (temperature.length >= 100) {
-        n = temperature.length;
+    if (Temperature?.length >= 100) {
+        n = Temperature.length;
     }
     else {
         n = 50;
@@ -50,7 +52,7 @@ function Temperature() {
         datasets: [
             {
                 label: 'Temperature values',
-                data: temperature,
+                data: Temperature,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
@@ -72,7 +74,9 @@ function Temperature() {
     };
 
     return (
-        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+        <Stack
+            sx={{ width: { md: '60%', sm: '70%', xs: '80%' } }}
+            display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
             <Typography fontWeight={900} variant='h5'>Temperature</Typography>
             <Line data={data} options={options} />
         </Stack>

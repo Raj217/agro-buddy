@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -21,21 +21,18 @@ ChartJS.register(
     Legend
 );
 
+import { Stack, Typography } from '@mui/material';
 import { CropContext } from '../../context/crops';
-import { Stack, Typography } from '@mui/material'
 
+function PhVsRainfall({ crop }) {
+    const { crops } = useContext(CropContext);
 
-
-function PhVsRainfall() {
-
-    const { cropData } = React.useContext(CropContext);
-
-    const pH = cropData?.crops?.map(obj => obj?.pH);
-    const Temperature = cropData?.crops?.map(obj => obj?.temperature);
+    const pH = crops?.get(crop)?.details?.map(detail => detail.pH);
+    const Temperature = crops?.get(crop)?.details?.map(detail => detail.temperature);
 
     const arr = [];
     var n = 0;
-    if (pH.length >= 100) {
+    if (pH?.length >= 100) {
         n = pH.length;
     }
     else {
@@ -82,7 +79,9 @@ function PhVsRainfall() {
     };
 
     return (
-        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px'>
+        <Stack
+            sx={{ width: { md: '60%', sm: '70%', xs: '80%' } }}
+            display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px'>
             <Typography variant='h5' fontWeight={900}>
                 pH vs Temperature
             </Typography>
