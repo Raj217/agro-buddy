@@ -53,7 +53,7 @@ function Hero() {
                 Empowering Farmers for Success: Maximize Your Crop Yields and Minimize Risks with AgroBuddy's Comprehensive Data-Driven Insights and Analytics
               </Typography>
               {loggedIn ? (
-                <Button variant="contained">Explore</Button>
+                <Button variant="contained" onClick={() => navigate("/search")}>Explore</Button>
               ) : (
                 <Button
                   variant="contained"
