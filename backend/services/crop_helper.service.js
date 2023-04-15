@@ -60,7 +60,7 @@ export const genAllQuery = (cropDetails) => {
 
 export const isNotEmpty = (crop) => {
   return (
-    crop["nitrogen"] = null ||
+    crop["nitrogen"] != null ||
     crop["phosphorus"] != null ||
     crop["potassium"] != null ||
     crop["temperature"] != null ||
@@ -72,13 +72,13 @@ export const isNotEmpty = (crop) => {
 
 export const filterEmpty = (crops) => {
   const filteredCrops = [];
-  for (var i=0; i<crops.length; i++) {
+  for (var i = 0; i < crops.length; i++) {
     if (isNotEmpty(crops[i])) {
       filteredCrops.push(crops[i]);
     }
   }
   return filteredCrops;
-}
+};
 
 export const genRangeQuery = (absolute, from, to) => {
   let cropQuery = {};

@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import Crop from "../models/crop.js";
 import CropData from "../models/crop-data.js";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
-import { genAllQuery, filterEmpty } from "./crop_helper.service.js";
+import { genAllQuery, isNotEmpty } from "./crop_helper.service.js";
 
 export const registerCropDetails = async (cropDetails, user) => {
   if (user.role != UserRoles.ADMIN) {
@@ -77,13 +77,38 @@ export const getCropDetails = async (cropDetails, user) => {
 
   const query = genAllQuery(cropDetails);
   if (query.length > 0) {
-    const crops = await Crop.find({
+    let crops = await Crop.find({
       $and: query,
     }).collation({
       locale: "en",
       strength: 2,
     });
-    return filterEmpty(crops);
+    const ids = [];
+
+    for (var crop of crops) {
+      if (isNotEmpty(crop)) {
+        ids.push(crop._id);
+      }
+    }
+    return await Crop.aggregate([
+      { $match: { _id: { $in: ids } } },
+      {
+        $group: {
+          _id: "$name",
+          details: {
+            $push: {
+              nitrogen: "$nitrogen",
+              phosphorous: "$phosphorus",
+              potassium: "$potassium",
+              temperature: "$temperature",
+              humidity: "$humidity",
+              pH: "$pH",
+              rainfall: "$rainfall",
+            },
+          },
+        },
+      },
+    ]);
   } else return {};
 };
 
@@ -106,14 +131,28 @@ export const getCropPreview = async (cropDetails, user) => {
     });
   else crops = await Crop.find();
 
-  crops = filterEmpty(crops);
   const cropNames = new Set();
   const ids = [];
   for (var crop of crops) {
-    cropNames.add(crop.name);
-    ids.push(crop._id);
+    if (isNotEmpty(crop)) {
+      cropNames.add(crop.name);
+      ids.push(crop._id);
+    }
   }
-  const images = await CropData.find({ name: { $in: [...cropNames] } });
+  const data = await CropData.aggregate([
+    { $match: { name: { $in: [...cropNames] } } },
+    {
+      $group: {
+        _id: "$name",
+        data: {
+          $push: {
+            images: "$images",
+            description: "$description",
+          },
+        },
+      },
+    },
+  ]);
 
   const preview = await Crop.aggregate([
     { $match: { _id: { $in: ids } } },
@@ -131,7 +170,7 @@ export const getCropPreview = async (cropDetails, user) => {
     },
   ]);
 
-  return { preview, images };
+  return { preview, data };
 };
 
 function cluster(crops) {
