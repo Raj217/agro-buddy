@@ -1,23 +1,31 @@
-import CropData from './cropData';
-import CropDetail from './cropDetail';
+import CropData from "./cropData";
+import CropDetail from "./cropDetail";
 
 class Crop {
-    cropData;
-    cropDetails = [];
-    constructor(cropData, details) {
-        this.cropData = cropData; // images and all
-        this.cropDetails = details; // List<CropDetail> 
-    }
+  data;
+  details = [];
+  preview;
+  constructor(cropData, details) {
+    this.data = cropData; // images and all
+    this.details = details; // List<CropDetail>
+  }
 
-    readDetails = (data) => {
-        if (!this.cropDetails) this.cropDetails = [];
-        for (let i = 0; i < data.length; i++) {
-            this.cropDetails.push(CropDetail.fromData(data[i]));
-        }
+  readDetails = (data) => {
+    if (!this.details) this.details = [];
+    for (let i = 0; i < data.length; i++) {
+      this.details.push(CropDetail.fromData(data[i]));
     }
-    readData = (data) => {
-        this.cropData = CropData.fromData(data);
-    }
+  };
+  readData = (data) => {
+    this.data = CropData.fromData(data);
+  };
+
+  readPreview = (data) => {
+    this.preview = CropDetail.fromData(data);
+  };
+  setName = (name) => {
+    this.data.name = name;
+  };
 }
 
 export default Crop;

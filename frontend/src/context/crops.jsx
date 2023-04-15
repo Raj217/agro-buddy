@@ -5,16 +5,18 @@ import API from "../api/api";
 const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
-  const crop = new Crop();
   const api = new API();
 
-  const [crops, setCropData] = useState();
+  const [crops, setCropData] = useState(new Map());
+  console.log(crops);
 
   const getCrops = async (inputData) => {
     try {
       const { data } = await api.getCropDetails(inputData);
-      crop.readDetails(data);
-      setCropData(crop);
+      for (var cropData in data) {
+        crops.set(crops.get(cropData["_id"]).readDetails(cropData["details"]));
+      }
+      setCropData(new Map(crops));
       return { data };
     } catch (error) {
       console.log(error);
@@ -23,9 +25,17 @@ const CropContextProvider = ({ children }) => {
   const getPreview = async (inputData) => {
     try {
       const { data } = await api.getCropPreview(inputData);
-      crop.readDetails(data["preview"]);
-      crop.readData(data["images"][0]);
-      setCropData(crop);
+      let name;
+      for (let i = 0; i < data["preview"].length; i++) {
+        name = data["preview"][i]["_id"];
+        if (!crops.has(name)) {
+          crops.set(name, new Crop());
+        }
+        crops.get(name).readData(data["data"][i]);
+        crops.get(name).readPreview(data["preview"][i]);
+      }
+
+      setCropData(new Map(crops));
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +45,7 @@ const CropContextProvider = ({ children }) => {
       value={{
         getCropDetails: getCrops,
         getCropPreview: getPreview,
-        crops,
+        crops: crops,
       }}
     >
       {children}

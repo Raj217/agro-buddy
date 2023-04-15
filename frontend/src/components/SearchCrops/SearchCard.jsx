@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import {
   Stack,
@@ -19,17 +19,17 @@ function SearchCard() {
   const { crops } = useContext(CropContext);
 
   const random = Math.floor(Math.random() * 3);
+  let crop;
+  let pH = 0,
+    temperature = 0,
+    rainfall = 0;
 
-  let image = crops?.cropData["images"][random];
-
-  let name = crops?.cropData.name;
-  let humidity = crops?.cropDetails[0]?.humidity;
-  let nitrogen = crops?.cropDetails[0]?.nitrogen;
-  let pH = crops?.cropDetails[0]?.pH;
-  let phosphorous = crops?.cropDetails[0]?.phosphorous;
-  let potassium = crops?.cropDetails[0]?.potassium;
-  let rainfall = crops?.cropDetails[0]?.rainfall;
-  let temperature = crops?.cropDetails[0]?.temperature;
+  for (const [key, value] of crops) {
+    crop = crops.get(key);
+    pH = crop === undefined ? 0 : crop.preview.pH;
+    temperature = crop === undefined ? 0 : crop.preview.temperature;
+    rainfall = crop === undefined ? 0 : crop.preview.rainfall;
+  }
 
   return (
     <Container maxWidth="lg">
@@ -47,7 +47,7 @@ function SearchCard() {
               }}
               className="brighten"
               component="img"
-              image={image}
+              image={crop === undefined ? "" : crop.data.images[random]}
               alt="crops"
             />
           </Link>
@@ -60,7 +60,7 @@ function SearchCard() {
               component="div"
               lineHeight={3}
             >
-              {name}
+              {crop === undefined ? "" : crop.data.name}
             </Typography>
             <Stack
               display="flex"
