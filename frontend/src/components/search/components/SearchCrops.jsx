@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { CropContext } from "../../context/crops";
-import CropDetailsQuery from "../../api/models/cropDetailsQuery";
+import { CropContext } from "../../../context/crops";
+import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import SearchCard from "./SearchCard";
 import "./styles.css";
 
-function SearchCrops() {
+function SearchCrops({ setQuery }) {
   const [search, setSearch] = useState("");
   const [cropsData, setCropsData] = useState([]);
 
@@ -14,6 +14,7 @@ function SearchCrops() {
   // console.log(getCropDetails);
   const format = () => {
     cropDetails.name = search;
+    setQuery(cropDetails);
   };
 
   const handleSearch = async () => {

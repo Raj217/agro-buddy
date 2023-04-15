@@ -12,9 +12,10 @@ const CropContextProvider = ({ children }) => {
 
   const getCrops = async (inputData) => {
     try {
+      console.log(inputData);
       const { data } = await api.getCropDetails(inputData);
-      for (var cropData in data) {
-        crops.set(crops.get(cropData["_id"]).readDetails(cropData["details"]));
+      for (let i = 0; i < data.length; i++) {
+        crops.get(data[i]["_id"]).readDetails(data[i]["details"]);
       }
       setCropData(new Map(crops));
       return { data };
@@ -33,6 +34,7 @@ const CropContextProvider = ({ children }) => {
         }
         crops.get(name).readData(data["data"][i]);
         crops.get(name).readPreview(data["preview"][i]);
+        crops.get(name).data.name = name;
       }
 
       setCropData(new Map(crops));

@@ -8,31 +8,34 @@ import {
   Button,
   Typography,
   Container,
-  Grid,
   Box,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { CropContext } from "../../context/crops";
+import { useNavigate } from "react-router-dom";
+import { CropContext } from "../../../context/crops";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
-function SearchCard() {
-  const { crops } = useContext(CropContext);
+function SearchCard({ query, crop }) {
+  const { crops, getCropDetails } = useContext(CropContext);
+  const navigate = useNavigate()
+  const random = Math.floor(Math.random() * crop.data.images.length);
 
-  const random = Math.floor(Math.random() * 3);
-  let crop;
-  let pH = 0,
-    temperature = 0,
-    rainfall = 0;
-
-  for (const [key, value] of crops) {
-    crop = crops.get(key);
-    pH = crop === undefined ? 0 : crop.preview.pH;
-    temperature = crop === undefined ? 0 : crop.preview.temperature;
-    rainfall = crop === undefined ? 0 : crop.preview.rainfall;
+  let pH = crop.preview.pH;
+  let rainfall = crop.preview.rainfall;
+  let temperature = crop.preview.temperature;
+  // for (const [key, value] of crops) {
+  //   crop = crops.get(key);
+  //   pH = crop === undefined ? 0 : crop.preview.pH;
+  //   temperature = crop === undefined ? 0 : crop.preview.temperature;
+  //   rainfall = crop === undefined ? 0 : crop.preview.rainfall;
+  // }
+  const handleClick = async () => {
+    query.name = crop.data.name;
+    await getCropDetails(query);
+    console.log(crops)
+    // navigate("/content")
   }
-
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg">div
       <Box
         margin="auto"
         sx={{
@@ -40,7 +43,7 @@ function SearchCard() {
         }}
       >
         <Card sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
-          <Link to="/content" style={{ textDecoration: "none" }}>
+          <div style={{ textDecoration: "none" }}>
             <CardMedia
               style={{
                 height: "300px",
@@ -49,8 +52,9 @@ function SearchCard() {
               component="img"
               image={crop === undefined ? "" : crop.data.images[random]}
               alt="crops"
+              onClick={handleClick}
             />
-          </Link>
+          </div>
 
           <CardContent>
             <Typography
@@ -69,52 +73,52 @@ function SearchCard() {
             ></Stack>
             <Stack display="flex" alignItems="center" justifyContent="center">
               <Typography variant="h7" lineHeight={2}>
-                pH = {pH}{" "}
+                pH = {crop.preview.pH}{" "}
                 <RadioButtonCheckedIcon
                   style={{
                     color:
                       pH > 7
                         ? "#1fc531"
                         : pH >= 5 && pH < 7
-                        ? "#f2db00"
-                        : "#ba1d00",
+                          ? "#f2db00"
+                          : "#ba1d00",
                   }}
                 />
               </Typography>
               <Typography>
-                rainfall = {rainfall}
+                rainfall = {crop.preview.rainfall}
                 <RadioButtonCheckedIcon
                   style={{
                     color:
                       rainfall >= 200
                         ? "#1fc531"
                         : rainfall >= 100 && rainfall < 200
-                        ? "#f2db00"
-                        : "#ba1d00",
+                          ? "#f2db00"
+                          : "#ba1d00",
                   }}
                 />
               </Typography>
               <Typography>
-                temperature = {temperature}
+                temperature = {crop.preview.temperature}
                 <RadioButtonCheckedIcon
                   style={{
                     color:
                       temperature >= 30
                         ? "#1fc531"
                         : temperature >= 20 && temperature < 30
-                        ? "#f2db00"
-                        : "#ba1d00",
+                          ? "#f2db00"
+                          : "#ba1d00",
                   }}
                 />
               </Typography>
             </Stack>
           </CardContent>
           <Stack alignItems="center">
-            <Link to="/content" style={{ textDecoration: "none" }}>
+            <div style={{ textDecoration: "none" }}>
               <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button onClick={handleClick} size="small">Learn More</Button>
               </CardActions>
-            </Link>
+            </div>
           </Stack>
         </Card>
       </Box>
