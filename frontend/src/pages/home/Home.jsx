@@ -25,7 +25,7 @@ function Home() {
       <Search />
       <Content />
 
-      <Youtube />
+      {/* <Youtube /> */}
     </div>
   )
 }
