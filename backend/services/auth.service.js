@@ -73,12 +73,12 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
     await Otp.create({ email, emailOtp: otpToken });
   }
 
-  await NotificationService.sendOtp(
+  await NotificationService.sendEmail(
     email,
-    otpToken,
-    mailValidity === true
-      ? "Your mail verification OTP is "
-      : "Your reset password OTP is "
+    otpToken
+    // mailValidity === true
+    //   ? "Your mail verification OTP is "
+    //   : "Your reset password OTP is "
   );
 };
 
