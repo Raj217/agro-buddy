@@ -11,5 +11,6 @@ router.post("/validate-otp", AuthController.validateOtp);
 router.get("/user", verifyToken, AuthController.getUser);
 router.post("/forgot-password", AuthController.forgotPassword);
 router.post("/change-password", verifyToken, AuthController.changePassword);
+router.post("/welcome", AuthController.welcome);
 
 export default router;
