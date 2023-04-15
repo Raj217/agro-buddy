@@ -5,12 +5,13 @@ import SignIn from '../../components/forms/SignIn';
 import Footer from '../../components/footer/Footer';
 import SignUp from '../../components/forms/SignUp';
 import Whyus from '../WhyUS/Whyus';
-import SearchCrops from '../../components/SearchCrops/SearchCrops';
-import SearchCard from '../../components/SearchCrops/SearchCard';
+import SearchCrops from '../../components/search/components/SearchCrops';
+import SearchCard from '../../components/search/components/SearchCard';
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
 import Youtube from '../../components/Youtube/Youtube';
-
+import Content from '../../components/content/Content';
+import Search from '../../components/search/Search';
 
 function Home() {
   return (
@@ -18,9 +19,12 @@ function Home() {
       <Hero />
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      <SearchCrops />
+      {/* <SearchCrops /> */}
       {/* <Footer /> */}
-      <SearchCard />
+      {/* <SearchCard /> */}
+      <Search />
+      <Content />
+
       <Youtube />
     </div>
   )

@@ -5,32 +5,19 @@ import API from "../api/api";
 const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
-  const [cropData, setCropData] = React.useState({
-    preview: [{
-      humidity: "",
-      nitrogen: "",
-      pH: "",
-      phosphorus: "",
-      potassium: "",
-      rainfall: "",
-      temperature: "",
-      _id: "",
-    }],
-    images: [{
-      createdAt: "",
-      description: "",
-      images: ["", ""],
-      name: "",
-      updatedAt: "",
-      _id: ""
-    }]
-  });
+  const api = new API();
+
+  const [crops, setCropData] = useState(new Map());
+  console.log(crops);
 
   const getCrops = async (inputData) => {
     try {
+      console.log(inputData);
       const { data } = await api.getCropDetails(inputData);
-      crop.readDetails(data);
-      setCropData(crop);
+      for (let i = 0; i < data.length; i++) {
+        crops.get(data[i]["_id"]).readDetails(data[i]["details"]);
+      }
+      setCropData(new Map(crops));
       return { data };
     } catch (error) {
       console.log(error);
@@ -39,9 +26,18 @@ const CropContextProvider = ({ children }) => {
   const getPreview = async (inputData) => {
     try {
       const { data } = await api.getCropPreview(inputData);
-      crop.readDetails(data["preview"]);
-      crop.readData(data["images"][0]);
-      setCropData(crop);
+      let name;
+      for (let i = 0; i < data["preview"].length; i++) {
+        name = data["preview"][i]["_id"];
+        if (!crops.has(name)) {
+          crops.set(name, new Crop());
+        }
+        crops.get(name).readData(data["data"][i]);
+        crops.get(name).readPreview(data["preview"][i]);
+        crops.get(name).data.name = name;
+      }
+
+      setCropData(new Map(crops));
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +47,7 @@ const CropContextProvider = ({ children }) => {
       value={{
         getCropDetails: getCrops,
         getCropPreview: getPreview,
-        crops,
+        crops: crops,
       }}
     >
       {children}

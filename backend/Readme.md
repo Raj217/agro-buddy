@@ -271,7 +271,7 @@ http://localhost:4002/api/crop?nitrogen=10&name=rice
 
 <br>
 <h2>Logic:</h2>
-- Get crops preview (gives mean of all of the data grouped by crop name)
+- Get crops grouped preview (gives mean of all of the data grouped by crop name)
 - images are also provided for the crops
 - If no argument is provided then all the crops are returned
 </details>
@@ -313,7 +313,7 @@ http://localhost:4002/api/crop/details?nitrogen=10&name=rice
 
 <br>
 <h2>Logic:</h2>
-- Get crops details which satisfy the above conditions
+- Get crops details grouped which satisfy the above conditions
 - Images are not provided
 </details>
 

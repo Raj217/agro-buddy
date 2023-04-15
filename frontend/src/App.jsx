@@ -25,7 +25,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/otp" element={<GenerateOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/content" element={<Content />} />
+        {/* <Route path="/content" element={<Content />} /> */}
       </Routes>
       <Footer />
     </div>

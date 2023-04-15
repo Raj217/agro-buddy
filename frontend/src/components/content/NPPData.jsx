@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { CropContext } from '../../context/crops';
@@ -9,22 +9,32 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 import { Stack, Typography } from '@mui/material'
 
 
-function NPPData() {
+const NPPData = () => {
 
-    const median = arr => {
-        const mid = Math.floor(arr.length / 2),
-            nums = [...arr].sort((a, b) => a - b);
-        return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-    };
+    // const median = arr => {
+    //     const mid = Math.floor(arr.length / 2),
+    //         nums = [...arr].sort((a, b) => a - b);
+    //     return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+    // };
 
-    const { cropData } = React.useContext(CropContext);
-    const Phosphorous = cropData?.crops?.map(obj => obj?.phosphorus);
-    const Nitrogen = cropData?.crops?.map(obj => obj?.nitrogen);
-    const Potassium = cropData?.crops?.map(obj => obj?.potassium);
 
-    const PhosphorusMedian = median(Phosphorous);
-    const NitrogenMedian = median(Nitrogen);
-    const PotassiumMedian = median(Potassium);
+
+    const { crops, getCropDetails } = useContext(CropContext);
+    // console.log('Here');
+
+
+
+    // await getCropDetails(getCropDetails);
+
+
+
+
+    // const Phosphorous = cropData?.crops?.map(obj => obj?.phosphorus);
+    // const Nitrogen = cropData?.crops?.map(obj => obj?.nitrogen);
+    // const Potassium = cropData?.crops?.map(obj => obj?.potassium);
+    // const PhosphorusMedian = median(Phosphorous);
+    // const NitrogenMedian = median(Nitrogen);
+    // const PotassiumMedian = median(Potassium);
 
 
     const data = {
@@ -32,7 +42,8 @@ function NPPData() {
         datasets: [
             {
                 label: 'Contents',
-                data: [PhosphorusMedian, NitrogenMedian, PotassiumMedian],
+                // data: [PhosphorusMedian, NitrogenMedian, PotassiumMedian],
+                data: [2, 1, 4, 5, 3],
                 backgroundColor: [
                     'rgba(255, 48, 92, 0.5)',
                     'rgba(255, 186, 18, 0.5)',
