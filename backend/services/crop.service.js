@@ -112,6 +112,67 @@ export const getCropDetails = async (cropDetails, user) => {
   } else return {};
 };
 
+export const getParamsRange = async (user) => {
+  if (user.isEmailVerified === false) {
+    throw new Exception(
+      "You need to verify your email to get crop details.",
+      ExceptionCodes.UNAUTHORIZED
+    );
+  }
+
+  const ranges = await Crop.aggregate([
+    {
+      $group: {
+        _id: null,
+        maxNitrogen: { $max: "$nitrogen" },
+        minNitrogen: { $min: "$nitrogen" },
+        maxPhosphorus: { $max: "$phosphorus" },
+        minPhosphorus: { $min: "$phosphorus" },
+        maxPotassium: { $max: "$potassium" },
+        minPotassium: { $min: "$potassium" },
+        maxTemperature: { $max: "$temperature" },
+        minTemperature: { $min: "$temperature" },
+        maxRainfall: { $max: "$rainfall" },
+        minRainfall: { $min: "$rainfall" },
+        maxHumidity: { $max: "$humidity" },
+        minHumidity: { $min: "$humidity" },
+        maxPH: { $max: "$pH" },
+        minPH: { $min: "$pH" },
+      },
+    },
+  ]);
+  return {
+    nitrogen: {
+      max: ranges[0].maxNitrogen,
+      min: ranges[0].minNitrogen,
+    },
+    phosphorous: {
+      max: ranges[0].maxPhosphorus,
+      min: ranges[0].minPhosphorus,
+    },
+    potassium: {
+      max: ranges[0].maxPotassium,
+      min: ranges[0].minPotassium,
+    },
+    temperature: {
+      max: ranges[0].maxTemperature,
+      min: ranges[0].minTemperature,
+    },
+    rainfall: {
+      max: ranges[0].maxRainfall,
+      min: ranges[0].minRainfall,
+    },
+    humidity: {
+      max: ranges[0].maxHumidity,
+      min: ranges[0].minHumidity,
+    },
+    pH: {
+      max: ranges[0].maxPH,
+      min: ranges[0].minPH,
+    },
+  };
+};
+
 export const getCropPreview = async (cropDetails, user) => {
   if (user.isEmailVerified === false) {
     throw new Exception(

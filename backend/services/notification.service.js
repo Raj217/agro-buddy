@@ -19,7 +19,7 @@ export const sendEmail = async (email, message) => {
       from: '"Test Server" <rajdristant007@gmail.com>',
       to: email,
       subject: "Email Test",
-      text: resetPassword,
+      html: resetPassword,
     },
     (err, info) => {
       if (err) {
