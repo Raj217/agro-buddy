@@ -9,41 +9,20 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 import { Stack, Typography } from '@mui/material'
 
 
-const NPPData = () => {
+const NPPData = ({ crop }) => {
 
-    // const median = arr => {
-    //     const mid = Math.floor(arr.length / 2),
-    //         nums = [...arr].sort((a, b) => a - b);
-    //     return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-    // };
+    const { crops } = useContext(CropContext);
 
-
-
-    const { crops, getCropDetails } = useContext(CropContext);
-    // console.log('Here');
-
-
-
-    // await getCropDetails(getCropDetails);
-
-
-
-
-    // const Phosphorous = cropData?.crops?.map(obj => obj?.phosphorus);
-    // const Nitrogen = cropData?.crops?.map(obj => obj?.nitrogen);
-    // const Potassium = cropData?.crops?.map(obj => obj?.potassium);
-    // const PhosphorusMedian = median(Phosphorous);
-    // const NitrogenMedian = median(Nitrogen);
-    // const PotassiumMedian = median(Potassium);
+    const Phosphorous = crops?.get(crop)?.preview?.phosphorous;
+    const Nitrogen = crops?.get(crop)?.preview?.nitrogen;
+    const Potassium = crops?.get(crop)?.preview?.potassium;
 
 
     const data = {
         labels: ['Phosphorous', 'Nitrogen', 'Potassium'],
         datasets: [
             {
-                label: 'Contents',
-                // data: [PhosphorusMedian, NitrogenMedian, PotassiumMedian],
-                data: [2, 1, 4, 5, 3],
+                data: [Phosphorous, Nitrogen, Potassium],
                 backgroundColor: [
                     'rgba(255, 48, 92, 0.5)',
                     'rgba(255, 186, 18, 0.5)',
@@ -62,7 +41,9 @@ const NPPData = () => {
 
 
     return (
-        <Stack width='40%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+        <Stack
+            sx={{ width: { md: '35%', sm: '45%', xs: '60%' } }}
+            display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
             <Typography variant='h5' fontWeight={900}>Nitrogen, Phosphorous and Potassium content</Typography>
             <Pie data={data} />
         </Stack>

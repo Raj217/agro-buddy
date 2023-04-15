@@ -30,7 +30,6 @@ function Home() {
       {/* <Footer /> */}
       {/* <SearchCard /> */}
       <Search />
-      <Content />
 
     </div>
   )
