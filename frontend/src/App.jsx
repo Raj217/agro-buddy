@@ -11,6 +11,7 @@ import Footer from "./components/footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
+import Search from "./components/search/Search";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/otp" element={<GenerateOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path='/details/:crop' element={<Content />} />
+        <Route path="/search" element={<Search />} />
         {/* <Route path="/content" element={<Content />} /> */}
       </Routes>
       <Footer />

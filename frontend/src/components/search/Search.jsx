@@ -15,7 +15,7 @@ function Search() {
     }
     return (
         <div>
-            <SearchCrops setQuery={setQuery} />
+            <SearchCrops setQuery={setQuery} hasFilter />
             <Grid container spacing={2} direction="row" justifyContent="center">
                 {cropList.map((crop) => (
                     <Grid item xs={12} sm={6} md={4} >

@@ -9,6 +9,7 @@ import {
   Slider,
   Grid,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { CropContext } from "../../../context/crops";
 import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -21,8 +22,9 @@ const valueText = (value) => {
   return `${value}`;
 };
 
-function SearchCrops({ setQuery }) {
-  const { getParamRanges } = React.useContext(CropContext);
+function SearchCrops({ setQuery, hasFilter }) {
+  const navigate = useNavigate();
+  const { getParamRanges, setCropData } = React.useContext(CropContext);
   const [range, setRange] = React.useState({});
   const [isFilter, setIsFilter] = React.useState(false)
   const [search, setSearch] = useState("");
@@ -68,11 +70,15 @@ function SearchCrops({ setQuery }) {
   const cropDetails = new CropDetailsQuery();
   // console.log(getCropDetails);
   const format = () => {
+    setCropData(new Map())
     cropDetails.name = search;
     setQuery(cropDetails);
   };
 
   const handleSearch = async () => {
+    if (window.location.pathname !== "/search") {
+      navigate("/search");
+    }
     format();
     await getCropPreview(cropDetails);
   };
@@ -118,7 +124,7 @@ function SearchCrops({ setQuery }) {
     >
       <Stack p="20px" alignItems="center" justifyContent="center">
         <Box position="relative" mb="20px">
-          <Button
+          {hasFilter && (<div><Button
             className="search-btn"
             variant="contained"
             sx={{
@@ -285,7 +291,7 @@ function SearchCrops({ setQuery }) {
                 </Button>
               </Grid>
             </Grid>
-          </Popover>
+          </Popover></div>)}
           <TextField
             sx={{
               input: {

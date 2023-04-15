@@ -22,8 +22,8 @@ function Home() {
       {/* <SearchCrops /> */}
       {/* <Footer /> */}
       {/* <SearchCard /> */}
-      <Search />
-
+      {/* <Search /> */}
+      <SearchCrops />
       {/* <Youtube /> */}
     </div>
   )

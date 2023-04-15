@@ -91,6 +91,31 @@ class CropDetailsQuery {
     }
     return query;
   }
+  clear() {
+
+    this.name = null;
+    this.nitrogen = null;
+    this.fromNitrogenLevel = null;
+    this.toNitrogenLevel = null;
+    this.phosphorus = null;
+    this.fromPhosphorusLevel = null;
+    this.toPhosphorusLevel = null;
+    this.potassium = null;
+    this.fromPotassiumLevel = null;
+    this.toPotassiumLevel = null;
+    this.temperature = null;
+    this.fromTemperatureLevel = null;
+    this.toTemperatureLevel = null;
+    this.rainfall = null;
+    this.fromRainfallLevel = null;
+    this.toRainfallLevel = null;
+    this.humidity = null;
+    this.fromHumidityLevel = null;
+    this.toHumidityLevel = null;
+    this.ph = null;
+    this.fromPHLevel = null;
+    this.toPHLevel = null;
+  }
 }
 
 export default CropDetailsQuery;

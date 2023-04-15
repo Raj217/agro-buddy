@@ -61,6 +61,7 @@ const CropContextProvider = ({ children }) => {
         getCropPreview: getPreview,
         getParamRanges: getRanges,
         crops: crops,
+        setCropData
       }}
     >
       {children}
