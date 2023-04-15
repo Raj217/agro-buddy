@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -22,13 +22,14 @@ ChartJS.register(
     Legend
 );
 
-function TempVsRainfall() {
+function TempVsRainfall({ crop }) {
 
 
-    const { cropData } = React.useContext(CropContext);
-    const temperature = cropData?.crops?.map(obj => obj?.temperature);
-    const humidity = cropData?.crops?.map(obj => obj?.humidity);
-    const rainfall = cropData?.crops?.map(obj => obj?.rainfall);
+    const { crops } = useContext(CropContext);
+
+    const Humidity = crops?.get(crop)?.details?.map(detail => detail.humidity);
+    const Temperature = crops?.get(crop)?.details?.map(detail => detail.temperature);
+    const Rainfall = crops?.get(crop)?.details?.map(detail => detail.rainfall);
 
 
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -38,17 +39,17 @@ function TempVsRainfall() {
         datasets: [
             {
                 label: 'Temperature',
-                data: temperature,
+                data: Temperature,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
                 label: 'Rainfall',
-                data: rainfall,
+                data: Rainfall,
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
             {
                 label: 'Humidity',
-                data: humidity,
+                data: Humidity,
                 backgroundColor: 'rgba(0,238,0, 0.5)',
             },
         ],
@@ -67,7 +68,9 @@ function TempVsRainfall() {
     };
 
     return (
-        <Stack width='80%' display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
+        <Stack
+            sx={{ width: { md: '60%', sm: '70%', xs: '80%' } }}
+            display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
             <Typography variant='h5' fontWeight={900}>Temperature, Rainfall and Humidity graph</Typography>
             <Bar options={options} data={data} />
         </Stack>

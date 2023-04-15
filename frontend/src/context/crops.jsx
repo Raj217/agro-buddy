@@ -8,11 +8,11 @@ const CropContextProvider = ({ children }) => {
   const api = new API();
 
   const [crops, setCropData] = useState(new Map());
-  console.log(crops);
+  // console.log(crops);
 
   const getCrops = async (inputData) => {
     try {
-      console.log(inputData);
+      // console.log(inputData);
       const { data } = await api.getCropDetails(inputData);
       for (let i = 0; i < data.length; i++) {
         crops.get(data[i]["_id"]).readDetails(data[i]["details"]);

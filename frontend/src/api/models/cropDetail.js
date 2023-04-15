@@ -1,8 +1,8 @@
 class CropDetail {
-    nitrogen; phosphorus; potassium;; temperature; humidity; pH; rainfall;
-    constructor(nitrogen, phosphorus, potassium, temperature, humidity, pH, rainfall) {
+    nitrogen; phosphorous; potassium;; temperature; humidity; pH; rainfall;
+    constructor(nitrogen, phosphorous, potassium, temperature, humidity, pH, rainfall) {
         this.nitrogen = nitrogen;
-        this.phosphorus = phosphorus;
+        this.phosphorous = phosphorous;
         this.potassium = potassium;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -12,7 +12,7 @@ class CropDetail {
 
     static fromData(cropDetails) {
         return new CropDetail(
-            cropDetails['nitrogen'], cropDetails['phosphorus'], cropDetails['potassium'], cropDetails['temperature'], cropDetails['humidity'], cropDetails['pH'], cropDetails['rainfall']
+            cropDetails['nitrogen'], cropDetails['phosphorous'], cropDetails['potassium'], cropDetails['temperature'], cropDetails['humidity'], cropDetails['pH'], cropDetails['rainfall']
         );
     }
 }

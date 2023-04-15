@@ -23,7 +23,6 @@ function Home() {
       {/* <Footer /> */}
       {/* <SearchCard /> */}
       <Search />
-      <Content />
 
       <Youtube />
     </div>
