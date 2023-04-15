@@ -73,13 +73,7 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
     await Otp.create({ email, emailOtp: otpToken });
   }
 
-  await NotificationService.sendEmail(
-    email,
-    otpToken
-    // mailValidity === true
-    //   ? "Your mail verification OTP is "
-    //   : "Your reset password OTP is "
-  );
+  await NotificationService.sendOtp(email, otpToken);
 };
 
 // TODO: restrict signup for admin users
@@ -142,7 +136,7 @@ export const forgotPassword = async (email) => {
     throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
 
   let resetPassword = await ResetPassword.findOne({ email });
-  let url = `${FRONTEND_URL}/forgot-password`;
+  let url = process.env.FORGOT_PASS_FRONTEND_URL;
   let randomCode;
   if (!resetPassword) {
     randomCode = RandomGenerator.generate(50, true);

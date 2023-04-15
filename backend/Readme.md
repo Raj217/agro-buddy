@@ -8,7 +8,11 @@ _Create a .env(root level) file with the following params:_
     API_PORT=[example: 4002]
     TOKEN_KEY=[example: test]
     SALT_ROUNDS=[example:10]
-    FRONTEND_URL=[example:http://localhost:4002/api/auth]
+    FORGOT_PASS_FRONTEND_URL=[example:http://localhost:4002/api/auth]
+    NODEMAILER_HOST
+    NODEMAILER_PORT
+    NODEMAILER_AUTH_USER
+    NODEMAILER_AUTH_PASS
 
 ### Script
 
