@@ -9,25 +9,19 @@ import SearchCrops from '../../components/SearchCrops/SearchCrops';
 import SearchCard from '../../components/SearchCrops/SearchCard';
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../components/ResetPassword/ResetPassword';
-import Temperature from '../../components/content/Temperature';
-import NPPData from '../../components/content/NPPData';
-import TempVsRainfall from '../../components/content/TempVsRainfall';
-import PhVsRainfall from '../../components/content/PhVsRainfall';
+import Youtube from '../../components/Youtube/Youtube';
 
 
 function Home() {
   return (
     <div>
       <Hero />
-      {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
       <SearchCrops />
-      {/* <SearchCard />  */}
-      {/* <ForgotPassword />
-      <ResetPassword /> */}
       {/* <Footer /> */}
       <SearchCard />
+      <Youtube />
     </div>
   )
 }

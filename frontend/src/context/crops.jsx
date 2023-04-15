@@ -5,10 +5,26 @@ import API from "../api/api";
 const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
-  const crop = new Crop();
-  const api = new API();
-
-  const [crops, setCropData] = useState();
+  const [cropData, setCropData] = React.useState({
+    preview: [{
+      humidity: "",
+      nitrogen: "",
+      pH: "",
+      phosphorus: "",
+      potassium: "",
+      rainfall: "",
+      temperature: "",
+      _id: "",
+    }],
+    images: [{
+      createdAt: "",
+      description: "",
+      images: ["", ""],
+      name: "",
+      updatedAt: "",
+      _id: ""
+    }]
+  });
 
   const getCrops = async (inputData) => {
     try {

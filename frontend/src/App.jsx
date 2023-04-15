@@ -7,7 +7,7 @@ import Navbar from "./components/navbar/Navbar";
 import SignIn from "./components/forms/SignIn";
 import SignUp from "./components/forms/SignUp";
 import GenerateOtp from "./pages/Otp/GenerateOtp";
-import Fotter from "./components/footer/Footer";
+import Footer from "./components/footer/Footer";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
@@ -27,6 +27,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/content" element={<Content />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
