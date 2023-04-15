@@ -33,6 +33,16 @@ export const getDetails = async (req, res, next) => {
     });
 };
 
+export const getParamsRange = async (req, res, next) => {
+  CropService.getParamsRange(req.loggedInUser)
+    .then((ranges) => {
+      res.status(ExceptionCodes.REQUEST_FULFILLED).json(ranges);
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
 export const deleteCrop = async (req, res, next) => {
   CropService.deleteCropDetails(req.query.id, req.query.crop, req.loggedInUser)
     .then(() => {
