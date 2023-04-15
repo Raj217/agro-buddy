@@ -15,11 +15,12 @@ import TempVsRainfall from '../../components/content/TempVsRainfall';
 import PhVsRainfall from '../../components/content/PhVsRainfall';
 import Content from '../../components/content/Content';
 import Search from '../../components/search/Search';
+import DevelopersPage from '../../components/DevelopersPage/DevelopersPage';
 
 function Home() {
   return (
     <div>
-      <Hero />
+      {/* <Hero /> */}
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
@@ -27,9 +28,11 @@ function Home() {
       {/* <SearchCard />  */}
       {/* <ForgotPassword />
       <ResetPassword /> */}
-      {/* <Footer /> */}
       {/* <SearchCard /> */}
-      <Search />
+      {/* <Search />
+      <Footer /> */}
+
+      <DevelopersPage />
 
     </div>
   )
