@@ -30,7 +30,6 @@ function Temperature({ crop }) {
 
     const Temperature = crops?.get(crop)?.details?.map(detail => detail.temperature);
 
-    console.log(Temperature);
 
     const arr = [];
     var n = 0;

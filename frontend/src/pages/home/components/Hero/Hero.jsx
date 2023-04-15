@@ -35,9 +35,9 @@ function Hero() {
               <Typography
                 fontWeight={700}
                 textAlign="left"
-                sx={{ fontSize: { lg: "4rem", xs: "2.5rem" } }}
+                sx={{ fontSize: { lg: "3.5rem", xs: "2.5rem" } }}
               >
-                We love helping you to save the earth
+                Empowering Farmers with Data-Driven Insights
               </Typography>
               <Typography
                 // fontSize="3rem"
@@ -50,9 +50,7 @@ function Hero() {
                   color: Palette.secondary
                 }}
               >
-                we help realise your dreams in making a garden, let's start with
-                small things that can change the world, so you can enjoy fresh
-                air forever
+                Empowering Farmers for Success: Maximize Your Crop Yields and Minimize Risks with AgroBuddy's Comprehensive Data-Driven Insights and Analytics
               </Typography>
               {loggedIn ? (
                 <Button variant="contained">Explore</Button>
