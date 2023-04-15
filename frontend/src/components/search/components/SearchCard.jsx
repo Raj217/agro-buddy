@@ -29,21 +29,22 @@ function SearchCard({ query, crop }) {
   //   rainfall = crop === undefined ? 0 : crop.preview.rainfall;
   // }
   const handleClick = async () => {
+
+
     query.name = crop.data.name;
     await getCropDetails(query);
-    console.log(crops)
+
+    navigate('/details/' + query.name);
     // navigate("/content")
   }
   return (
-    <Container maxWidth="lg">div
+    <Container maxWidth='lg'>
       <Box
         margin="auto"
-        sx={{
-          width: { lg: "40%", md: "50%", xs: "80%" },
-        }}
+
       >
         <Card sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
-          <div style={{ textDecoration: "none" }}>
+          <div to="/content" style={{ textDecoration: "none" }}>
             <CardMedia
               style={{
                 height: "300px",
@@ -52,7 +53,6 @@ function SearchCard({ query, crop }) {
               component="img"
               image={crop === undefined ? "" : crop.data.images[random]}
               alt="crops"
-              onClick={handleClick}
             />
           </div>
 
