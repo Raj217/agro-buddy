@@ -1,31 +1,47 @@
-import React from 'react'
-import CropDetailsQuery from '../../api/models/cropDetailsQuery'
-import SearchCrops from './components/SearchCrops';
-import SearchCard from './components/SearchCard';
-import { CropContext } from '../../context/crops';
-import { Grid } from '@mui/material';
-
+import React from "react";
+import { CircularProgress, Box } from "@mui/material";
+import CropDetailsQuery from "../../api/models/cropDetailsQuery";
+import SearchCrops from "./components/SearchCrops";
+import SearchCard from "./components/SearchCard";
+import { CropContext } from "../../context/crops";
+import { Grid } from "@mui/material";
 
 function Search() {
-    const [query, setQuery] = React.useState(new CropDetailsQuery());
-    const { crops } = React.useContext(CropContext);
-    let cropList = [];
-    for (const [name, data] of crops) {
-        cropList.push(data);
-    }
-    return (
-        <div>
-            <SearchCrops setQuery={setQuery} />
-            <Grid container spacing={2} direction="row" justifyContent="center">
-                {cropList.map((crop) => (
-                    <Grid item xs={12} sm={6} md={4} >
-                        <SearchCard key={crop.data.name} query={query} crop={crop} />
-                    </Grid>
-                ))}
-            </Grid>
+  const { getParamRanges } = React.useContext(CropContext);
+  const [isLoading, setIsLoading] = React.useState(true);
 
-        </div>
-    )
+  const [range, setRange] = React.useState({});
+  React.useEffect(() => {
+    getParamRanges().then((data) => {
+        setIsLoading(false);
+        setRange(data);
+    })
+  }, []);
+  const [query, setQuery] = React.useState(new CropDetailsQuery());
+  const { crops } = React.useContext(CropContext);
+  let cropList = [];
+  for (const [name, data] of crops) {
+    cropList.push(data);
+  }
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+  return (
+    <div>
+      <SearchCrops setQuery={setQuery} hasFilter ranges={range} />
+      <Grid container spacing={2} direction="row" justifyContent="center">
+        {cropList.map((crop) => (
+          <Grid item xs={12} sm={6} md={4}>
+            <SearchCard key={crop.data.name} query={query} crop={crop} />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
 }
 
-export default Search
+export default Search;

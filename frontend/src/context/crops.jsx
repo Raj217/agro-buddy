@@ -32,8 +32,11 @@ const CropContextProvider = ({ children }) => {
         if (!crops.has(name)) {
           crops.set(name, new Crop());
         }
-        crops.get(name).readData(data["data"][i]);
         crops.get(name).readPreview(data["preview"][i]);
+      }
+      for (let i=0; i<data["data"].length; i++) {
+        name = data['data'][i]["_id"];
+        crops.get(name).readData(data["data"][i]);
         crops.get(name).data.name = name;
       }
 
@@ -42,12 +45,23 @@ const CropContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const getRanges = async () => {
+    try {
+      const { data } = await api.getparamRanges();
+
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <CropContext.Provider
       value={{
         getCropDetails: getCrops,
         getCropPreview: getPreview,
+        getParamRanges: getRanges,
         crops: crops,
+        setCropData
       }}
     >
       {children}

@@ -61,16 +61,6 @@ const Contact = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    type="number"
-                    placeholder="Enter phone number"
-                    label="Phone"
-                    variant="outlined"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
                     label="Message"
                     multiline
                     rows={4}

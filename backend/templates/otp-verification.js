@@ -1,6 +1,6 @@
-export const resetPassword = (url) => {
+export const otpVerification = (otp) => {
   return `
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:v="urn:schemas-microsoft-com:vml"
@@ -96,10 +96,6 @@ export const resetPassword = (url) => {
       td {
         color: #000000;
       }
-      #u_body a {
-        color: #161a39;
-        text-decoration: underline;
-      }
     </style>
 
     <!--[if !mso]><!-->
@@ -124,7 +120,6 @@ export const resetPassword = (url) => {
     <!--[if IE]><div class="ie-container"><![endif]-->
     <!--[if mso]><div class="mso-container"><![endif]-->
     <table
-      id="u_body"
       style="
         border-collapse: collapse;
         table-layout: fixed;
@@ -825,58 +820,7 @@ export const resetPassword = (url) => {
                                         padding-left: 0px;
                                       "
                                       align="center"
-                                    >
-                                      <svg
-                                        width="50"
-                                        height="50"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 168.36 168.38"
-                                      >
-                                        <defs>
-                                          <style>
-                                            .cls-1,
-                                            .cls-2 {
-                                              fill: none;
-                                              stroke: #fff;
-                                              stroke-miterlimit: 10;
-                                              stroke-width: 6px;
-                                            }
-                                            .cls-2 {
-                                              stroke-linecap: round;
-                                            }
-                                          </style>
-                                        </defs>
-                                        <g id="Layer_2" data-name="Layer 2">
-                                          <g id="Layer_1-2" data-name="Layer 1">
-                                            <path
-                                              class="cls-1"
-                                              d="M165.36,86.25c0,.69,0-.68,0,0a81.18,81.18,0,1,1-16.18-50.74l1.39-17.45"
-                                            />
-                                            <line
-                                              class="cls-1"
-                                              x1="132.19"
-                                              y1="32.87"
-                                              x2="149.18"
-                                              y2="35.51"
-                                            />
-                                            <path
-                                              class="cls-2"
-                                              d="M49.26,81.4l70-1.53v46.46s0,7.66-8.68,8.17-52.6,0-52.6,0-8.42-1.53-8.68-7.91S49.26,81.4,49.26,81.4Z"
-                                            />
-                                            <path
-                                              class="cls-1"
-                                              d="M60.19,79.85v-12A31.32,31.32,0,0,1,71.69,43.4c10.88-8.76,20.1-6.27,26.81-1.16a31.1,31.1,0,0,1,12,24.84V79.85"
-                                            />
-                                            <circle
-                                              class="cls-1"
-                                              cx="86.11"
-                                              cy="101.55"
-                                              r="5.74"
-                                            />
-                                          </g>
-                                        </g>
-                                      </svg>
-                                    </td>
+                                    ></td>
                                   </tr>
                                 </table>
                               </td>
@@ -924,7 +868,7 @@ export const resetPassword = (url) => {
                                         color: #ffffff;
                                         font-family: Lato, sans-serif;
                                       "
-                                      >Please reset your password
+                                      >OTP verification
                                     </span>
                                   </p>
                                 </div>
@@ -1030,7 +974,7 @@ export const resetPassword = (url) => {
                                     >
                                   </p>
                                   <p style="font-size: 14px; line-height: 140%">
-                                    &nbsp;
+                                     
                                   </p>
                                   <p style="font-size: 14px; line-height: 140%">
                                     <span
@@ -1039,24 +983,15 @@ export const resetPassword = (url) => {
                                         line-height: 25.2px;
                                         color: #666666;
                                       "
-                                      >We have sent you this email in response
-                                      to your request to reset your password.
-                                      </span
-                                    >
-                                  </p>
-                                  <p style="font-size: 14px; line-height: 140%">
-                                    &nbsp;
-                                  </p>
-                                  <p style="font-size: 14px; line-height: 140%">
-                                    <span
+                                      >Your OTP for verification valid for 2
+                                      hours</span
+                                    ><span
                                       style="
                                         font-size: 18px;
                                         line-height: 25.2px;
                                         color: #666666;
                                       "
-                                      >To reset your password, please follow the
-                                      link below:
-                                    </span>
+                                    ></span>
                                   </p>
                                 </div>
                               </td>
@@ -1078,57 +1013,22 @@ export const resetPassword = (url) => {
                                 style="
                                   overflow-wrap: break-word;
                                   word-break: break-word;
-                                  padding: 0px 40px;
+                                  padding: 10px;
                                   font-family: 'Lato', sans-serif;
                                 "
                                 align="left"
                               >
-                                <!--[if mso
-                                  ]><style>
-                                    .v-button {
-                                      background: transparent !important;
-                                    }
-                                  </style><!
-                                [endif]-->
-                                <div align="left">
-                                  <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:47px; v-text-anchor:middle; width:177px;" arcsize="2%"  stroke="f" fillcolor="#31ad5d"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Lato',sans-serif;"><![endif]-->
-                                  <a
-                                    href="${url}"
-                                    target="_blank"
-                                    class="v-button"
-                                    style="
-                                      box-sizing: border-box;
-                                      display: inline-block;
-                                      font-family: 'Lato', sans-serif;
-                                      text-decoration: none;
-                                      -webkit-text-size-adjust: none;
-                                      text-align: center;
-                                      color: #ffffff;
-                                      background-color: #31ad5d;
-                                      border-radius: 1px;
-                                      -webkit-border-radius: 1px;
-                                      -moz-border-radius: 1px;
-                                      width: auto;
-                                      max-width: 100%;
-                                      overflow-wrap: break-word;
-                                      word-break: break-word;
-                                      word-wrap: break-word;
-                                      mso-border-alt: none;
-                                      font-size: 14px;
-                                    "
-                                  >
-                                    <span
-                                      style="
-                                        display: block;
-                                        padding: 15px 40px;
-                                        line-height: 120%;
-                                      "
-                                      ><span style="line-height: 16.8px"
-                                        >Reset Password</span
-                                      ></span
-                                    >
-                                  </a>
-                                  <!--[if mso]></center></v:roundrect><![endif]-->
+                                <div
+                                  style="
+                                    font-family: 'Lato', sans-serif;
+                                    font-size: 29px;
+                                    font-weight: 700;
+                                    line-height: 150%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                  "
+                                >
+                                  <p style="line-height: 150%">${otp}</p>
                                 </div>
                               </td>
                             </tr>
@@ -1214,7 +1114,7 @@ export const resetPassword = (url) => {
 
             <div
               class="u-row-container"
-              style="padding: 0px; background-color: transparent"
+              style="padding: 0px; background-color: #ffffff"
             >
               <div
                 class="u-row"
@@ -1237,9 +1137,9 @@ export const resetPassword = (url) => {
                     background-color: transparent;
                   "
                 >
-                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #31ad5d;"><![endif]-->
+                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: #ffffff;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: #31ad5d;"><![endif]-->
 
-                  <!--[if (mso)|(IE)]><td align="center" width="300" style="width: 300px;padding: 20px 20px 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                  <!--[if (mso)|(IE)]><td align="center" width="300" style="background-color: #31ad5d;width: 300px;padding: 20px 20px 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
                   <div
                     class="u-col u-col-50"
                     style="
@@ -1249,7 +1149,13 @@ export const resetPassword = (url) => {
                       vertical-align: top;
                     "
                   >
-                    <div style="height: 100%; width: 100% !important">
+                    <div
+                      style="
+                        background-color: #31ad5d;
+                        height: 100%;
+                        width: 100% !important;
+                      "
+                    >
                       <!--[if (!mso)&(!IE)]><!--><div
                         style="
                           box-sizing: border-box;
@@ -1305,7 +1211,7 @@ export const resetPassword = (url) => {
                                         color: #ecf0f1;
                                       "
                                       >National Institute of Technology,
-                                      Silchar- 788010</span
+                                      Silchar-788010</span
                                     >
                                   </p>
                                   <p style="font-size: 14px; line-height: 140%">
@@ -1373,18 +1279,33 @@ export const resetPassword = (url) => {
                               >
                                 <div
                                   style="
+                                    color: #ffffff;
                                     line-height: 140%;
-                                    text-align: right;
+                                    text-align: left;
                                     word-wrap: break-word;
                                   "
                                 >
-                                  <p style="line-height: 140%">
+                                  <p style="line-height: 140%; font-size: 14px">
                                     <span
                                       style="
-                                        color: #ecf0f1;
+                                        font-size: 14px;
                                         line-height: 19.6px;
                                       "
-                                      >AgroBuddy@ All Rights Reserved</span
+                                      ><span
+                                        style="
+                                          color: #ecf0f1;
+                                          font-size: 14px;
+                                          line-height: 19.6px;
+                                        "
+                                        ><span
+                                          style="
+                                            line-height: 19.6px;
+                                            font-size: 14px;
+                                          "
+                                          >AgroBuddy ©  All Rights
+                                          Reserved</span
+                                        ></span
+                                      ></span
                                     >
                                   </p>
                                 </div>
@@ -1513,60 +1434,6 @@ export const resetPassword = (url) => {
                           border-bottom: 0px solid transparent;
                         "
                       ><!--<![endif]-->
-                        <table
-                          style="font-family: 'Lato', sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 5px 10px 10px;
-                                  font-family: 'Lato', sans-serif;
-                                "
-                                align="left"
-                              >
-                                <div
-                                  style="
-                                    line-height: 140%;
-                                    text-align: left;
-                                    word-wrap: break-word;
-                                  "
-                                >
-                                  <p style="line-height: 140%; font-size: 14px">
-                                    <span
-                                      style="
-                                        font-size: 14px;
-                                        line-height: 19.6px;
-                                      "
-                                      ><span
-                                        style="
-                                          color: #ecf0f1;
-                                          font-size: 14px;
-                                          line-height: 19.6px;
-                                        "
-                                        ><span
-                                          style="
-                                            line-height: 19.6px;
-                                            font-size: 14px;
-                                          "
-                                          >AgroBuddy©  All Rights Reserved</span
-                                        ></span
-                                      ></span
-                                    >
-                                  </p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-
                         <table
                           style="font-family: 'Lato', sans-serif"
                           role="presentation"

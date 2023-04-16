@@ -18,6 +18,14 @@ class API {
         authorization: localStorage.getItem("token"),
       },
     });
+
+  getparamRanges = async () => 
+    Axios.get('/crop/params-range', {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("token"),
+      }
+    })
 }
 
 export default API;
