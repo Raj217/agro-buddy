@@ -21,6 +21,11 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
+import ReactGa from "react-ga";
+
+useEffect(() => {
+  ReactGa.pageview(window.location.pathname);
+}, []);
 
 const theme = createTheme();
 
@@ -38,6 +43,10 @@ export default function SignIn() {
     event.preventDefault();
   };
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Sign In",
+    });
     event.preventDefault();
     try {
       await login(user);

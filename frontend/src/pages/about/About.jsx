@@ -1,17 +1,12 @@
-import React from "react";
-import {
-  Typography,
-  Stack,
-  Button,
-  Grid,
-  TextField,
-  Container,
-  Box,
-} from "@mui/material";
-import Banner from "../.././components/general/img/Banner";
+import React, { useEffect } from "react";
 import Team from "./Images/team_thumbnail.png";
-
+import ReactGa from "react-ga";
 import "./About.css";
+
+useEffect(() => {
+  ReactGa.pageview(window.location.pathname);
+}, []);
+
 function About() {
   return (
     <div className="About-section">
@@ -24,7 +19,8 @@ function About() {
           <div className="about_text">
             <div className="about_agro">
               <b> ABOUT Agro-Budddy: </b>
-              This site is developed to find agriculture information and to help the farmers around the world to make farming easy.
+              This site is developed to find agriculture information and to help
+              the farmers around the world to make farming easy.
               <br></br>
               <br></br>A huge population of our country is directly or
               indirectly dependent on farming. The national GDP from farming is

@@ -15,19 +15,24 @@ import {
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import ReactGa from "react-ga";
+
+useEffect(() => {
+  ReactGa.pageview(window.location.pathname);
+}, []);
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const [confirmPassword, setConfirmPassword] = React.useState('')
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const { user, setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
   const { signup } = React.useContext(AuthContext);
@@ -39,9 +44,13 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Sign Up",
+    });
     event.preventDefault();
-    if (confirmPassword!== user.password) {
-      toast.error('Passwords do not match');
+    if (confirmPassword !== user.password) {
+      toast.error("Passwords do not match");
       return;
     }
     if (user.firstName && user.lastName && user.email && user.password) {
@@ -121,7 +130,9 @@ export default function SignUp() {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? "text" : "password"}
-                    onChange={(e)=>setUser({ ...user, password: e.target.value })}
+                    onChange={(e) =>
+                      setUser({ ...user, password: e.target.value })
+                    }
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -147,9 +158,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  onChange={(e) =>
-                    setConfirmPassword(e.target.value)
-                  }
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </Grid>
             </Grid>
