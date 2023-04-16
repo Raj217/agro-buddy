@@ -6,11 +6,11 @@ import Temperature from "./Temperature";
 import { useParams } from "react-router-dom";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 const Content = () => {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   const { crop } = useParams();
   console.log(crop);
   return (

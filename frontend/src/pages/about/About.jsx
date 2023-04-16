@@ -3,11 +3,10 @@ import Team from "./Images/team_thumbnail.png";
 import ReactGa from "react-ga";
 import "./About.css";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 function About() {
+  useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   return (
     <div className="About-section">
       {/* for image and details  */}

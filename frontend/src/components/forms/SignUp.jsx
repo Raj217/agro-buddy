@@ -25,13 +25,12 @@ import { UserContext } from "../../context/user";
 import toast from "react-hot-toast";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 const theme = createTheme();
 
 export default function SignUp() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const { user, setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
