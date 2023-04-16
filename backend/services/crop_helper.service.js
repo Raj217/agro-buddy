@@ -49,7 +49,7 @@ export const genAllQuery = (cropDetails) => {
     cropQuery.push({ humidity: query });
 
   query = genRangeQuery(ph, fromPHLevel, toPHLevel);
-  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ ph: query });
+  if (ph || fromPHLevel || toPHLevel) cropQuery.push({ pH: query });
 
   query = genRangeQuery(rainfall, fromRainfallLevel, toRainfallLevel);
   if (rainfall || fromRainfallLevel || toRainfallLevel)

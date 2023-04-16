@@ -15,7 +15,6 @@ const AuthContextProvider = ({ children }) => {
   const signUp = async (formData) => {
     try {
       const { data } = await signup(formData);
-      console.log(data);
       toast.success(data.message);
       return { data };
     } catch (error) {
