@@ -1,17 +1,21 @@
-import API from './api'
+import { Axios } from "./axios_config";
 
-export const signup = (user) => API.post('/auth/sign-up', user, {
-    headers: { "Content-Type": "application/json" }
-});
+export const signup = (user) =>
+  Axios.post("/auth/sign-up", user, {
+    headers: { "Content-Type": "application/json" },
+  });
 
-export const login = (user) => API.post('/auth/login', user);
+export const login = (user) => Axios.post("/auth/login", user);
 
-export const getUser = (id) => API.get(`/auth/user/${id}`);
+export const getUser = (id) => Axios.get(`/auth/user/${id}`);
 
-export const forgotPassword = (email) => API.post('/auth/forgot-password', email);
+export const forgotPassword = (email) =>
+  Axios.post("/auth/forgot-password", email);
 
-export const resetPassword = (email) => API.post('/auth/reset-password', email);
+export const resetPassword = (email) =>
+  Axios.post("/auth/reset-password", email);
 
-export const generateOtp = (email) => API.post('/auth/generate-otp', email);
+export const generateOtp = (email) => Axios.post("/auth/generate-otp", email);
 
-export const validateOtp = (email, otp) => API.post('/auth/validate-otp', {'email': email, 'otp': otp});
+export const validateOtp = (email, otp) =>
+  Axios.post("/auth/validate-otp", { email: email, otp: otp });

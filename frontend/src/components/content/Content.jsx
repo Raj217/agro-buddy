@@ -8,9 +8,9 @@ const Content = () => {
     return (
         <div>
             <NPPData />
-            <PhVsRainfall />
+            {/* <PhVsRainfall />
             <TempVsRainfall />
-            <Temperature />
+            <Temperature /> */}
         </div>
     )
 }

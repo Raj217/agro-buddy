@@ -1,37 +1,43 @@
-import React, { createContext } from "react";
-import { getCropDetails } from "../api";
+import React, { createContext, useState } from "react";
+import Crop from "../api/models/crop";
+import API from "../api/api";
 
 const CropContext = createContext();
 
 const CropContextProvider = ({ children }) => {
-  const [cropData, setCropData] = React.useState({
-    crops: [{
-      _id: "",
-      nitrogen: "",
-      phosphorus: "",
-      potassium: "",
-      temperature: "",
-      humidity: "",
-      pH: "",
-      rainfall: "",
-      createdAt: "",
-      updatedAt: ""
-    }],
-    images: [{
-      createdAt: "",
-      images: [""],
-      name: "",
-      updatedAt: "",
-      _id: ""
-    }]
-  });
+  const api = new API();
+
+  const [crops, setCropData] = useState(new Map());
+  console.log(crops);
 
   const getCrops = async (inputData) => {
     try {
-      const { data } = await getCropDetails(inputData);
-      console.log(data);
-      setCropData(data);
+      console.log(inputData);
+      const { data } = await api.getCropDetails(inputData);
+      for (let i = 0; i < data.length; i++) {
+        crops.get(data[i]["_id"]).readDetails(data[i]["details"]);
+      }
+      setCropData(new Map(crops));
       return { data };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getPreview = async (inputData) => {
+    try {
+      const { data } = await api.getCropPreview(inputData);
+      let name;
+      for (let i = 0; i < data["preview"].length; i++) {
+        name = data["preview"][i]["_id"];
+        if (!crops.has(name)) {
+          crops.set(name, new Crop());
+        }
+        crops.get(name).readData(data["data"][i]);
+        crops.get(name).readPreview(data["preview"][i]);
+        crops.get(name).data.name = name;
+      }
+
+      setCropData(new Map(crops));
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +46,8 @@ const CropContextProvider = ({ children }) => {
     <CropContext.Provider
       value={{
         getCropDetails: getCrops,
-        cropData,
+        getCropPreview: getPreview,
+        crops: crops,
       }}
     >
       {children}

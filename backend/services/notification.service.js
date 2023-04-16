@@ -1,18 +1,34 @@
-import emailjs from "@emailjs/browser";
+import { resetPassword } from "../templates/reset-password.js";
+import nodemailer from "nodemailer";
 
 export const sendEmail = async (email, message) => {
   var templateParams = {
-    to_name: '',
-    from_name: '',
-    to_email: email,
-    message: message
+    subject: email,
+    template: resetPassword,
   };
-  emailjs.send(process.env.SERVICE_ID, process.env.TEMPLATE_ID, templateParams).then(
-    function (response) {
-      console.log("SUCCESS!", response.status, response.text);
+  var transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "e0678e3f6656b5",
+      pass: "f04f29b88076d1",
     },
-    function (err) {
-      console.log("FAILED...", err);
+  });
+  transport.sendMail(
+    {
+      from: '"Test Server" <rajdristant007@gmail.com>',
+      to: email,
+      subject: "Email Test",
+      html: resetPassword,
+    },
+    (err, info) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Info: ", info);
+      res.json({
+        message: "Email successfully sent.",
+      });
     }
   );
 };

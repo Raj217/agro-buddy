@@ -1,5 +1,23 @@
-import axios from 'axios';
+import { Axios } from "./axios_config";
 
-const API = axios.create({ baseURL: import.meta.env.VITE_API_URL });
+class API {
+  /// cropDetailsQuery: CropDetailsQuery
+  getCropDetails = async (cropDetailsQuery) =>
+    Axios.get(`/crop/details${cropDetailsQuery.toQuery()}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("token"),
+      },
+    });
+
+  /// cropDetailsQuery: CropDetailsQuery
+  getCropPreview = async (cropDetailsQuery) =>
+    Axios.get(`/crop${cropDetailsQuery.toQuery()}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: localStorage.getItem("token"),
+      },
+    });
+}
 
 export default API;

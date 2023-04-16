@@ -1,0 +1,24 @@
+.brighten {
+    -webkit-filter: brightness(70%);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.brighten:hover {
+    -webkit-filter: brightness(100%);
+}
+
+
+.brighten {
+    transition: 0.5s ease;
+}
+
+.brighten:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: 0.5s ease;
+}

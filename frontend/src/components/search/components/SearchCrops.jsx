@@ -1,30 +1,37 @@
 import React, { useContext, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { CropContext } from "../../context/crops";
+import { CropContext } from "../../../context/crops";
+import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import SearchCard from "./SearchCard";
 import "./styles.css";
 
-function SearchCrops() {
+function SearchCrops({ setQuery }) {
   const [search, setSearch] = useState("");
   const [cropsData, setCropsData] = useState([]);
 
-  const { getCropDetails } = useContext(CropContext);
+  const { getCropDetails, getCropPreview } = useContext(CropContext);
+  const cropDetails = new CropDetailsQuery();
+  // console.log(getCropDetails);
+  const format = () => {
+    cropDetails.name = search;
+    setQuery(cropDetails);
+  };
 
   const handleSearch = async () => {
+    format();
     if (search) {
-      const { data } = await getCropDetails(search);
-      setCropsData(data);
+      await getCropPreview(cropDetails);
     }
-  }
+  };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      const { data } = getCropDetails(search);
-      setCropsData(data);
+  const handleKeyDown = async (event) => {
+    format();
+    if (search) {
+      if (event.key === "Enter") {
+        await getCropPreview(cropDetails);
+      }
     }
-  }
-
-
+  };
 
   return (
     <Stack p="20px" alignItems="center" justifyContent="center" mt="37px">
@@ -44,9 +51,7 @@ function SearchCrops() {
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
           placeholder="Search Crops"
           type="text"
-
           onKeyPress={handleKeyDown}
-
         />
 
         <Button
@@ -66,14 +71,9 @@ function SearchCrops() {
           Search
         </Button>
       </Box>
-      <div>
-
-      </div>
+      <div></div>
     </Stack>
-  )
-};
-
-
-
+  );
+}
 
 export default SearchCrops;
