@@ -39,10 +39,10 @@ class API:
             json={
                 "email": email,
                 "password": password},
-                proxies={
-                    'http': self._http_proxy,
-                    'https': self._https_proxy
-                })
+            proxies={
+                'http': self._http_proxy,
+                'https': self._https_proxy
+            })
         if 200 <= res.status_code < 300:
             self._token = res.json()["token"]
         else:
@@ -53,11 +53,11 @@ class API:
         res = requests.post(
             self._backend_url+self._create_crop_path,
             headers={"content-type": "application/json", "authorization": self._token},
-            json=self._to_dict({"name": name, "images": images, "description": description, "details": details},
+            json=self._to_dict({"name": name, "images": images, "description": description, "details": details}),
             proxies={
                 'http': self._http_proxy,
                 'https': self._https_proxy
-            })
+            }
         )
         if res.status_code < 200 or res.status_code >= 300:
             print(res.json())
