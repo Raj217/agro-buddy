@@ -20,17 +20,17 @@ import DevelopersPage from '../../components/DevelopersPage/DevelopersPage';
 function Home() {
   return (
     <div>
-      {/* <Hero /> */}
+      <Hero />
       {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      {/* <SearchCrops /> */}
-      {/* <SearchCard />  */}
-      {/* <ForgotPassword />
-      <ResetPassword /> */}
+      {/* <SearchCrops />
+      <SearchCard /> */}
+      {/* <ForgotPassword /> */}
+      {/* <ResetPassword /> */}
       {/* <SearchCard /> */}
-      {/* <Search />
-      <Footer /> */}
+      {/* <Search /> */}
+      {/* <Footer /> */}
 
       <DevelopersPage />
 

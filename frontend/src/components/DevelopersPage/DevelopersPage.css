@@ -1,18 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"); */
-
-*,
-*::after,
-*::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 62.5%;
-}
-
-body {
+/* body {
     width: 100vw;
     min-height: 100vh;
     background-color: #f0f0f0;
@@ -20,11 +6,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .container {
     position: relative;
     display: flex;
+    /* font-size: 62.5%; */
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -32,12 +19,14 @@ body {
 
 .container .box {
     position: relative;
-    width: 30rem;
-    height: 30rem;
+    width: 20rem;
+    height: 20rem;
     margin: 4rem;
 }
 
 .container .box:hover .imgBox {
+    width: 20rem;
+    height: 20rem;
     transform: translate(-3.5rem, -3.5rem);
 }
 
@@ -49,20 +38,19 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 40px;
     z-index: 2;
     transition: all 0.5s ease-in-out;
 }
 
 .imgBox img {
-    width: 30rem;
-    height: 30rem;
+    width: 20rem;
+    height: 20rem;
     object-fit: cover;
     resize: both;
 }
 
-img {
+.image {
     -webkit-mask-image: linear-gradient(45deg, #000 25%, rgba(0, 0, 0, .2) 50%, #000 75%);
     mask-image: linear-gradient(45deg, #000 25%, rgba(0, 0, 0, .2) 50%, #000 75%);
     -webkit-mask-size: 800%;
@@ -72,7 +60,7 @@ img {
     border-radius: 20px;
 }
 
-img:hover {
+.image:hover {
     transition: mask-position 1s ease, -webkit-mask-position 2s ease;
     -webkit-mask-position: 120%;
     mask-position: 120%;
@@ -97,7 +85,7 @@ img:hover {
 
 .content h2 {
     display: block;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #111;
     font-weight: 500;
     line-height: 2rem;
@@ -121,4 +109,13 @@ img:hover {
     }
 }
 
-/*# sourceMappingURL=main.css.map */
+.align {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.align a {
+    text-decoration: none;
+    /* font-size: 10em; */
+}
