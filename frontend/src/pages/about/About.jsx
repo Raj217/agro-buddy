@@ -14,13 +14,16 @@ function About() {
           <div className="about_text">
           <div className="about_agro">
            <b> ABOUT Agro-Budddy: </b>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ips!
+           Agro-buddy ... This site is developed to find agriculture information, expert and products information.
            <br></br>
            <br></br>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ipsa!
+           A huge population of our country is directly or indirectly dependent on farming.
+The national GDP from farming is around 20% every year.
+It gives employment to over 60%​ of the population.
            <br></br>
            <br></br>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ipsa!
+           With this mindset,we tried to create a website that will help the farmers in multiple ways.First of all the user has to sign up in our website for searching his crops.In the search section,the user can  search a crop and will get all the details of the  suitable conditions that are necessary to grow the crop.There will be also be NPK value of the crop.In addition to, we also have graphs(histograms and pie charts) that will give a glance of the whether conditions such as rainfall, humidity, temperature.So by using these parameters, a farmer will get a better idea which crops will be suitable for that particular place.
+Also we have  a help section where people can get information about agriculture through our recommended videos specific to agriculture.
           </div>
           </div>
         </div>
