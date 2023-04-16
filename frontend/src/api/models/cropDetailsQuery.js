@@ -57,11 +57,11 @@ class CropDetailsQuery {
       query += "&fromNitrogenLevel=" + this.fromNitrogenLevel;
     if (this.toNitrogenLevel)
       query += "&toNitrogenLevel=" + this.toNitrogenLevel;
-    if (this.phosphorus) query += "&phosphorus=" + this.phosphorus;
+    if (this.phosphorus) query += "&phosphorous=" + this.phosphorus;
     if (this.fromPhosphorusLevel)
-      query += "&fromPhosphorusLevel=" + this.fromPhosphorusLevel;
+      query += "&fromPhosphorousLevel=" + this.fromPhosphorusLevel;
     if (this.toPhosphorusLevel)
-      query += "&toPhosphorusLevel=" + this.toPhosphorusLevel;
+      query += "&toPhosphorousLevel=" + this.toPhosphorusLevel;
     if (this.potassium) query += "&potassium=" + this.potassium;
     if (this.fromPotassiumLevel)
       query += "&fromPotassiumLevel=" + this.fromPotassiumLevel;

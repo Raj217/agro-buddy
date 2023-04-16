@@ -14,6 +14,7 @@ const CropContextProvider = ({ children }) => {
     try {
       // console.log(inputData);
       const { data } = await api.getCropDetails(inputData);
+      console.log(data)
       for (let i = 0; i < data.length; i++) {
         crops.get(data[i]["_id"]).readDetails(data[i]["details"]);
       }
