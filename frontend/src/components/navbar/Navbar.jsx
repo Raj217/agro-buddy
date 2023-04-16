@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonIcon from "@mui/icons-material/Person";
 import { useTheme, Avatar, Button } from "@mui/material";
+import { useTheme, Avatar, Button } from "@mui/material";
 import { AuthContext } from "../../context/auth";
 import { AppBar, Toolbar, Typography, CssBaseline } from "@mui/material";
 import Logo from "../../assets/logo.svg";
@@ -11,10 +12,12 @@ import "./Navbar.css";
 import React from "react";
 
 function Navbar({ signedIn, setSignedIn }) {
+function Navbar({ signedIn, setSignedIn }) {
   const allNavLinks = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
+    { name: "Teams", link: "/developers" },
   ];
   let currentPage;
   allNavLinks.forEach((link) => {
@@ -28,6 +31,8 @@ function Navbar({ signedIn, setSignedIn }) {
   const theme = useTheme();
   let isNotMobile = theme.breakpoints.up("sm") !== null;
   console.log(signedIn);
+  let isNotMobile = theme.breakpoints.up("sm") !== null;
+  console.log(signedIn);
   const isMobile = theme.breakpoints.down("sm");
 
   return (
@@ -38,11 +43,12 @@ function Navbar({ signedIn, setSignedIn }) {
     >
       <CssBaseline />
       <Toolbar style={{ backgroundColor: "transparent" }} variant="regular">
-        <div variant="h5" fontWeight="bold" className="logo">
+        <div variant="h5" fontWeight="bold" className="logo" onClick={() => { navigate('/') }} >
           <img
-            style={{ height: "26px", width: "175px" }}
+            style={{ height: "26px", width: "175px", cursor: 'pointer' }}
             src={Logo}
             alt="AgroBuddy"
+
           />
         </div>
         <div
@@ -80,11 +86,21 @@ function Navbar({ signedIn, setSignedIn }) {
               Sign out
             </Button>
           )}
+          {signedIn && (
+            <Button
+              onClick={() => {
+                localStorage.removeItem("token");
+                setSignedIn(false);
+                window.location.reload(false);
+              }}
+            >
+              Sign out
+            </Button>
+          )}
         </div>
         <div
-          className={`nav-links-mobile ${
-            !isIconClicked ? "icon-not-active" : "icon-active"
-          }`}
+          className={`nav-links-mobile ${!isIconClicked ? "icon-not-active" : "icon-active"
+            }`}
         >
           {allNavLinks.map((link) => (
             <li
