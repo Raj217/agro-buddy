@@ -1,6 +1,5 @@
 import { resetPassword } from "../templates/reset-password.js";
 import { otpVerification } from "../templates/otp-verification.js";
-import nodemailer from "nodemailer";
 import emailjs from "@emailjs/nodejs";
 import Exception, { ExceptionCodes } from "../utils/Error.js";
 
