@@ -86,17 +86,6 @@ function Navbar({ signedIn, setSignedIn }) {
               Sign out
             </Button>
           )}
-          {signedIn && (
-            <Button
-              onClick={() => {
-                localStorage.removeItem("token");
-                setSignedIn(false);
-                window.location.reload(false);
-              }}
-            >
-              Sign out
-            </Button>
-          )}
         </div>
         <div
           className={`nav-links-mobile ${
