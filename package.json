@@ -1,5 +1,0 @@
-{
-	"dependencies": {
-		"@emailjs/nodejs": "^2.2.0"
-	}
-}
