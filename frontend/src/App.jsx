@@ -18,7 +18,7 @@ import Search from "./components/search/Search";
 import ReactGa from "react-ga";
 import { AuthContext } from "./context/auth";
 
-ReactGa.initialize(process.env.MEASUREMENT_ID);
+ReactGa.initialize(import.meta.env.VITE_MEASUREMENT_ID);
 
 function App() {
   const { loggedIn } = React.useContext(AuthContext);

@@ -6,11 +6,11 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 function Developer() {
+  useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div class="container">
       <div class="box">
