@@ -26,6 +26,7 @@ function Navbar({ signedIn, setSignedIn }) {
   const [isActive, setIsActive] = React.useState(currentPage);
   const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
   let isNotMobile = theme.breakpoints.up("sm") !== null;
   const isMobile = theme.breakpoints.down("sm");
 
