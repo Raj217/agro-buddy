@@ -1,18 +1,20 @@
-*{
+* {
     font-family: "epilogue";
 }
+
 .About-section:before {
     content: "";
-    position:absolute;
+    position: absolute;
     z-index: -1;
     top: 0;
     left: 0;
     background-image: linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
     background-image: -moz-linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
-    height:100vh;
-    width:100%;
+    height: 100vh;
+    width: 100%;
     opacity: 0.7;
 }
+
 .about {
     /* height: 60vh; */
     width: 80vw;
@@ -27,9 +29,11 @@
     font-size: 1.25rem;
     /* font-family: "epilogue"; */
 }
-.about_agro{
-    padding-top: 45px;;
-    margin-left:20px;
+
+.about_agro {
+    padding-top: 45px;
+    ;
+    margin-left: 20px;
     text-align: center;
 }
 
@@ -63,6 +67,7 @@
     color: #224259;
     margin-bottom: auto;
 }
+
 @media only screen and (max-width:1350px) {
     .about {
         display: block;
@@ -84,17 +89,21 @@
         margin-bottom: 0px;
         width: 75vw;
         height: 60vw;
-    }}
+    }
+}
+
 @media only screen and (max-width:600px) {
     .about {
         display: block;
         flex-direction: column;
     }
+
     .about_heading {
         /* width: 240px; */
         font-size: 2rem;
         margin-bottom: 3px;
     }
+
     .about_text_div {
         display: flex;
         flex-wrap: wrap;
@@ -103,14 +112,28 @@
     .about_text {
         font-size: 1.00rem;
     }
+
     .about_text_div {
         margin-bottom: 40px;
     }
+
     .about_image {
         margin-left: 12px;
     }
-    .about_agro{
-       text-align: left;
+
+    .about_agro {
+        text-align: left;
     }
 }
 
+.image {
+    width: 30rem;
+    height: 30rem;
+}
+
+@media only screen and (max-width: 480px) {
+    .image {
+        width: 20rem;
+        height: 20rem;
+    }
+}

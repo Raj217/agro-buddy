@@ -12,19 +12,21 @@ import ResetPassword from '../../components/ResetPassword/ResetPassword';
 import Youtube from '../../components/Youtube/Youtube';
 import Content from '../../components/content/Content';
 import Search from '../../components/search/Search';
+import DevelopersPage from '../../components/DevelopersPage/DevelopersPage';
 
 function Home() {
   return (
     <div>
       <Hero />
+      {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      {/* <SearchCrops /> */}
-      {/* <Footer /> */}
+      {/* <SearchCrops />
+      <SearchCard /> */}
+      {/* <ForgotPassword /> */}
+      {/* <ResetPassword /> */}
       {/* <SearchCard /> */}
-      {/* <Search /> */}
-      {/* <SearchCrops /> */}
-      {/* <Youtube /> */}
+
     </div>
   )
 }
