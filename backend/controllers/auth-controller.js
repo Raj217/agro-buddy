@@ -104,3 +104,13 @@ export const changePassword = async (req, res, next) => {
       next(err);
     });
 };
+
+export const welcome = async (req, res, next) => {
+  AuthService.changePassword()
+    .then(() => {
+      res.status(ExceptionCodes.REQUEST_FULFILLED).json({ message: "Welcome" });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
