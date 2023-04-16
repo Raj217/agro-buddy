@@ -60,12 +60,12 @@ export const genAllQuery = (cropDetails) => {
 
 export const isNotEmpty = (crop) => {
   return (
-    crop["nitrogen"] != null &&
-    crop["phosphorus"] != null &&
-    crop["potassium"] != null &&
-    crop["temperature"] != null &&
-    crop["ph"] != null &&
-    crop["rainfall"] != null &&
+    crop["nitrogen"] != null ||
+    crop["phosphorus"] != null ||
+    crop["potassium"] != null ||
+    crop["temperature"] != null ||
+    crop["ph"] != null ||
+    crop["rainfall"] != null ||
     crop["humidity"] != null
   );
 };

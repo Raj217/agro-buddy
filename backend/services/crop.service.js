@@ -184,12 +184,12 @@ export const getCropPreview = async (cropDetails, user) => {
   const query = genAllQuery(cropDetails);
   let crops;
   if (query.length > 0)
-    crops = await Crop.find({
-      $and: query,
-    }).collation({
-      locale: "en",
-      strength: 2,
-    });
+  crops = await Crop.find({
+    $and: query,
+  }).collation({
+    locale: "en",
+    strength: 2,
+  });
   else crops = await Crop.find();
 
   const cropNames = new Set();
