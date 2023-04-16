@@ -15,60 +15,54 @@ import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import SearchCard from "./SearchCard";
-// import { CropContext } from "../../../context/crops";
 import "./styles.css";
 
 const valueText = (value) => {
   return `${value}`;
 };
 
-function SearchCrops({ setQuery, hasFilter }) {
+function SearchCrops({ setQuery, hasFilter, ranges }) {
   const navigate = useNavigate();
-  const { getParamRanges, setCropData } = React.useContext(CropContext);
-  const [range, setRange] = React.useState({});
+  const { setCropData } = React.useContext(CropContext);
   const [isFilter, setIsFilter] = React.useState(false)
   const [search, setSearch] = useState("");
   const [cropsData, setCropsData] = useState([]);
   const [value, setValue] = React.useState({
-    humidity: [20, 30],
-    nitrogen: [20, 70],
-    pH: [4, 7],
-    phosphorous: [20, 30],
-    potassium: [20, 30],
-    rainfall: [20, 30],
-    temperature: [20, 30],
+    humidity: [ranges.humidity.min, ranges.humidity.max],
+    nitrogen: [ranges.nitrogen.min, ranges.nitrogen.max],
+    pH: [ranges.pH.min, ranges.pH.max],
+    phosphorous: [ranges.phosphorous.min, ranges.phosphorous.max],
+    potassium: [ranges.potassium.min, ranges.potassium.max],
+    rainfall: [ranges.rainfall.min, ranges.rainfall.max],
+    temperature: [ranges.temperature.min, ranges.temperature.max],
   });
+  const { getCropDetails, getCropPreview } = useContext(CropContext);
+  const cropDetails = new CropDetailsQuery();
   const initRange = () => {
-    value.humidity[0] = range.humidity.min;
-    value.humidity[1] = range.humidity.max;
-    value.nitrogen[0] = range.nitrogen.min;
-    value.nitrogen[1] = range.nitrogen.max;
-    value.pH[0] = range.pH.min;
-    value.pH[1] = range.pH.max;
-    value.phosphorous[0] = range.phosphorous.min;
-    value.phosphorous[1] = range.phosphorous.max;
-    value.potassium[0] = range.potassium.min;
-    value.potassium[1] = range.potassium.max;
-    value.rainfall[0] = range.rainfall.min;
-    value.rainfall[1] = range.rainfall.max;
-    value.temperature[0] = range.temperature.min;
-    value.temperature[1] = range.temperature.max;
+    console.log(ranges)
+    value.humidity[0] = ranges.humidity.min;
+    value.humidity[1] = ranges.humidity.max;
+    value.nitrogen[0] = ranges.nitrogen.min;
+    value.nitrogen[1] = ranges.nitrogen.max;
+    value.pH[0] = ranges.pH.min;
+    value.pH[1] = ranges.pH.max;
+    value.phosphorous[0] = ranges.phosphorous.min;
+    value.phosphorous[1] = ranges.phosphorous.max;
+    value.potassium[0] = ranges.potassium.min;
+    value.potassium[1] = ranges.potassium.max;
+    value.rainfall[0] = ranges.rainfall.min;
+    value.rainfall[1] = ranges.rainfall.max;
+    value.temperature[0] = ranges.temperature.min;
+    value.temperature[1] = ranges.temperature.max;
     setQuery(cropDetails);
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const handlePopup = async () => {
-    const data = await getParamRanges();
-    console.log(data);
-    setRange(data);
-    initRange()
     setAnchorEl(event.currentTarget);
   };
 
-  const { getCropDetails, getCropPreview } = useContext(CropContext);
-  const cropDetails = new CropDetailsQuery();
-  // console.log(getCropDetails);
   const format = () => {
     setCropData(new Map())
     cropDetails.name = search;
@@ -167,8 +161,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Humidity</Typography>
                 <Slider
                   value={value.humidity}
-                  min={range?.humidity?.min}
-                  max={range?.humidity?.max}
+                  min={ranges?.humidity?.min}
+                  max={ranges?.humidity?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, humidity: newValue })
@@ -180,8 +174,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Nitrogen</Typography>
                 <Slider
                   value={value.nitrogen}
-                  min={range?.nitrogen?.min}
-                  max={range?.nitrogen?.max}
+                  min={ranges?.nitrogen?.min}
+                  max={ranges?.nitrogen?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, nitrogen: newValue })
@@ -193,8 +187,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>pH</Typography>
                 <Slider
                   value={value.pH}
-                  min={range?.pH?.min}
-                  max={range?.pH?.max}
+                  min={ranges?.pH?.min}
+                  max={ranges?.pH?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, pH: newValue })
@@ -206,8 +200,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Phosphorous</Typography>
                 <Slider
                   value={value.phosphorous}
-                  min={range?.phosphorous?.min}
-                  max={range?.phosphorous?.max}
+                  min={ranges?.phosphorous?.min}
+                  max={ranges?.phosphorous?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, phosphorous: newValue })
@@ -219,8 +213,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Potassium</Typography>
                 <Slider
                   value={value.potassium}
-                  min={range?.potassium?.min}
-                  max={range?.potassium?.max}
+                  min={ranges?.potassium?.min}
+                  max={ranges?.potassium?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, potassium: newValue })
@@ -232,8 +226,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Rainfall</Typography>
                 <Slider
                   value={value.rainfall}
-                  min={range?.rainfall?.min}
-                  max={range?.rainfall?.max}
+                  min={ranges?.rainfall?.min}
+                  max={ranges?.rainfall?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, rainfall: newValue })
@@ -245,8 +239,8 @@ function SearchCrops({ setQuery, hasFilter }) {
                 <Typography>Temperature</Typography>
                 <Slider
                   value={value.temperature}
-                  min={range?.temperature?.min}
-                  max={range?.temperature?.max}
+                  min={ranges?.temperature?.min}
+                  max={ranges?.temperature?.max}
                   valueLabelDisplay="auto"
                   onChange={(event, newValue) =>
                     setValue({ ...value, temperature: newValue })
