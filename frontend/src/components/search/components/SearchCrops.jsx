@@ -22,7 +22,6 @@ const valueText = (value) => {
 };
 
 function SearchCrops({ query, setQuery, hasFilter, ranges }) {
-function SearchCrops({ query, setQuery, hasFilter, ranges }) {
   const navigate = useNavigate();
   const { setCropData } = React.useContext(CropContext);
   const [isFilter, setIsFilter] = React.useState(false)
@@ -38,7 +37,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     rainfall: [ranges.rainfall.min, ranges.rainfall.max],
     temperature: [ranges.temperature.min, ranges.temperature.max],
   });
-  const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const initRange = () => {
     console.log(ranges)
