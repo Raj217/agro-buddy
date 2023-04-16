@@ -143,7 +143,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
       sx={{
         width: { lg: "800px", md: "600px", xs: "320px" },
         margin: "50px auto",
-        margin: "50px auto",
       }}
     >
       <Stack p="20px" alignItems="center" justifyContent="center">
