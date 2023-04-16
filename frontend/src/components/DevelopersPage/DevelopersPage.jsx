@@ -64,7 +64,7 @@ function Developer() {
               <span className="anchor">
                 <Link
                   target="_blank"
-                  href="https://www.linkedin.com/in/Linknupam-das-b49379182/"
+                  href="https://www.linkedin.com/in/anupam-das-b49379182/"
                 >
                   <LinkedInIcon />
                 </Link>
@@ -72,16 +72,13 @@ function Developer() {
               <span>
                 <Link
                   target="_blank"
-                  href="https://www.instagram.com/Linknupam_151101/"
+                  href="https://www.instagram.com/anupam_151101/"
                 >
                   <InstagramIcon />
                 </Link>
               </span>
               <span>
-                <Link
-                  target="_blank"
-                  href="https://github.com/Linknupamdas1511"
-                >
+                <Link target="_blank" href="https://github.com/anupamdas1511">
                   <GitHubIcon />
                 </Link>
               </span>
@@ -145,19 +142,19 @@ function Developer() {
               <span>
                 <Link
                   target="_blank"
-                  href="https://www.linkedin.com/in/Linkkash-suklabaidya-435aa5227/"
+                  href="https://www.linkedin.com/in/akash-suklabaidya-435aa5227/"
                 >
                   <LinkedInIcon />
                 </Link>
               </span>
               <Link
                 target="_blank"
-                href="https://www.instagram.com/Linkkash_sb__/"
+                href="https://www.instagram.com/akash_sb__/"
               >
                 <InstagramIcon />
               </Link>
               <span>
-                <Link target="_blank" href="https://github.com/Linkkashsb18">
+                <Link target="_blank" href="https://github.com/akashsb18">
                   <GitHubIcon />
                 </Link>
               </span>
