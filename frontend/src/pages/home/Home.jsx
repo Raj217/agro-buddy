@@ -25,6 +25,7 @@ function Home() {
       <SearchCard /> */}
       {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
+      <Youtube />
       {/* <SearchCard /> */}
 
     </div>
