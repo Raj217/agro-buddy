@@ -14,6 +14,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
+import ReactGa from "react-ga";
+
+useEffect(() => {
+  ReactGa.pageview(window.location.pathname);
+}, []);
 
 const theme = createTheme();
 
@@ -26,6 +31,10 @@ function GenerateOtp() {
     setOtp(newValue);
   };
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Verify OTP",
+    });
     event.preventDefault();
     await validateOtp(user.email, otp);
     console.log(user.email, otp);
@@ -76,14 +85,6 @@ function GenerateOtp() {
               Verify
             </Button>
           </Box>
-          <div
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/forgot-password")}
-          >
-            <Typography variant="body1" color={Palette.triadic1}>
-              Send otp again
-            </Typography>
-          </div>
         </Box>
       </Container>
     </ThemeProvider>
