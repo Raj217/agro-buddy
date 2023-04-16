@@ -15,6 +15,7 @@ import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
 import { AuthContext } from "./context/auth";
+import Developer from "./components/DevelopersPage/DevelopersPage";
 
 function App() {
   const { loggedIn } = React.useContext(AuthContext);
