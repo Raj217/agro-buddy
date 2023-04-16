@@ -29,7 +29,7 @@ const Contact = () => {
               Fill up the form if you have any queries and our team will get
               back to you within 24 hours.
             </Typography>
-            <form>
+            <form action="https://getform.io/f/db885520-3386-459e-83f3-7a9e3388cb08" method="POST">
               <Grid container spacing={1}>
                 <Grid xs={12} sm={6} item>
                   <TextField
@@ -38,6 +38,7 @@ const Contact = () => {
                     variant="outlined"
                     fullWidth
                     required
+                    name="FirstName"
                   />
                 </Grid>
                 <Grid xs={12} sm={6} item>
@@ -47,6 +48,7 @@ const Contact = () => {
                     variant="outlined"
                     fullWidth
                     required
+                    name="lastName"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -57,6 +59,7 @@ const Contact = () => {
                     variant="outlined"
                     fullWidth
                     required
+                    name="Email"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -68,6 +71,7 @@ const Contact = () => {
                     variant="outlined"
                     fullWidth
                     required
+                    name="Message"
                   />
                 </Grid>
                 <Grid item xs={12}>

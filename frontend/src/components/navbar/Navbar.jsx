@@ -15,6 +15,7 @@ function Navbar() {
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
+    { name: "Teams", link: "/developers" },
   ];
   let currentPage;
   allNavLinks.forEach((link) => {
@@ -38,11 +39,12 @@ function Navbar() {
     >
       <CssBaseline />
       <Toolbar style={{ backgroundColor: "transparent" }} variant="regular">
-        <div variant="h5" fontWeight="bold" className="logo">
+        <div variant="h5" fontWeight="bold" className="logo" onClick={() => { navigate('/') }} >
           <img
-            style={{ height: "26px", width: "175px" }}
+            style={{ height: "26px", width: "175px", cursor: 'pointer' }}
             src={Logo}
             alt="AgroBuddy"
+
           />
         </div>
         <div
@@ -76,9 +78,8 @@ function Navbar() {
           ) : null}
         </div>
         <div
-          className={`nav-links-mobile ${
-            !isIconClicked ? "icon-not-active" : "icon-active"
-          }`}
+          className={`nav-links-mobile ${!isIconClicked ? "icon-not-active" : "icon-active"
+            }`}
           style={{
             display: isNotMobile && "none",
           }}

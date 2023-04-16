@@ -12,6 +12,7 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
+import Developer from "./components/DevelopersPage/DevelopersPage";
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path='/details/:crop' element={<Content />} />
         <Route path="/search" element={<Search />} />
-        {/* <Route path="/content" element={<Content />} /> */}
+        <Route path="/developers" element={< Developer />} />
       </Routes>
       <Footer />
     </div>

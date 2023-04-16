@@ -23,15 +23,15 @@ function Developer() {
                 <div class="content">
                     <h2>Rajdristant Ghose <br />
                         <div className='align'>
-                            {/* <span> */}
-                            <a href='https://www.linkedin.com/in/rajdristant-ghose-286061231/'><LinkedInIcon /></a>
-                            {/* </span> */}
-                            {/* <span> */}
-                            <a href='https://www.instagram.com/rajdristant/'><InstagramIcon /></a>
-                            {/* </span> */}
-                            {/* <span> */}
-                            <a href='https://github.com/Raj217/' ><GitHubIcon /></a>
-                            {/* </span> */}
+                            <span>
+                                <a target='_blank' href='https://www.linkedin.com/in/rajdristant-ghose-286061231/'><LinkedInIcon /></a>
+                            </span>
+                            <span>
+                                <a target='_blank' href='https://www.instagram.com/rajdristant/'><InstagramIcon /></a>
+                            </span>
+                            <span>
+                                <a target='_blank' href='https://github.com/Raj217/' ><GitHubIcon /></a>
+                            </span>
                         </div>
                     </h2>
                 </div>
@@ -46,12 +46,12 @@ function Developer() {
                     <h2>Anupam Das<br />
                         <div className='align'>
                             <span className='anchor'>
-                                <a href='https://www.linkedin.com/in/anupam-das-b49379182/'><LinkedInIcon /></a></span>
+                                <a target='_blank' href='https://www.linkedin.com/in/anupam-das-b49379182/'><LinkedInIcon /></a></span>
                             <span>
-                                <a href='https://www.instagram.com/anupam_151101/'><InstagramIcon /></a>
+                                <a target='_blank' href='https://www.instagram.com/anupam_151101/'><InstagramIcon /></a>
                             </span>
                             <span>
-                                <a href='https://github.com/anupamdas1511'><GitHubIcon /></a>
+                                <a target='_blank' href='https://github.com/anupamdas1511'><GitHubIcon /></a>
                             </span>
                         </div>
                     </h2>
@@ -68,12 +68,12 @@ function Developer() {
                     <h2>Priyajit Paul<br />
                         <div className='align'>
                             <span>
-                                <a href='https://www.linkedin.com/in/priyajit-paul-4b4840213/'><LinkedInIcon /></a></span>
+                                <a target='_blank' href='https://www.linkedin.com/in/priyajit-paul-4b4840213/'><LinkedInIcon /></a></span>
                             <span>
-                                <a href='https://www.instagram.com/_priyajit_paul27_/'><InstagramIcon /></a>
+                                <a target='_blank' href='https://www.instagram.com/_priyajit_paul27_/'><InstagramIcon /></a>
                             </span>
                             <span>
-                                <a href='https://github.com/priyajit27'><GitHubIcon /></a>
+                                <a target='_blank' href='https://github.com/priyajit27'><GitHubIcon /></a>
                             </span>
                         </div>
                     </h2>
@@ -91,10 +91,10 @@ function Developer() {
                     <h2>Akash Suklabaidya<br />
                         <div className='align'>
                             <span>
-                                <a href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/'><LinkedInIcon /></a></span>
-                            <a href='https://www.instagram.com/akash_sb__/'><InstagramIcon /></a>
+                                <a target='_blank' href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/'><LinkedInIcon /></a></span>
+                            <a target='_blank' href='https://www.instagram.com/akash_sb__/'><InstagramIcon /></a>
                             <span>
-                                <a href='https://github.com/akashsb18' ><GitHubIcon /></a>
+                                <a target='_blank' href='https://github.com/akashsb18' ><GitHubIcon /></a>
                             </span>
                         </div>
                     </h2>

@@ -36,7 +36,7 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
     rainfall: [ranges.rainfall.min, ranges.rainfall.max],
     temperature: [ranges.temperature.min, ranges.temperature.max],
   });
-  const { getCropDetails, getCropPreview } = useContext(CropContext);
+  const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const cropDetails = new CropDetailsQuery();
   const initRange = () => {
     console.log(ranges)
@@ -75,13 +75,14 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
     }
     format();
     await getCropPreview(cropDetails);
+    console.log(crops)
   };
 
   const handleKeyDown = async (event) => {
     format();
-      if (event.key === "Enter") {
-        await getCropPreview(cropDetails);
-      }
+    if (event.key === "Enter") {
+      await getCropPreview(cropDetails);
+    }
   };
   const handleApplyFilter = () => {
     cropDetails.fromHumidityLevel = value.humidity[0];
@@ -135,157 +136,156 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
           >
             Filter
           </Button>
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "center",
-              horizontal: "center",
-            }}
-          >
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              // spacing={{ xs: 2, sm: 3 }}
-              sx={{ p: 2, height: "400px", width: "500px" }}
-              columns={{ xs: 1, sm: 4, md: 1 }}
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={() => setAnchorEl(null)}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "center",
+                horizontal: "center",
+              }}
             >
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Humidity</Typography>
-                <Slider
-                  value={value.humidity}
-                  min={ranges?.humidity?.min}
-                  max={ranges?.humidity?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, humidity: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
+              <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                // spacing={{ xs: 2, sm: 3 }}
+                sx={{ p: 2, height: "400px", width: "500px" }}
+                columns={{ xs: 1, sm: 4, md: 1 }}
+              >
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Humidity</Typography>
+                  <Slider
+                    value={value.humidity}
+                    min={ranges?.humidity?.min}
+                    max={ranges?.humidity?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, humidity: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Nitrogen</Typography>
+                  <Slider
+                    value={value.nitrogen}
+                    min={ranges?.nitrogen?.min}
+                    max={ranges?.nitrogen?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, nitrogen: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>pH</Typography>
+                  <Slider
+                    value={value.pH}
+                    min={ranges?.pH?.min}
+                    max={ranges?.pH?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, pH: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Phosphorous</Typography>
+                  <Slider
+                    value={value.phosphorous}
+                    min={ranges?.phosphorous?.min}
+                    max={ranges?.phosphorous?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, phosphorous: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Potassium</Typography>
+                  <Slider
+                    value={value.potassium}
+                    min={ranges?.potassium?.min}
+                    max={ranges?.potassium?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, potassium: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Rainfall</Typography>
+                  <Slider
+                    value={value.rainfall}
+                    min={ranges?.rainfall?.min}
+                    max={ranges?.rainfall?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, rainfall: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Typography>Temperature</Typography>
+                  <Slider
+                    value={value.temperature}
+                    min={ranges?.temperature?.min}
+                    max={ranges?.temperature?.max}
+                    valueLabelDisplay="auto"
+                    onChange={(event, newValue) =>
+                      setValue({ ...value, temperature: newValue })
+                    }
+                    getAriaValueText={valueText}
+                  ></Slider>
+                </Grid>
+                <Grid item xs={2} sm={4} md={4}>
+                  <Button
+                    className="search-btn"
+                    variant="contained"
+                    sx={{
+                      textTransform: "none",
+                      margin: "10px",
+                      width: { lg: "120px", xs: "70px" },
+                      fontSize: { lg: "16px", xs: "12px" },
+                      height: "56px",
+                      // position: "absoluteApply",
+                      // right: { lg: "-120px", xs: "-70px" },
+                      borderRadius: "0",
+                    }}
+                    onClick={handleApplyFilter}
+                  >
+                    Apply
+                  </Button>
+                  <Button
+                    className="search-btn"
+                    variant="outlined"
+                    sx={{
+                      textTransform: "none",
+                      margin: "10px",
+                      width: { lg: "120px", xs: "70px" },
+                      fontSize: { lg: "16px", xs: "12px" },
+                      height: "56px",
+
+                      borderRadius: "0",
+                    }}
+                    onClick={handleClearFilter}
+                  >
+                    Clear
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Nitrogen</Typography>
-                <Slider
-                  value={value.nitrogen}
-                  min={ranges?.nitrogen?.min}
-                  max={ranges?.nitrogen?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, nitrogen: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>pH</Typography>
-                <Slider
-                  value={value.pH}
-                  min={ranges?.pH?.min}
-                  max={ranges?.pH?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, pH: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Phosphorous</Typography>
-                <Slider
-                  value={value.phosphorous}
-                  min={ranges?.phosphorous?.min}
-                  max={ranges?.phosphorous?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, phosphorous: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Potassium</Typography>
-                <Slider
-                  value={value.potassium}
-                  min={ranges?.potassium?.min}
-                  max={ranges?.potassium?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, potassium: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Rainfall</Typography>
-                <Slider
-                  value={value.rainfall}
-                  min={ranges?.rainfall?.min}
-                  max={ranges?.rainfall?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, rainfall: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Typography>Temperature</Typography>
-                <Slider
-                  value={value.temperature}
-                  min={ranges?.temperature?.min}
-                  max={ranges?.temperature?.max}
-                  valueLabelDisplay="auto"
-                  onChange={(event, newValue) =>
-                    setValue({ ...value, temperature: newValue })
-                  }
-                  getAriaValueText={valueText}
-                ></Slider>
-              </Grid>
-              <Grid item xs={2} sm={4} md={4}>
-                <Button
-                  className="search-btn"
-                  variant="contained"
-                  sx={{
-                    textTransform: "none",
-                    margin: "10px",
-                    width: { lg: "120px", xs: "70px" },
-                    fontSize: { lg: "16px", xs: "12px" },
-                    height: "56px",
-                    // position: "absoluteApply",
-                    // right: { lg: "-120px", xs: "-70px" },
-                    borderRadius: "0",
-                  }}
-                  onClick={handleApplyFilter}
-                >
-                  Apply
-                </Button>
-                <Button
-                  className="search-btn"
-                  variant="outlined"
-                  sx={{
-                    textTransform: "none",
-                    margin: "10px",
-                    width: { lg: "120px", xs: "70px" },
-                    fontSize: { lg: "16px", xs: "12px" },
-                    height: "56px",
-                    // position: "absolute",
-                    // right: { lg: "-120px", xs: "-70px" },
-                    borderRadius: "0",
-                  }}
-                  onClick={handleClearFilter}
-                >
-                  Clear
-                </Button>
-              </Grid>
-            </Grid>
-          </Popover></div>)}
+            </Popover></div>)}
           <TextField
             sx={{
               input: {
