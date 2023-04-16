@@ -5,7 +5,20 @@ import "./styles.css";
 function Youtube() {
   return (
     <div>
-        <Typography variant="h3" fontWeight='bold' margin='30px 20px'>Know more about Farming</Typography>
+      <div style={{
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Typography
+          variant="h3"
+          fontWeight="bold"
+          margin="50px 20px"
+        >
+          Know more about Farming
+        </Typography>
+      </div>
       <Stack
         flex
         flexDirection="row"

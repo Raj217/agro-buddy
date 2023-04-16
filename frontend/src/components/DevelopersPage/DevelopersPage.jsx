@@ -4,6 +4,11 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
+import ReactGa from "react-ga";
+
+useEffect(() => {
+  ReactGa.pageview(window.location.pathname);
+}, []);
 
 function Developer() {
   return (

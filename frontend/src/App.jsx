@@ -15,7 +15,10 @@ import Charts from "./components/contents/Charts";
 import Developer from "./components/DevelopersPage/DevelopersPage";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
+import ReactGa from "react-ga";
 import { AuthContext } from "./context/auth";
+
+ReactGa.initialize(process.env.MEASUREMENT_ID);
 
 function App() {
   const { loggedIn } = React.useContext(AuthContext);
