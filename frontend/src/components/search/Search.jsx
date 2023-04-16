@@ -14,6 +14,7 @@ function Search() {
   React.useEffect(() => {
     getParamRanges().then((data) => {
         setIsLoading(false);
+        console.log(data);
         setRange(data);
     })
   }, []);
@@ -32,7 +33,7 @@ function Search() {
   }
   return (
     <div>
-      <SearchCrops setQuery={setQuery} hasFilter ranges={range} />
+      <SearchCrops query={query} setQuery={setQuery} hasFilter ranges={range} />
       <Grid container spacing={2} direction="row" justifyContent="center">
         {cropList.map((crop) => (
           <Grid item xs={12} sm={6} md={4}>

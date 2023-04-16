@@ -21,12 +21,12 @@ const valueText = (value) => {
   return `${value}`;
 };
 
-function SearchCrops({ setQuery, hasFilter, ranges }) {
+function SearchCrops({ query, setQuery, hasFilter, ranges }) {
   const navigate = useNavigate();
   const { setCropData } = React.useContext(CropContext);
   const [isFilter, setIsFilter] = React.useState(false)
   const [search, setSearch] = useState("");
-  const [cropsData, setCropsData] = useState([]);
+  // const [cropsData, setCropsData] = useState([]);
   const [value, setValue] = React.useState({
     humidity: [ranges.humidity.min, ranges.humidity.max],
     nitrogen: [ranges.nitrogen.min, ranges.nitrogen.max],
@@ -36,8 +36,7 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
     rainfall: [ranges.rainfall.min, ranges.rainfall.max],
     temperature: [ranges.temperature.min, ranges.temperature.max],
   });
-  const { getCropDetails, getCropPreview } = useContext(CropContext);
-  const cropDetails = new CropDetailsQuery();
+  const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const initRange = () => {
     console.log(ranges)
     value.humidity[0] = ranges.humidity.min;
@@ -54,7 +53,7 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
     value.rainfall[1] = ranges.rainfall.max;
     value.temperature[0] = ranges.temperature.min;
     value.temperature[1] = ranges.temperature.max;
-    setQuery(cropDetails);
+    setQuery(query);
   }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -65,8 +64,8 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
 
   const format = () => {
     setCropData(new Map())
-    cropDetails.name = search;
-    setQuery(cropDetails);
+    query.name = search;
+    setQuery(query);
   };
 
   const handleSearch = async () => {
@@ -74,32 +73,37 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
       navigate("/search");
     }
     format();
-    await getCropPreview(cropDetails);
+    console.log(query)
+    await getCropPreview(query);
+    console.log(crops);
   };
 
   const handleKeyDown = async (event) => {
     format();
       if (event.key === "Enter") {
-        await getCropPreview(cropDetails);
+        await getCropPreview(query);
       }
   };
   const handleApplyFilter = () => {
-    cropDetails.fromHumidityLevel = value.humidity[0];
-    cropDetails.toHumidityLevel = value.humidity[1];
-    cropDetails.fromNitrogenLevel = value.nitrogen[0];
-    cropDetails.toNitrogenLevel = value.nitrogen[1];
-    cropDetails.fromPHLevel = value.pH[0];
-    cropDetails.toPHLevel = value.pH[1];
-    cropDetails.fromphosphorousLevel = value.phosphorous[0];
-    cropDetails.tophosphorousLevel = value.phosphorous[1];
-    cropDetails.fromPotassiumLevel = value.potassium[0];
-    cropDetails.toPotassiumLevel = value.potassium[1];
-    cropDetails.fromRainfallLevel = value.rainfall[0];
-    cropDetails.toRainfallLevel = value.rainfall[1];
-    cropDetails.fromTemperatureLevel = value.temperature[0];
-    cropDetails.toTemperatureLevel = value.temperature[1];
+    query.fromHumidityLevel = value.humidity[0];
+    query.toHumidityLevel = value.humidity[1];
+    query.fromNitrogenLevel = value.nitrogen[0];
+    query.toNitrogenLevel = value.nitrogen[1];
+    query.fromPHLevel = value.pH[0];
+    query.toPHLevel = value.pH[1];
+    query.fromPhosphorusLevel = value.phosphorous[0];
+    query.toPhosphorusLevel = value.phosphorous[1];
+    query.fromPotassiumLevel = value.potassium[0];
+    query.toPotassiumLevel = value.potassium[1];
+    query.fromRainfallLevel = value.rainfall[0];
+    query.toRainfallLevel = value.rainfall[1];
+    query.fromTemperatureLevel = value.temperature[0];
+    query.toTemperatureLevel = value.temperature[1];
     setIsFilter(true);
-    setQuery(cropDetails);
+    console.log(value)
+    console.log(query);
+    console.log(query.fromPhosphorousLevel);
+    setQuery(query);
     setAnchorEl(null);
   }
   const handleClearFilter = () => {
@@ -113,7 +117,7 @@ function SearchCrops({ setQuery, hasFilter, ranges }) {
       flexDirection="column"
       sx={{
         width: { lg: "800px", md: "600px", xs: "320px" },
-        margin: "20px auto",
+        margin: "50px auto",
       }}
     >
       <Stack p="20px" alignItems="center" justifyContent="center">
