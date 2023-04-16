@@ -22,12 +22,7 @@ function SearchCard({ query, crop }) {
   let pH = crop.preview.pH;
   let rainfall = crop.preview.rainfall;
   let temperature = crop.preview.temperature;
-  // for (const [key, value] of crops) {
-  //   crop = crops.get(key);
-  //   pH = crop === undefined ? 0 : crop.preview.pH;
-  //   temperature = crop === undefined ? 0 : crop.preview.temperature;
-  //   rainfall = crop === undefined ? 0 : crop.preview.rainfall;
-  // }
+
   const handleClick = async () => {
 
 
@@ -35,7 +30,6 @@ function SearchCard({ query, crop }) {
     await getCropDetails(query);
 
     navigate('/details/' + query.name);
-    // navigate("/content")
   }
   return (
     <Container maxWidth="lg">
