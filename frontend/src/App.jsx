@@ -12,6 +12,7 @@ import Footer from "./components/footer/Footer";
 import ForgotPasswordParams from "./components/ForgotPassword/ForgotPasswordParams";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
+import Developer from "./components/DevelopersPage/DevelopersPage";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
 import { AuthContext } from "./context/auth";

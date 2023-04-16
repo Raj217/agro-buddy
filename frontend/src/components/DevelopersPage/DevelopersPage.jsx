@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import './DevelopersPage.css'
 import { Grid, Typography } from '@mui/material'
-import Akash from './images/AkashF.jpeg'
 import Anupam from './images/AnupamF.jpg'
-import Priyajit from './images/Priyajit.jpg'
-import Raj from './images/Raj.jpg'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Link from '@mui/material/Link';
-import Palette from '../../configs/pallete.js'
 
 
 function Developer() {
@@ -21,7 +17,7 @@ function Developer() {
             <div class="box">
                 <div class="imgBox">
 
-                    <img className='image' src={Raj} alt="" />
+                    <img className='image' src="https://res.cloudinary.com/djkn56f5y/image/upload/v1681664389/raj_acrodj.jpg" alt="" />
                 </div>
                 <div class="content">
                     <h2>Rajdristant Ghose <br />
@@ -65,7 +61,7 @@ function Developer() {
             <div class="box">
                 <div class="imgBox">
 
-                    <img className='image' src={Priyajit} alt="" />
+                    <img className='image' src="https://res.cloudinary.com/djkn56f5y/image/upload/v1681664388/priyajit_fuoflt.jpg" alt="" />
                 </div>
                 <div class="content">
                     <h2>Priyajit Paul<br />
@@ -87,7 +83,7 @@ function Developer() {
                 <div class="imgBox">
 
 
-                    <img className='image' src={Akash} alt="" />
+                    <img className='image' src="https://res.cloudinary.com/djkn56f5y/image/upload/v1681664389/AkashF-4a4e565b_1_g2hd0q.jpg" alt="" />
 
                 </div>
                 <div class="content">
