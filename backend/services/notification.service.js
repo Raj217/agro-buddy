@@ -14,7 +14,7 @@ export const sendOtp = async (email, otp) => {
   });
   transport.sendMail(
     {
-      from: `"Test Server" ${process.env.EMAIL}`,
+      from: `"Agro Buddy" ${process.env.EMAIL}`,
       to: email,
       subject: "OTP Verification",
       html: otpVerification(otp),
@@ -42,7 +42,7 @@ export const sendResetLink = async (email, url) => {
   });
   transport.sendMail(
     {
-      from: `"Test Server" ${process.env.EMAIL}`,
+      from: `"Agro Buddy" ${process.env.EMAIL}`,
       to: email,
       subject: "Reset Password",
       html: resetPassword(url),

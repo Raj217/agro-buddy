@@ -14,7 +14,7 @@ app.use(BodyParser.urlencoded({ extended: false }));
 app.use(BodyParser.json());
 
 app.use((req, res, next) => {
-  if (req.url !== '/api/welcome') {
+  if (req.url !== "/api/welcome") {
     console.log("Request Type:", req.method);
     console.log("Route: ", req.url);
   }
