@@ -101,8 +101,13 @@ export const signUp = async (inputUser) => {
 
   const existingUser = await User.findOne({ email });
   /// Already someone exists with the same email
-  if (existingUser)
-    throw new Exception("User already exists", ExceptionCodes.CONFLICT);
+  if (existingUser) {
+    await generateAndSendOtp(email);
+    throw new Exception(
+      "User already exists. OTP has been sent to your mail.",
+      ExceptionCodes.CONFLICT
+    );
+  }
 
   /// New user thus hash the password
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
