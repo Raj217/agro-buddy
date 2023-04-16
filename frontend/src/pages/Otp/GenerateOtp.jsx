@@ -30,6 +30,7 @@ function GenerateOtp() {
     await validateOtp(user.email, otp);
     console.log(user.email, otp);
     navigate("/");
+    window.location.reload(false);
   };
   return (
     <ThemeProvider theme={theme}>
