@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css";
 import { Route, Routes } from 'react-router-dom'
 import { Home } from './components'
@@ -13,12 +14,15 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
+import { AuthContext } from './context/auth';
 
 function App() {
-
+  const { loggedIn } = React.useContext(AuthContext);
+  const [signedIn, setSignedIn] = React.useState(loggedIn);
+  React.useEffect(() => {}, [signedIn]);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar signedIn={signedIn} setSignedIn={setSignedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
