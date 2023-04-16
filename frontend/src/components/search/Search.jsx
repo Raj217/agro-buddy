@@ -5,6 +5,7 @@ import SearchCrops from "./components/SearchCrops";
 import SearchCard from "./components/SearchCard";
 import { CropContext } from "../../context/crops";
 import { Grid } from "@mui/material";
+import ReactGa from "react-ga";
 
 function Search() {
   const { getParamRanges } = React.useContext(CropContext);
@@ -12,11 +13,13 @@ function Search() {
 
   const [range, setRange] = React.useState({});
   React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+
     getParamRanges().then((data) => {
-        setIsLoading(false);
-        console.log(data);
-        setRange(data);
-    })
+      setIsLoading(false);
+      console.log(data);
+      setRange(data);
+    });
   }, []);
   const [query, setQuery] = React.useState(new CropDetailsQuery());
   const { crops } = React.useContext(CropContext);
