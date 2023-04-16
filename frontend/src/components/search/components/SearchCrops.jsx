@@ -83,10 +83,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
       value: query.toQuery(),
     });
     format();
-    console.log(query);
-    await getCropPreview(query);
-    console.log(crops);
-    console.log(query);
+    setCropData(new Map());
     await getCropPreview(query);
     console.log(crops);
   };
@@ -104,6 +101,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     }
   };
   const handleApplyFilter = () => {
+    setQuery(new CropDetailsQuery());
     query.fromHumidityLevel = value.humidity[0];
     query.toHumidityLevel = value.humidity[1];
     query.fromNitrogenLevel = value.nitrogen[0];
