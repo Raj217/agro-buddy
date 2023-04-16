@@ -1,29 +1,27 @@
 import { resetPassword } from "../templates/reset-password.js";
+import { otpVerification } from "../templates/otp-verification.js";
 import nodemailer from "nodemailer";
+import Exception, { ExceptionCodes } from "../utils/Error.js";
 
-export const sendEmail = async (email, message) => {
-  var templateParams = {
-    subject: email,
-    template: resetPassword,
-  };
+export const sendOtp = async (email, otp) => {
   var transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
+    host: process.env.NODEMAILER_HOST,
+    port: process.env.NODEMAILER_PORT,
     auth: {
-      user: "e0678e3f6656b5",
-      pass: "f04f29b88076d1",
+      user: process.env.NODEMAILER_AUTH_USER,
+      pass: process.env.NODEMAILER_AUTH_PASS,
     },
   });
   transport.sendMail(
     {
-      from: '"Test Server" <rajdristant007@gmail.com>',
+      from: `"Test Server" ${process.env.EMAIL}`,
       to: email,
-      subject: "Email Test",
-      html: resetPassword,
+      subject: "OTP Verification",
+      html: otpVerification(otp),
     },
     (err, info) => {
       if (err) {
-        console.log(err);
+        throw new Exception("Couldn't send message", ExceptionCodes.FORBIDDEN);
       }
       console.log("Info: ", info);
       res.json({
@@ -33,12 +31,30 @@ export const sendEmail = async (email, message) => {
   );
 };
 
-export const sendOtp = async (email, otp, message) => {
-  sendEmail(email, `OTP for ${email} : ${otp}, valid for 12 hours `);
-  console.log(`OTP for ${email} : ${otp}, valid for 12 hours `);
-};
-
 export const sendResetLink = async (email, url) => {
-  sendEmail(email, `Reset link for ${email}: ${url}`);
-  console.log(`Reset link for ${email}: `, url);
+  var transport = nodemailer.createTransport({
+    host: process.env.NODEMAILER_HOST,
+    port: process.env.NODEMAILER_PORT,
+    auth: {
+      user: process.env.NODEMAILER_AUTH_USER,
+      pass: process.env.NODEMAILER_AUTH_PASS,
+    },
+  });
+  transport.sendMail(
+    {
+      from: `"Test Server" ${process.env.EMAIL}`,
+      to: email,
+      subject: "Reset Password",
+      html: resetPassword(url),
+    },
+    (err, info) => {
+      if (err) {
+        throw new Exception("Couldn't send message", ExceptionCodes.FORBIDDEN);
+      }
+      console.log("Info: ", info);
+      res.json({
+        message: "Email successfully sent.",
+      });
+    }
+  );
 };

@@ -14,9 +14,15 @@ class API:
     _details_df = pd.DataFrame()
     _images_df = pd.DataFrame()
     _create_crop_path = "/api/crop/"
+    _http_proxy = None
+    _https_proxy = None
 
     def __init__(self):
         os.environ["NO_PROXY"] = "localhost"
+
+    def ask_proxy(self):
+        self._http_proxy = input("HTTP Proxy: ")
+        self._https_proxy = input("HTTPS Proxy: ")
 
     def set_backend_url(self, url: str):
         self._backend_url = url
@@ -26,19 +32,32 @@ class API:
         self._password = password
 
     def login(self, email: str, password: str):
-        res = requests.post(self._backend_url + self._login_path, headers={"content-type": "application/json"},
-                            json={"email": email, "password": password})
+        self.ask_proxy()
+        res = requests.post(
+            self._backend_url + self._login_path,
+            headers={"content-type": "application/json"},
+            json={
+                "email": email,
+                "password": password},
+                proxies={
+                    'http': self._http_proxy,
+                    'https': self._https_proxy
+                })
         if 200 <= res.status_code < 300:
             self._token = res.json()["token"]
         else:
-            print(res.json())
+            print(res.content)
             exit(0)
 
     def create_crop(self, name: str, images: list, description: str, details: pd.Series):
         res = requests.post(
             self._backend_url+self._create_crop_path,
             headers={"content-type": "application/json", "authorization": self._token},
-            json=self._to_dict({"name": name, "images": images, "description": description, "details": details})
+            json=self._to_dict({"name": name, "images": images, "description": description, "details": details},
+            proxies={
+                'http': self._http_proxy,
+                'https': self._https_proxy
+            })
         )
         if res.status_code < 200 or res.status_code >= 300:
             print(res.json())
