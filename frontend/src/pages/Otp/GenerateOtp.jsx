@@ -16,13 +16,12 @@ import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 const theme = createTheme();
 
 function GenerateOtp() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [otp, setOtp] = React.useState("");
   const { user } = React.useContext(UserContext);
   const { validateOtp } = React.useContext(AuthContext);

@@ -10,11 +10,11 @@ import {
 import "./Contact.css";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 const Contact = () => {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div className="contact">
       <Typography gutterBottom variant="h3" align="center" fontWeight="bold">

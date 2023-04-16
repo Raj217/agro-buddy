@@ -3,11 +3,11 @@ import Hero from "./components/Hero/Hero";
 import Youtube from "../../components/Youtube/Youtube";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 function Home() {
+  useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div>
       <Hero />

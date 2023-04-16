@@ -23,13 +23,12 @@ import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import ReactGa from "react-ga";
 
-useEffect(() => {
-  ReactGa.pageview(window.location.pathname);
-}, []);
-
 const theme = createTheme();
 
 export default function SignIn() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [user, setUser] = React.useState({
     email: "",
     password: "",
