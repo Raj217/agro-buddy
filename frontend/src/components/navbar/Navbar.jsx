@@ -26,7 +26,8 @@ function Navbar() {
   const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
-  const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
+  // const [isNotMobile, setIsMobile] = useState(theme.breakpoints.down("sm"));
+  let isNotMobile = theme.breakpoints.up("sm") !== null;
   const { loggedIn } = useContext(AuthContext);
   const isMobile = theme.breakpoints.down("sm");
 
@@ -79,9 +80,7 @@ function Navbar() {
           className={`nav-links-mobile ${
             !isIconClicked ? "icon-not-active" : "icon-active"
           }`}
-          style={{
-            display: isNotMobile && "none",
-          }}
+          // style={isNotMobile ? { display: "none" } : { display: "flex" }}
         >
           {allNavLinks.map((link) => (
             <li

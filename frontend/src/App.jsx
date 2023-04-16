@@ -8,6 +8,7 @@ import SignIn from "./components/forms/SignIn";
 import SignUp from "./components/forms/SignUp";
 import GenerateOtp from "./pages/Otp/GenerateOtp";
 import Footer from "./components/footer/Footer";
+import ForgotPasswordParams from "./components/ForgotPassword/ForgotPasswordParams";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import Charts from "./components/contents/Charts";
 import Content from "./components/content/Content";
@@ -25,10 +26,10 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/otp" element={<GenerateOtp />} />
+        <Route path="/forgot-password/:token" element={<ForgotPasswordParams />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path='/details/:crop' element={<Content />} />
         <Route path="/search" element={<Search />} />
-        {/* <Route path="/content" element={<Content />} /> */}
       </Routes>
       <Footer />
     </div>

@@ -15,21 +15,22 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
-import { forgotPassword } from "../../api";
 
 const theme = createTheme();
 
-function ForgotPassword() {
+export default function ForgotPassword() {
   const [user, setUser] = React.useState({
     email: "",
   });
   const navigate = useNavigate();
-  const { forgotPassword } = React.useContext(AuthContext);
+  const { forgotPassword, setEmail } = React.useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setEmail(user.email);
     await forgotPassword(user);
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -45,9 +46,14 @@ function ForgotPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Forgot Password
+            Forgot Password?
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -59,10 +65,8 @@ function ForgotPassword() {
               autoFocus
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
-
-
             <Button
-              onClick={handleSubmit}
+              type="submit"
               fullWidth
               variant="contained"
               sx={{
@@ -72,7 +76,7 @@ function ForgotPassword() {
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
             >
-              Generate OTP
+              Submit
             </Button>
           </Box>
         </Box>
@@ -80,5 +84,3 @@ function ForgotPassword() {
     </ThemeProvider>
   );
 }
-
-export default ForgotPassword;

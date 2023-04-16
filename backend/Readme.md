@@ -204,7 +204,7 @@ Example:
 {
   "name": "rice",
   "nitrogen": 10,
-  "phosphorus": 100,
+  "phosphorous": 100,
   "potassium": 100,
   "temperature": 19.2,
   "humidity": 19.2,
@@ -217,7 +217,7 @@ Example:
 **name**: required | String <br>
 **details**: optional | List <br>
 **details.nitrogen**: optional | number <br>
-**details.phosphorus**: optional | number <br>
+**details.phosphorous**: optional | number <br>
 **details.potassium**: optional | number <br>
 **details.temperature**: optional | number <br>
 **details.pH**: optional | number <br>
@@ -250,9 +250,9 @@ http://localhost:4002/api/crop?nitrogen=10&name=rice
   **nitrogen**: optional | number <br>
   **fromNitrogenLevel**: optional | number <br>
   **toNitrogenLevel**: optional | number <br>
-  **phosphorus**: optional | number <br>
-  **fromPhosphorusLevel**: optional | number <br>
-  **toPhosphorusLevel**: optional | number <br>
+  **phosphorous**: optional | number <br>
+  **fromphosphorousLevel**: optional | number <br>
+  **tophosphorousLevel**: optional | number <br>
   **potassium**: optional | number <br>
   **fromPotassiumLevel**: optional | number <br>
   **toPotassiumLevel**: optional | number <br>
@@ -291,9 +291,9 @@ http://localhost:4002/api/crop/details?nitrogen=10&name=rice
   **nitrogen**: optional | number <br>
   **fromNitrogenLevel**: optional | number <br>
   **toNitrogenLevel**: optional | number <br>
-  **phosphorus**: optional | number <br>
-  **fromPhosphorusLevel**: optional | number <br>
-  **toPhosphorusLevel**: optional | number <br>
+  **phosphorous**: optional | number <br>
+  **fromphosphorousLevel**: optional | number <br>
+  **tophosphorousLevel**: optional | number <br>
   **potassium**: optional | number <br>
   **fromPotassiumLevel**: optional | number <br>
   **toPotassiumLevel**: optional | number <br>
@@ -366,7 +366,7 @@ NOTE: If name is provided, it is meant to update the images so images must be pa
   **name**: optional | String <br>
   **images**: optional | [String] <br>
   **nitrogen**: optional | number <br>
-  **phosphorus**: optional | number <br>
+  **phosphorous**: optional | number <br>
   **potassium**: optional | number <br>
   **temperature**: optional | number <br>
   **humidity**: optional | number <br>
