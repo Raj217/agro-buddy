@@ -26,11 +26,6 @@ function Home() {
       {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
       {/* <SearchCard /> */}
-      {/* <Search /> */}
-      {/* <Footer /> */}
-
-      <DevelopersPage />
-
 
     </div>
   )
