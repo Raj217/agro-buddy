@@ -30,11 +30,10 @@
 .nav-links-mobile {
   position: absolute;
   border-radius: 5px;
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  /* backdrop-filter: blur(25px); */
   background-color: #F5F9F9;
   top: 13vh;
   width: 100%;
@@ -44,7 +43,7 @@
   transform: translateY(-100vh);
 }
 .icon-active {
-  translate: 0;
+  transform: translateY(0);
   transition: all 0.3s 0.2s linear;
 }
 .nav-link-mobile {
@@ -107,5 +106,11 @@
     font-size: 30px;
     top: 15px;
     right: 25px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .nav-links-mobile {
+    display: none;
   }
 }
