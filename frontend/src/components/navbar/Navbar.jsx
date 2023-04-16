@@ -22,6 +22,7 @@ function Navbar() {
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
+    { name: "Team", link: "/developer" },
     { name: "Help", link: "/" },
   ];
   const [isActive, setIsActive] = React.useState("Home");
