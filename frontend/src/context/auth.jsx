@@ -1,16 +1,18 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import {
   signup,
   login,
   getUser,
   generateOtp,
   forgotPassword,
+  resetPassword,
   validateOtp,
 } from "../api";
 import toast from "react-hot-toast";
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
+  const [email, setEmail] = useState("")
   let loggedIn = localStorage.getItem("token") !== null;
   const signUp = async (formData) => {
     try {
@@ -72,6 +74,18 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const resetpassword = async (email) => {
+    try {
+      const { data } = await resetPassword(email);
+      console.log(data);
+      toast.success(data.message);
+      return { data };
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const verifyOtp = async (email, otp) => {
     try {
       const { data } = await validateOtp(email, otp);
@@ -95,7 +109,10 @@ const AuthContextProvider = ({ children }) => {
         getUserDetails: getUserDetails,
         generateOtp: generateOtpandMail,
         forgotPassword: forgotpassword,
+        resetPassword: resetpassword,
         validateOtp: verifyOtp,
+        email,
+        setEmail: setEmail,
       }}
     >
       {children}

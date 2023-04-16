@@ -1,6 +1,8 @@
 import React from 'react'
 import { Typography, Stack, Button, Grid, TextField, Container, Box } from '@mui/material';
 import Banner from '../.././components/general/img/Banner';
+import Team from './Images/team_thumbnail.png'
+
 import './About.css'
 function About() {
   return (
@@ -9,22 +11,28 @@ function About() {
       <h3 className="about_heading">ABOUT US</h3>
       <div className="underline"></div>
       <div className="about">
-      <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="image1" className="about_image" />
+        <img className='image' src={Team} />
         <div className="about_text_div">
           <div className="about_text">
-          <div className="about_agro">
-           <b> ABOUT Agro-Budddy: </b>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ips!
-           <br></br>
-           <br></br>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ipsa!
-           <br></br>
-           <br></br>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quos reiciendis tenetur iusto obcaecati. Officiis provident sequi beatae cupiditate eos excepturi dolor possimus laudantium vel dolores ut, laborum cumque, magnam quam ab dolore consectetur? Iste, explicabo inventore architecto laborum sunt quasi quibusdam? Quasi totam possimus vero! Officiis asperiores ipsa!
-          </div>
+            <div className="about_agro">
+              <b> ABOUT Agro-Budddy: </b>
+              Agro-buddy ... This site is developed to find agriculture information, expert and products information.
+              <br></br>
+              <br></br>
+              A huge population of our country is directly or indirectly dependent on farming.
+              The national GDP from farming is around 20% every year.
+              It gives employment to over 60%​ of the population.
+              <br></br>
+              <br></br>
+              With this mindset, we have created a website that aims to help farmers in multiple ways. Firstly, users will need to sign up on our website to search for their crops. In the search section, users can search for a crop and will be provided with all the details about the suitable conditions necessary to grow that particular crop. The NPK value of the crop will also be provided.
+
+              In addition, we have included graphs (histograms and pie charts) that will provide a quick overview of weather conditions such as rainfall, humidity, and temperature. By using these parameters, farmers can get a better idea of which crops will be suitable for their particular location.
+
+              Furthermore, we have a help section where users can find information about agriculture through our recommended videos specifically tailored to agriculture.
+            </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   )
 }

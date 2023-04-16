@@ -29,8 +29,8 @@ function GenerateOtp() {
     event.preventDefault();
     await validateOtp(user.email, otp);
     console.log(user.email, otp);
-    navigate('/');
-  }
+    navigate("/");
+  };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -75,6 +75,14 @@ function GenerateOtp() {
               Verify
             </Button>
           </Box>
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/forgot-password")}
+          >
+            <Typography variant="body1" color={Palette.triadic1}>
+              Send otp again
+            </Typography>
+          </div>
         </Box>
       </Container>
     </ThemeProvider>

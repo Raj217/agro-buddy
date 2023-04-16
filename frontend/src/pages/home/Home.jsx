@@ -7,24 +7,26 @@ import SignUp from '../../components/forms/SignUp';
 import Whyus from '../WhyUS/Whyus';
 import SearchCrops from '../../components/search/components/SearchCrops';
 import SearchCard from '../../components/search/components/SearchCard';
+import ForgotPasswordParams from '../../components/ForgotPassword/ForgotPasswordParams';
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../components/ResetPassword/ResetPassword';
 import Youtube from '../../components/Youtube/Youtube';
 import Content from '../../components/content/Content';
 import Search from '../../components/search/Search';
+import DevelopersPage from '../../components/DevelopersPage/DevelopersPage';
 
 function Home() {
   return (
     <div>
       <Hero />
+      {/* <SignIn /> */}
       {/* <Whyus />  */}
       {/* <Footer /> */}
-      {/* <SearchCrops /> */}
-      {/* <Footer /> */}
+      {/* <SearchCrops />
+      <SearchCard /> */}
+      {/* <ForgotPassword /> */}
+      {/* <ResetPassword /> */}
       {/* <SearchCard /> */}
-      {/* <Search /> */}
-      {/* <SearchCrops /> */}
-      {/* <Youtube /> */}
+
     </div>
   )
 }
