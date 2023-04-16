@@ -1,6 +1,7 @@
 import { resetPassword } from "../templates/reset-password.js";
 import { otpVerification } from "../templates/otp-verification.js";
 import nodemailer from "nodemailer";
+import Exception, { ExceptionCodes } from "../utils/Error.js";
 
 export const sendOtp = async (email, otp) => {
   var transport = nodemailer.createTransport({
@@ -20,7 +21,7 @@ export const sendOtp = async (email, otp) => {
     },
     (err, info) => {
       if (err) {
-        console.log(err);
+        throw new Exception("Couldn't send message", ExceptionCodes.FORBIDDEN);
       }
       console.log("Info: ", info);
       res.json({
@@ -31,7 +32,6 @@ export const sendOtp = async (email, otp) => {
 };
 
 export const sendResetLink = async (email, url) => {
-  console.log(url);
   var transport = nodemailer.createTransport({
     host: process.env.NODEMAILER_HOST,
     port: process.env.NODEMAILER_PORT,
@@ -49,7 +49,7 @@ export const sendResetLink = async (email, url) => {
     },
     (err, info) => {
       if (err) {
-        console.log(err);
+        throw new Exception("Couldn't send message", ExceptionCodes.FORBIDDEN);
       }
       console.log("Info: ", info);
       res.json({
