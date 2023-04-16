@@ -15,6 +15,7 @@ import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import SearchCard from "./SearchCard";
+import ReactGa from "react-ga";
 import "./styles.css";
 
 const valueText = (value) => {
