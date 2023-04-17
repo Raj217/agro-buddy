@@ -25,6 +25,7 @@ import { UserContext } from "../../context/user";
 import toast from "react-hot-toast";
 import ReactGa from "react-ga";
 import CircularProgress from '@mui/material/CircularProgress';
+import "./styles.css";
 
 
 const theme = createTheme();
@@ -80,7 +81,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container className="page-container" component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -194,7 +195,7 @@ export default function SignUp() {
               endIcon={
                 loading && (
                   <CircularProgress
-                    size={26}
+                    size={20}
                     sx={{
                       color: 'white',
                     }}

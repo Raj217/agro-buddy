@@ -374,7 +374,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
             endIcon={
               loading && (
                 <CircularProgress
-                  size={26}
+                  size={20}
                   sx={{
                     color: 'white',
                   }}

@@ -105,7 +105,7 @@ export default function ForgotPassword() {
               endIcon={
                 loading && (
                   <CircularProgress
-                    size={26}
+                    size={20}
                     sx={{
                       color: 'white',
                     }}

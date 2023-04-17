@@ -119,6 +119,7 @@ function Navbar() {
                 localStorage.removeItem("token");
                 setIsLoggedIn(false);
                 setIsIconClicked(false);
+                navigate("/");
               }}
             >
               Sign out

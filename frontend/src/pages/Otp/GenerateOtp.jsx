@@ -15,10 +15,17 @@ import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
 import ReactGa from "react-ga";
+import CircularProgress from '@mui/material/CircularProgress';
+import "./styles.css";
 
 const theme = createTheme();
 
 function GenerateOtp() {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [Sign, setSign] = React.useState("Verify");
+
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
@@ -35,13 +42,21 @@ function GenerateOtp() {
       label: "Verify OTP",
     });
     event.preventDefault();
+    if (!loading) {
+      setLoading(true);
+      setSign("Verifying");
+    }
+    else {
+      setLoading(false);
+      setSign("Verify");
+    }
     await validateOtp(user.email, otp);
     navigate("/");
     window.location.reload(false);
   };
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container className="page-container" component="main" maxWidth="xs" sx={{ minHeight: '40vh' }}>
         <CssBaseline />
         <Box
           sx={{
@@ -79,8 +94,18 @@ function GenerateOtp() {
                 backgroundColor: Palette.accent,
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
+              endIcon={
+                loading && (
+                  <CircularProgress
+                    size={20}
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )
+              }
             >
-              Verify
+              {Sign}
             </Button>
           </Box>
         </Box>
