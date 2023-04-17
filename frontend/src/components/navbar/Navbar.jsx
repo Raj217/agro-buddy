@@ -83,7 +83,6 @@ function Navbar() {
               onClick={() => {
                 localStorage.removeItem("token");
                 setIsLoggedIn(false);
-                window.location.reload(false);
               }}
             >
               Sign out
@@ -118,8 +117,8 @@ function Navbar() {
             <Button
               onClick={() => {
                 localStorage.removeItem("token");
-                setisLoggedIn(false);
-                window.location.reload(false);
+                setIsLoggedIn(false);
+                setIsIconClicked(false);
               }}
             >
               Sign out
