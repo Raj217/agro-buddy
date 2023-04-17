@@ -1,4 +1,4 @@
-# AgroBuddy
+# [AgroBuddy](https://agrobuddy.netlify.app)
 
 AgroBuddy is an agrotech web app that provides users with details about different crops, including humidity, rainfall, temperature, and more. Users can sign up and search for different crops to get the details they need to make informed decisions about their agricultural practices.
 
