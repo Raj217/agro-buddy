@@ -22,7 +22,7 @@ function Developer() {
           />
         </div>
         <div class="content">
-          <h2>
+          <h3>
             Rajdristant Ghose <br />
             <div className="align">
               <span>
@@ -47,7 +47,7 @@ function Developer() {
                 </Link>
               </span>
             </div>
-          </h2>
+          </h3>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ function Developer() {
           />
         </div>
         <div class="content">
-          <h2>
+          <h3>
             Anupam Das
             <br />
             <div className="align">
@@ -86,7 +86,7 @@ function Developer() {
                 </Link>
               </span>
             </div>
-          </h2>
+          </h3>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ function Developer() {
           />
         </div>
         <div class="content">
-          <h2>
+          <h3>
             Priyajit Paul
             <br />
             <div className="align">
@@ -125,7 +125,7 @@ function Developer() {
                 </Link>
               </span>
             </div>
-          </h2>
+          </h3>
         </div>
       </div>
 
@@ -138,7 +138,7 @@ function Developer() {
           />
         </div>
         <div class="content">
-          <h2>
+          <h3>
             Akash Suklabaidya
             <br />
             <div className="align">
@@ -162,7 +162,7 @@ function Developer() {
                 </Link>
               </span>
             </div>
-          </h2>
+          </h3>
         </div>
       </div>
     </div>
