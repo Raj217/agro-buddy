@@ -29,13 +29,16 @@ function Search() {
   }
   if (isLoading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        style={{ minHeight: "70vh" }}
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         <CircularProgress />
       </Box>
     );
   }
   return (
-    <div>
+    <div style={{ minHeight: "70vh" }}>
       <SearchCrops query={query} setQuery={setQuery} hasFilter ranges={range} />
       <Grid container spacing={2} direction="row" justifyContent="center">
         {cropList.map((crop) => (
