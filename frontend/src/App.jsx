@@ -11,22 +11,17 @@ import GenerateOtp from "./pages/Otp/GenerateOtp";
 import Footer from "./components/footer/Footer";
 import ForgotPasswordParams from "./components/ForgotPassword/ForgotPasswordParams";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
-import Charts from "./components/contents/Charts";
 import Developer from "./components/DevelopersPage/DevelopersPage";
 import Content from "./components/content/Content";
 import Search from "./components/search/Search";
 import ReactGa from "react-ga";
-import { AuthContext } from "./context/auth";
 
 ReactGa.initialize(import.meta.env.VITE_MEASUREMENT_ID);
 
 function App() {
-  const { loggedIn } = React.useContext(AuthContext);
-  const [signedIn, setSignedIn] = React.useState(loggedIn);
-  React.useEffect(() => {}, [signedIn]);
   return (
     <div className="App">
-      <Navbar signedIn={signedIn} setSignedIn={setSignedIn} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

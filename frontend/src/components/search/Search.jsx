@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress, Box } from "@mui/material";
+import { CircularProgress, Box, Typography } from "@mui/material";
 import CropDetailsQuery from "../../api/models/cropDetailsQuery";
 import SearchCrops from "./components/SearchCrops";
 import SearchCard from "./components/SearchCard";
@@ -17,7 +17,6 @@ function Search() {
 
     getParamRanges().then((data) => {
       setIsLoading(false);
-      console.log(data);
       setRange(data);
     });
   }, []);
@@ -29,14 +28,18 @@ function Search() {
   }
   if (isLoading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        style={{ minHeight: "70vh" }}
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         <CircularProgress />
       </Box>
     );
   }
   return (
-    <div>
+    <div style={{ minHeight: "70vh" }}>
       <SearchCrops query={query} setQuery={setQuery} hasFilter ranges={range} />
+
       <Grid container spacing={2} direction="row" justifyContent="center">
         {cropList.map((crop) => (
           <Grid item xs={12} sm={6} md={4}>

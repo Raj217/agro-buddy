@@ -1,26 +1,23 @@
-
-.app{
-    width:auto;
-    height:auto;
-    background:#c2ffaa ;
-    /* z-index:-0.2; */
+.app {
+    width: auto;
+    height: auto;
+    background: #c2ffaa;
 }
 
 
-.app :after{
-    content : "";
+.app :after {
+    content: "";
     display: block;
     position: absolute;
     top: 0;
     left: 0;
     background: url(https://img.freepik.com/free-vector/soft-curve-shapes-background_1017-26675.jpg?w=826&t=st=1681157092~exp=1681157692~hmac=f85f7f770a336ae3beeb851b71f1da3da34b2a292ea256e8a1ea5ad521f6e4b6) repeat;
     width: 100%;
-    height:  100%;
-    opacity : 0.2;
+    height: 100%;
+    opacity: 0.2;
     z-index: -1;
 }
 
-h1{
-    position:relative;
-    /* z-index:-1; */
+h1 {
+    position: relative;
 }

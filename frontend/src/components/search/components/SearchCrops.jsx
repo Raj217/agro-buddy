@@ -14,21 +14,36 @@ import { CropContext } from "../../../context/crops";
 import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import SearchCard from "./SearchCard";
 import ReactGa from "react-ga";
 import "./styles.css";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const valueText = (value) => {
   return `${value}`;
 };
 
 function SearchCrops({ query, setQuery, hasFilter, ranges }) {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [done, setDone] = React.useState("Search");
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setLoading(true);
+      setDone("");
+    }
+    else {
+      setLoading(false);
+    }
+  };
+
+
   const navigate = useNavigate();
   const { setCropData } = React.useContext(CropContext);
   const [isFilter, setIsFilter] = React.useState(false);
   const [search, setSearch] = useState("");
-  // const [cropsData, setCropsData] = useState([]);
-  // const [cropsData, setCropsData] = useState([]);
   const [value, setValue] = React.useState({
     humidity: [ranges.humidity.min, ranges.humidity.max],
     nitrogen: [ranges.nitrogen.min, ranges.nitrogen.max],
@@ -40,7 +55,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
   });
   const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const initRange = () => {
-    console.log(ranges);
     value.humidity[0] = ranges.humidity.min;
     value.humidity[1] = ranges.humidity.max;
     value.nitrogen[0] = ranges.nitrogen.min;
@@ -84,21 +98,24 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
       value: query.toQuery(),
     });
     format();
-    setCropData(new Map());
     await getCropPreview(query);
-    console.log(crops);
+    setLoading(false);
+    setDone("Search");
   };
 
   const handleKeyDown = async (event) => {
-    format();
-
     ReactGa.event({
       category: "Button",
       label: "Search Crop Enter Button",
       value: query.toQuery(),
     });
     if (event.key === "Enter") {
+      setLoading(true);
+      setDone("");
+      format();
       await getCropPreview(query);
+      setLoading(false);
+      setDone("Search");
     }
   };
   const handleApplyFilter = () => {
@@ -132,13 +149,9 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     query.fromTemperatureLevel = value.temperature[0];
     query.toTemperatureLevel = value.temperature[1];
     setIsFilter(true);
-    console.log(value);
-    console.log(query);
-    console.log(query.fromPhosphorousLevel);
+
     setQuery(query);
-    console.log(value);
-    console.log(query);
-    console.log(query.fromPhosphorousLevel);
+
     setQuery(query);
     setAnchorEl(null);
   };
@@ -300,8 +313,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
                         width: { lg: "120px", xs: "70px" },
                         fontSize: { lg: "16px", xs: "12px" },
                         height: "56px",
-                        // position: "absoluteApply",
-                        // right: { lg: "-120px", xs: "-70px" },
+
                         borderRadius: "0",
                       }}
                       onClick={handleApplyFilter}
@@ -346,7 +358,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
             type="text"
             onKeyPress={handleKeyDown}
           />
-
           <Button
             className="search-btn"
             variant="contained"
@@ -359,9 +370,19 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
               right: { lg: "-120px", xs: "-70px" },
               borderRadius: "0",
             }}
-            onClick={handleSearch}
+            onClick={() => { handleSearch(); handleButtonClick() }}
+            endIcon={
+              loading && (
+                <CircularProgress
+                  size={26}
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              )
+            }
           >
-            Search
+            {done}
           </Button>
         </Box>
         <div></div>

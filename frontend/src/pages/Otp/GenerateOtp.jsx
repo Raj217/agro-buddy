@@ -36,7 +36,6 @@ function GenerateOtp() {
     });
     event.preventDefault();
     await validateOtp(user.email, otp);
-    console.log(user.email, otp);
     navigate("/");
     window.location.reload(false);
   };

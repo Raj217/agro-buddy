@@ -1,7 +1,7 @@
 .icon-wrapper {
   display: inline-block;
   border-radius: 70%;
-  padding: 0.4em 0.65em;
+  /* padding: 0.4em 0.65em; */
   /* background-color: #f3fbf6; */
 }
 
@@ -9,12 +9,15 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-top: 12px;
 }
 
 .logo {
-  height: 30px;
-  width: 200px;
+  height: 26px;
+  object-fit: contain;
+  width: 213px;
 }
+
 
 #change {
   text-decoration: none;

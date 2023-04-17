@@ -37,6 +37,7 @@ function SearchCard({ query, crop }) {
         margin="auto"
 
       >
+
         <Card sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
           <div to="/content" style={{ textDecoration: "none" }}>
             <CardMedia

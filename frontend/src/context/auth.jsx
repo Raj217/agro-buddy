@@ -12,15 +12,14 @@ import toast from "react-hot-toast";
 const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [email, setEmail] = useState("")
-  let loggedIn = localStorage.getItem("token") !== null;
+  const [email, setEmail] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token") !== null);
   const signUp = async (formData) => {
     try {
       const { data } = await signup(formData);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -28,12 +27,13 @@ const AuthContextProvider = ({ children }) => {
   const logIn = async (formData) => {
     try {
       const { data } = await login(formData);
-      console.log(data);
       localStorage.setItem("token", data.token);
+      if (data.token) {
+        setIsLoggedIn(true);
+      }
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -41,11 +41,9 @@ const AuthContextProvider = ({ children }) => {
   const getUserDetails = async (userId) => {
     try {
       const { data } = await getUser(userId);
-      console.log(data);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -53,11 +51,9 @@ const AuthContextProvider = ({ children }) => {
   const generateOtpandMail = async (email) => {
     try {
       const { data } = await generateOtp(email);
-      console.log(data);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -65,11 +61,9 @@ const AuthContextProvider = ({ children }) => {
   const forgotpassword = async (email) => {
     try {
       const { data } = await forgotPassword(email);
-      console.log(data);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -77,11 +71,9 @@ const AuthContextProvider = ({ children }) => {
   const resetpassword = async (email) => {
     try {
       const { data } = await resetPassword(email);
-      console.log(data);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -89,13 +81,14 @@ const AuthContextProvider = ({ children }) => {
   const verifyOtp = async (email, otp) => {
     try {
       const { data } = await validateOtp(email, otp);
-      console.log(data);
       localStorage.setItem("token", data.token);
-      loggedIn = true;
+      if (data.token) {
+        setIsLoggedIn(true);
+      }
+      setIsLoggedIn(true);
       toast.success(data.message);
       return { data };
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -103,7 +96,8 @@ const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        loggedIn,
+        isLoggedIn,
+        setIsLoggedIn,
         login: logIn,
         signup: signUp,
         getUserDetails: getUserDetails,

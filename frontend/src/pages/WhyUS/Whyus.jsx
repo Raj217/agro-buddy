@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Stack } from '@mui/material';
-import Farm from '../../assets/farm2.jpg'
 
 function Whyus() {
     return (
