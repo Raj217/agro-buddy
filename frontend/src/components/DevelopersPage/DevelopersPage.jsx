@@ -4,8 +4,13 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
+import ReactGa from "react-ga";
 
 function Developer() {
+  useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div class="container">
       <div class="box">

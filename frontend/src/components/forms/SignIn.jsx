@@ -21,10 +21,14 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
+import ReactGa from "react-ga";
 
 const theme = createTheme();
 
 export default function SignIn() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -38,6 +42,10 @@ export default function SignIn() {
     event.preventDefault();
   };
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Sign In",
+    });
     event.preventDefault();
     try {
       await login(user);

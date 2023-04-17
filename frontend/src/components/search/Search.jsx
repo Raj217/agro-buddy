@@ -4,9 +4,8 @@ import CropDetailsQuery from "../../api/models/cropDetailsQuery";
 import SearchCrops from "./components/SearchCrops";
 import SearchCard from "./components/SearchCard";
 import { CropContext } from "../../context/crops";
-import { Grid, Stack } from "@mui/material";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-
+import { Grid } from "@mui/material";
+import ReactGa from "react-ga";
 
 function Search() {
   const { getParamRanges } = React.useContext(CropContext);
@@ -14,11 +13,13 @@ function Search() {
 
   const [range, setRange] = React.useState({});
   React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+
     getParamRanges().then((data) => {
       setIsLoading(false);
       console.log(data);
       setRange(data);
-    })
+    });
   }, []);
   const [query, setQuery] = React.useState(new CropDetailsQuery());
   const { crops } = React.useContext(CropContext);
@@ -28,13 +29,16 @@ function Search() {
   }
   if (isLoading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        style={{ minHeight: "70vh" }}
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         <CircularProgress />
       </Box>
     );
   }
   return (
-    <div>
+    <div style={{ minHeight: "70vh" }}>
       <SearchCrops query={query} setQuery={setQuery} hasFilter ranges={range} />
       <Stack display='flex' flexDirection='row' justifyContent='space-around'>
 

@@ -8,14 +8,28 @@ import {
   Typography,
 } from "@mui/material";
 import "./Contact.css";
+import ReactGa from "react-ga";
+
 const Contact = () => {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div className="contact">
-      <Typography gutterBottom variant="h3" align="center" fontWeight='bold'>
+      <Typography gutterBottom variant="h3" align="center" fontWeight="bold">
         Contact Us
       </Typography>
       <Grid>
-        <Card elevation={5} style={{ maxWidth: 450, padding: "20px 5px", margin: "20px auto", background: 'transparent' }}>
+        <Card
+          elevation={5}
+          style={{
+            maxWidth: 450,
+            padding: "20px 5px",
+            margin: "20px auto",
+            background: "transparent",
+          }}
+        >
           <CardContent>
             <Typography gutterBottom variant="h5" textAlign={"center"}>
               Query Section
@@ -29,7 +43,7 @@ const Contact = () => {
               Fill up the form if you have any queries and our team will get
               back to you within 24 hours.
             </Typography>
-            <form action="https://getform.io/f/c0d92b0e-477f-4d8d-bb6b-d526e5682083" method="POST">
+            <form action="https://getform.io/f/db885520-3386-459e-83f3-7a9e3388cb08" method="POST">
               <Grid container spacing={1}>
                 <Grid xs={12} sm={6} item>
                   <TextField

@@ -14,6 +14,7 @@ const CropContextProvider = ({ children }) => {
     try {
       // console.log(inputData);
       const { data } = await api.getCropDetails(inputData);
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         crops.get(data[i]["_id"]).readDetails(data[i]["details"]);
       }
@@ -27,20 +28,21 @@ const CropContextProvider = ({ children }) => {
     try {
       const { data } = await api.getCropPreview(inputData);
       let name;
+      let cropsData = new Map();
       for (let i = 0; i < data["preview"].length; i++) {
         name = data["preview"][i]["_id"];
-        if (!crops.has(name)) {
-          crops.set(name, new Crop());
+        if (!cropsData.has(name)) {
+          cropsData.set(name, new Crop());
         }
-        crops.get(name).readPreview(data["preview"][i]);
+        cropsData.get(name).readPreview(data["preview"][i]);
       }
-      for (let i=0; i<data["data"].length; i++) {
-        name = data['data'][i]["_id"];
-        crops.get(name).readData(data["data"][i]);
-        crops.get(name).data.name = name;
+      for (let i = 0; i < data["data"].length; i++) {
+        name = data["data"][i]["_id"];
+        cropsData.get(name).readData(data["data"][i]);
+        cropsData.get(name).data.name = name;
       }
 
-      setCropData(new Map(crops));
+      setCropData(new Map(cropsData));
     } catch (error) {
       console.log(error);
     }
@@ -49,11 +51,11 @@ const CropContextProvider = ({ children }) => {
     try {
       const { data } = await api.getparamRanges();
 
-      return data
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   return (
     <CropContext.Provider
       value={{
@@ -61,7 +63,7 @@ const CropContextProvider = ({ children }) => {
         getCropPreview: getPreview,
         getParamRanges: getRanges,
         crops: crops,
-        setCropData
+        setCropData,
       }}
     >
       {children}

@@ -15,10 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
+import ReactGa from "react-ga";
 
 const theme = createTheme();
 
 export default function ForgotPassword() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [user, setUser] = React.useState({
     email: "",
   });
@@ -26,6 +30,10 @@ export default function ForgotPassword() {
   const { forgotPassword, setEmail } = React.useContext(AuthContext);
 
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Forgot Password",
+    });
     event.preventDefault();
     setEmail(user.email);
     await forgotPassword(user);

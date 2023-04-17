@@ -15,20 +15,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
+import ReactGa from "react-ga";
 
 const theme = createTheme();
 
 function ForgotPasswordParams() {
+  React.useEffect(() => {
+    ReactGa.pageview(window.location.pathname);
+  }, []);
   const [user, setUser] = React.useState({
     password: "",
     confirmPassword: "",
   });
   const navigate = useNavigate();
   const { token } = useParams();
-  console.log(token)
+  console.log(token);
   const { resetPassword } = React.useContext(AuthContext);
 
   const handleSubmit = async (event) => {
+    ReactGa.event({
+      category: "Button",
+      label: "Forgot Password Reset",
+    });
     event.preventDefault();
     await forgotPassword(user);
   };
@@ -52,28 +60,32 @@ function ForgotPasswordParams() {
           <Box component="form" noValidate sx={{ mt: 1 }}>
             {token && (
               <div>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="New Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Confirm New Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
-              />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="New Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Confirm New Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={(e) =>
+                    setUser({ ...user, confirmPassword: e.target.value })
+                  }
+                />
               </div>
             )}
 
