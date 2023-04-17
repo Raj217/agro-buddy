@@ -28,10 +28,9 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-
   const [loading, setLoading] = React.useState(false);
   const [Sign, setSign] = React.useState("Sign in");
-
+  
   const handleButtonClick = () => {
     if (!loading) {
       setLoading(true);
@@ -41,8 +40,9 @@ export default function SignIn() {
       setLoading(false);
     }
   };
-
-
+  
+  
+  const { login, isLoggedIn } = React.useContext(AuthContext);
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
@@ -51,7 +51,10 @@ export default function SignIn() {
     password: "",
   });
   const navigate = useNavigate();
-  const { login } = React.useContext(AuthContext);
+  React.useEffect(()=>{
+    if (isLoggedIn){
+      navigate('/');
+    }}, [isLoggedIn]);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -66,7 +69,10 @@ export default function SignIn() {
     event.preventDefault();
     try {
       await login(user);
-      navigate("/");
+      if (isLoggedIn) {
+        navigate("/");
+      }
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
