@@ -15,7 +15,7 @@ function Navbar({ signedIn, setSignedIn }) {
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
-    { name: "Teams", link: "/developers" },
+    { name: "Team", link: "/developers" },
   ];
   let currentPage;
   allNavLinks.forEach((link) => {
