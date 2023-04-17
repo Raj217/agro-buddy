@@ -1,10 +1,7 @@
-import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import PersonIcon from "@mui/icons-material/Person";
-import { useTheme, Avatar, Button } from "@mui/material";
-import { AuthContext } from "../../context/auth";
+import { useTheme, Avatar, Button, useMediaQuery } from "@mui/material";
 import { AppBar, Toolbar, Typography, CssBaseline } from "@mui/material";
 import Logo from "../../assets/logo.svg";
 import "./Navbar.css";
@@ -30,7 +27,7 @@ function Navbar() {
   const navigate = useNavigate();
   const theme = useTheme();
   let isNotMobile = theme.breakpoints.up("sm") !== null;
-  const isMobile = theme.breakpoints.down("sm");
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <AppBar
@@ -56,7 +53,7 @@ function Navbar() {
         </div>
         <div
           style={{
-            display: !isMobile && "none",
+            display: isMobile && "none",
           }}
           className={"nav-links"}
         >
@@ -80,6 +77,8 @@ function Navbar() {
           ))}
           {isLoggedIn && (
             <Button
+              className="sign-out-button"
+              sx={{ display: isMobile ? "none" : "inline-flex" }}
               onClick={() => {
                 localStorage.removeItem("token");
                 setIsLoggedIn(false);
@@ -97,9 +96,10 @@ function Navbar() {
           {allNavLinks.map((link) => (
             <li
               key={link.name}
-              className={`nav-link-mobile`}
+              className='nav-link-mobile'
               onClick={() => {
                 setIsActive(link.name);
+                setIsIconClicked(false);
                 navigate(link.link);
               }}
             >
@@ -112,6 +112,19 @@ function Navbar() {
               ></div>
             </li>
           ))}
+          <li className='nav-link-mobile'>
+          {signedIn && (
+            <Button
+              onClick={() => {
+                localStorage.removeItem("token");
+                setSignedIn(false);
+                window.location.reload(false);
+              }}
+            >
+              Sign out
+            </Button>
+          )}
+          </li>
         </div>
         <div
           className="mobileview"
