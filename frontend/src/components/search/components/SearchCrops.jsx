@@ -84,20 +84,18 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
       value: query.toQuery(),
     });
     format();
-    setCropData(new Map());
     await getCropPreview(query);
     console.log(crops);
   };
 
   const handleKeyDown = async (event) => {
-    format();
-
     ReactGa.event({
       category: "Button",
       label: "Search Crop Enter Button",
       value: query.toQuery(),
     });
     if (event.key === "Enter") {
+      format();
       await getCropPreview(query);
     }
   };
