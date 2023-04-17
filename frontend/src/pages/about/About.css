@@ -16,7 +16,6 @@
 }
 
 .about {
-  /* height: 60vh; */
   width: 80vw;
   display: flex;
   margin: 30px 9.5%;
@@ -27,7 +26,6 @@
   line-height: 1.35em;
   margin: 0 30px;
   font-size: 1.25rem;
-  /* font-family: "epilogue"; */
 }
 
 .about_agro {
@@ -40,7 +38,6 @@
   width: 30vw;
   height: 30vw;
   border-radius: 5rem 5rem 5rem 0.5rem;
-  /* padding-left:2vh; */
 }
 
 .underline {
@@ -48,15 +45,12 @@
   background-color: #224259;
   width: 80vw;
   height: 2px;
-  /* display: flex; */
   margin-left: auto;
   margin-right: auto;
   margin-top: 0px;
 }
 
 .about_heading {
-  /* width: 240px; */
-  /* height: fit-content; */
   font-family: "epilogue";
   font-style: normal;
   font-weight: 600;
@@ -69,13 +63,11 @@
 @media only screen and (max-width: 1350px) {
   .about {
     display: block;
-    /* height: 90vw; */
     padding-bottom: 0 !important;
     margin-bottom: 5vh !important;
   }
 
   .about_text {
-    /* line-height:normal; */
     font-size: 1.5em;
     margin: 15px;
     margin-bottom: 20px;
@@ -97,7 +89,6 @@
   }
 
   .about_heading {
-    /* width: 240px; */
     font-size: 2rem;
     margin-bottom: 3px;
   }

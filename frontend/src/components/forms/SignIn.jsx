@@ -22,10 +22,27 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import ReactGa from "react-ga";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
 
 export default function SignIn() {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [Sign, setSign] = React.useState("Sign in");
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setLoading(true);
+      setSign("Signing in");
+    }
+    else {
+      setLoading(false);
+    }
+  };
+
+
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
@@ -50,7 +67,6 @@ export default function SignIn() {
     try {
       await login(user);
       navigate("/");
-      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }
@@ -70,8 +86,9 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: Palette.accent }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h1" variant="h5" padding='5px'>
+
+            Sign In
           </Typography>
           <Box
             component="form"
@@ -123,9 +140,21 @@ export default function SignIn() {
                 backgroundColor: Palette.accent,
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
+              onClick={handleButtonClick}
+              endIcon={
+                loading && (
+                  <CircularProgress
+                    size={26}
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )
+              }
             >
-              Sign In
+              {Sign}
             </Button>
+
             <Grid container>
               <Grid item xs>
                 <div

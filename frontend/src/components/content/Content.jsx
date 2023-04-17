@@ -12,7 +12,6 @@ const Content = () => {
   }, []);
 
   const { crop } = useParams();
-  console.log(crop);
   return (
     <div>
       <NPPData crop={crop} />

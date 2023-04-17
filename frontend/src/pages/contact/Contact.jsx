@@ -43,10 +43,7 @@ const Contact = () => {
               Fill up the form if you have any queries and our team will get
               back to you within 24 hours.
             </Typography>
-            <form
-              action="https://getform.io/f/db885520-3386-459e-83f3-7a9e3388cb08"
-              method="POST"
-            >
+            <form action="https://getform.io/f/db885520-3386-459e-83f3-7a9e3388cb08" method="POST">
               <Grid container spacing={1}>
                 <Grid xs={12} sm={6} item>
                   <TextField

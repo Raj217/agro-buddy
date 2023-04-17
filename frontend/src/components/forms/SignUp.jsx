@@ -24,10 +24,29 @@ import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
 import toast from "react-hot-toast";
 import ReactGa from "react-ga";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const theme = createTheme();
 
 export default function SignUp() {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [Sign, setSign] = React.useState("Sign up");
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setLoading(true);
+      setSign("Signing Up");
+    }
+    else {
+      setLoading(false);
+    }
+  };
+
+
+
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
@@ -171,8 +190,19 @@ export default function SignUp() {
                 backgroundColor: Palette.accent,
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
+              onClick={handleButtonClick}
+              endIcon={
+                loading && (
+                  <CircularProgress
+                    size={26}
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )
+              }
             >
-              Sign Up
+              {Sign}
             </Button>
             <Grid container justifyContent="flex-end">
               <div

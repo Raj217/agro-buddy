@@ -1,7 +1,6 @@
 import { Axios } from "./axios_config";
 
 class API {
-  /// cropDetailsQuery: CropDetailsQuery
   getCropDetails = async (cropDetailsQuery) =>
     Axios.get(`/crop/details${cropDetailsQuery.toQuery()}`, {
       headers: {
@@ -10,7 +9,6 @@ class API {
       },
     });
 
-  /// cropDetailsQuery: CropDetailsQuery
   getCropPreview = async (cropDetailsQuery) =>
     Axios.get(`/crop${cropDetailsQuery.toQuery()}`, {
       headers: {
@@ -19,7 +17,7 @@ class API {
       },
     });
 
-  getparamRanges = async () => 
+  getparamRanges = async () =>
     Axios.get('/crop/params-range', {
       headers: {
         "Content-Type": "application/json",
