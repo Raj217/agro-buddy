@@ -38,6 +38,7 @@ export default function SignIn() {
     }
     else {
       setLoading(false);
+      setSign("Sign In");
     }
   };
   
