@@ -101,10 +101,15 @@ export const signUp = async (inputUser) => {
 
   const existingUser = await User.findOne({ email });
   /// Already someone exists with the same email
-  if (existingUser) {
+  if (existingUser && existingUser.isEmailVerified == false) {
     await generateAndSendOtp(email);
     throw new Exception(
       "User already exists. OTP has been sent to your mail.",
+      ExceptionCodes.CONFLICT
+    );
+  } else if (existingUser) {
+    throw new Exception(
+      "User already exists. Please Sign in.",
       ExceptionCodes.CONFLICT
     );
   }
