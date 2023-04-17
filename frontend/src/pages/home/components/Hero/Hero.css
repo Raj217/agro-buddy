@@ -4,7 +4,6 @@
     z-index: -1;
     top: 0;
     left: 0;
-    /* background-image: url('../../../../assets/bg.png') ; */
     background-image: linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
     background-image: -moz-linear-gradient(to bottom, #E3EFED, #F1F7F6, #ffffff);
     height: 100vh;

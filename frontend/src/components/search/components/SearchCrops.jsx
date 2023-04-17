@@ -55,7 +55,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
   });
   const { getCropDetails, getCropPreview, crops } = useContext(CropContext);
   const initRange = () => {
-    console.log(ranges);
     value.humidity[0] = ranges.humidity.min;
     value.humidity[1] = ranges.humidity.max;
     value.nitrogen[0] = ranges.nitrogen.min;
@@ -102,7 +101,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     await getCropPreview(query);
     setLoading(false);
     setDone("Search");
-    console.log(crops);
   };
 
   const handleKeyDown = async (event) => {
@@ -151,13 +149,9 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     query.fromTemperatureLevel = value.temperature[0];
     query.toTemperatureLevel = value.temperature[1];
     setIsFilter(true);
-    console.log(value);
-    console.log(query);
-    console.log(query.fromPhosphorousLevel);
+
     setQuery(query);
-    console.log(value);
-    console.log(query);
-    console.log(query.fromPhosphorousLevel);
+
     setQuery(query);
     setAnchorEl(null);
   };
@@ -319,8 +313,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
                         width: { lg: "120px", xs: "70px" },
                         fontSize: { lg: "16px", xs: "12px" },
                         height: "56px",
-                        // position: "absoluteApply",
-                        // right: { lg: "-120px", xs: "-70px" },
+
                         borderRadius: "0",
                       }}
                       onClick={handleApplyFilter}

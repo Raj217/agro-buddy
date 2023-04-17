@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Typography, Stack, Button, Grid, Box } from "@mui/material";
-import Banner from "../../../../components/general/img/Banner";
 import { AuthContext } from "../../../../context/auth";
 import { useNavigate } from "react-router-dom";
 import * as Palette from "../../../../configs/pallete";
@@ -8,7 +7,7 @@ import banner from "../../../../assets/banner.png";
 import "./Hero.css";
 
 function Hero() {
-  const { loggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className="Hero">
@@ -41,12 +40,10 @@ function Hero() {
                 Empowering Farmers with Data-Driven Insights
               </Typography>
               <Typography
-                // fontSize="3rem"
                 padding="20px 0"
                 fontWeight={500}
                 textAlign="left"
                 sx={{
-                  // lineHeight: { lg: "60px", xs: "80px" },
                   fontSize: { lg: "1rem", xs: "0.8rem" },
                   color: Palette.secondary,
                 }}
@@ -55,7 +52,7 @@ function Hero() {
                 Minimize Risks with AgroBuddy's Comprehensive Data-Driven
                 Insights and Analytics
               </Typography>
-              {loggedIn ? (
+              {isLoggedIn ? (
                 <Button variant="contained" onClick={() => navigate("/search")}>
                   Explore
                 </Button>
@@ -71,20 +68,13 @@ function Hero() {
           </Grid>
           <Grid
             minWidth="40%"
-            // sx={{ paddingLeft: { lg: "120px" } }}
             margin="auto"
             item
             md={6}
             sm={6}
             xs={12}
           >
-            {/* <Banner
-              url={
-                "https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-              }
-              type={"bottom-right"}
-              sx={{ width: { lg: "400px", xs: "300px" } }}
-            /> */}
+
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <img
                 style={{ height: "400px", width: "400px" }}

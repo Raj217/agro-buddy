@@ -67,7 +67,6 @@ export default function SignIn() {
     try {
       await login(user);
       navigate("/");
-      window.location.reload(false);
     } catch (error) {
       console.log(error);
     }

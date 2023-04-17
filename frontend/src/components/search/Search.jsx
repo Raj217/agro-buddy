@@ -17,7 +17,6 @@ function Search() {
 
     getParamRanges().then((data) => {
       setIsLoading(false);
-      console.log(data);
       setRange(data);
     });
   }, []);

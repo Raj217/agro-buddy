@@ -10,7 +10,8 @@ import Logo from "../../assets/logo.svg";
 import "./Navbar.css";
 import React from "react";
 
-function Navbar({ signedIn, setSignedIn }) {
+function Navbar() {
+  const { isLoggedIn, setIsLoggedIn } = React.useContext(AuthContext);
   const allNavLinks = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
@@ -23,6 +24,7 @@ function Navbar({ signedIn, setSignedIn }) {
       currentPage = link.name;
     }
   });
+  React.useEffect(() => { }, [isLoggedIn]);
   const [isActive, setIsActive] = React.useState(currentPage);
   const [isIconClicked, setIsIconClicked] = React.useState(false);
   const navigate = useNavigate();
@@ -76,11 +78,11 @@ function Navbar({ signedIn, setSignedIn }) {
               ></div>
             </li>
           ))}
-          {signedIn && (
+          {isLoggedIn && (
             <Button
               onClick={() => {
                 localStorage.removeItem("token");
-                setSignedIn(false);
+                setIsLoggedIn(false);
                 window.location.reload(false);
               }}
             >
@@ -89,9 +91,8 @@ function Navbar({ signedIn, setSignedIn }) {
           )}
         </div>
         <div
-          className={`nav-links-mobile ${
-            !isIconClicked ? "icon-not-active" : "icon-active"
-          }`}
+          className={`nav-links-mobile ${!isIconClicked ? "icon-not-active" : "icon-active"
+            }`}
         >
           {allNavLinks.map((link) => (
             <li
