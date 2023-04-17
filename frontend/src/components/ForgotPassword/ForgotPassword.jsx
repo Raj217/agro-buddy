@@ -16,10 +16,28 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import ReactGa from "react-ga";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const theme = createTheme();
 
 export default function ForgotPassword() {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [submit, setSubmit] = React.useState("Submit");
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setLoading(true);
+      setSubmit("");
+    }
+    else {
+      setLoading(false);
+    }
+  };
+
+
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
@@ -83,8 +101,19 @@ export default function ForgotPassword() {
                 backgroundColor: Palette.accent,
                 "&:hover": { backgroundColor: Palette.accentDark },
               }}
+              onClick={handleButtonClick}
+              endIcon={
+                loading && (
+                  <CircularProgress
+                    size={26}
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )
+              }
             >
-              Submit
+              {submit}
             </Button>
           </Box>
         </Box>

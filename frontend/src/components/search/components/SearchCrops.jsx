@@ -14,21 +14,36 @@ import { CropContext } from "../../../context/crops";
 import CropDetailsQuery from "../../../api/models/cropDetailsQuery";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import SearchCard from "./SearchCard";
 import ReactGa from "react-ga";
 import "./styles.css";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const valueText = (value) => {
   return `${value}`;
 };
 
 function SearchCrops({ query, setQuery, hasFilter, ranges }) {
+
+
+  const [loading, setLoading] = React.useState(false);
+  const [done, setDone] = React.useState("Search");
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setLoading(true);
+      setDone("");
+    }
+    else {
+      setLoading(false);
+    }
+  };
+
+
   const navigate = useNavigate();
   const { setCropData } = React.useContext(CropContext);
   const [isFilter, setIsFilter] = React.useState(false);
   const [search, setSearch] = useState("");
-  // const [cropsData, setCropsData] = useState([]);
-  // const [cropsData, setCropsData] = useState([]);
   const [value, setValue] = React.useState({
     humidity: [ranges.humidity.min, ranges.humidity.max],
     nitrogen: [ranges.nitrogen.min, ranges.nitrogen.max],
@@ -85,6 +100,8 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
     });
     format();
     await getCropPreview(query);
+    setLoading(false);
+    setDone("Search");
     console.log(crops);
   };
 
@@ -95,8 +112,12 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
       value: query.toQuery(),
     });
     if (event.key === "Enter") {
+      setLoading(true);
+      setDone("");
       format();
       await getCropPreview(query);
+      setLoading(false);
+      setDone("Search");
     }
   };
   const handleApplyFilter = () => {
@@ -344,7 +365,6 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
             type="text"
             onKeyPress={handleKeyDown}
           />
-
           <Button
             className="search-btn"
             variant="contained"
@@ -357,9 +377,19 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
               right: { lg: "-120px", xs: "-70px" },
               borderRadius: "0",
             }}
-            onClick={handleSearch}
+            onClick={() => { handleSearch(); handleButtonClick() }}
+            endIcon={
+              loading && (
+                <CircularProgress
+                  size={26}
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              )
+            }
           >
-            Search
+            {done}
           </Button>
         </Box>
         <div></div>

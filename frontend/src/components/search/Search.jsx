@@ -40,9 +40,7 @@ function Search() {
   return (
     <div style={{ minHeight: "70vh" }}>
       <SearchCrops query={query} setQuery={setQuery} hasFilter ranges={range} />
-      <Stack display='flex' flexDirection='row' justifyContent='space-around'>
 
-      </Stack>
       <Grid container spacing={2} direction="row" justifyContent="center">
         {cropList.map((crop) => (
           <Grid item xs={12} sm={6} md={4}>
