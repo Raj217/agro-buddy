@@ -75,7 +75,7 @@ function Temperature({ crop }) {
 
     return (
         <Stack
-            sx={{ width: { md: '60%', sm: '70%', xs: '80%' } }}
+            sx={{ width: { md: '75vw', sm: '85vw', xs: '95vw' } , paddingTop:'20px'}}
             display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px' >
             <Typography fontWeight={900} variant='h5'>Temperature</Typography>
             <Line data={data} options={options} />
