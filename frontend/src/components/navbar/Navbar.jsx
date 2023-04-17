@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useTheme, Avatar, Button, useMediaQuery } from "@mui/material";
 import { AppBar, Toolbar, Typography, CssBaseline } from "@mui/material";
 import Logo from "../../assets/logo.svg";
+import { AuthContext } from "../../context/auth";
 import "./Navbar.css";
 import React from "react";
 
@@ -113,11 +114,11 @@ function Navbar() {
             </li>
           ))}
           <li className='nav-link-mobile'>
-          {signedIn && (
+          {isLoggedIn && (
             <Button
               onClick={() => {
                 localStorage.removeItem("token");
-                setSignedIn(false);
+                setisLoggedIn(false);
                 window.location.reload(false);
               }}
             >
