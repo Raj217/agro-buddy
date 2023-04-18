@@ -80,7 +80,7 @@ function PhVsRainfall({ crop }) {
 
     return (
         <Stack
-            sx={{ width: { md: '60%', sm: '70%', xs: '80%' } }}
+            sx={{ width: { md: '75vw', sm: '85vw', xs: '95vw' } , paddingTop:'20px'}}
             display='flex' alignItems='center' justifyContent='center' margin='auto' paddingTop='100px' paddingBottom='100px'>
             <Typography variant='h5' fontWeight={900}>
                 pH vs Temperature

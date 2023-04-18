@@ -17,6 +17,7 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import ReactGa from "react-ga";
 import "./styles.css";
 import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 
 
 const valueText = (value) => {
@@ -169,6 +170,11 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
         margin: "50px auto",
       }}
     >
+      <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert variant="outlined" severity="info">
+        We currently have limited data, so only a select set of commonly grown crops are available for search results. We apologize for the inconvenience and are working to expand our database for more comprehensive information on a wider range of crops
+        </Alert>
+    </Stack>
       <Stack p="20px" alignItems="center" justifyContent="center">
         <Box position="relative" mb="20px">
           {hasFilter && (
@@ -374,7 +380,7 @@ function SearchCrops({ query, setQuery, hasFilter, ranges }) {
             endIcon={
               loading && (
                 <CircularProgress
-                  size={26}
+                  size={20}
                   sx={{
                     color: 'white',
                   }}

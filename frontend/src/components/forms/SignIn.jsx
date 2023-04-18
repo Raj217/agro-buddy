@@ -23,6 +23,7 @@ import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import ReactGa from "react-ga";
 import CircularProgress from '@mui/material/CircularProgress';
+import "./styles.css";
 
 const theme = createTheme();
 
@@ -38,6 +39,7 @@ export default function SignIn() {
     }
     else {
       setLoading(false);
+      setSign("Sign In");
     }
   };
   
@@ -80,7 +82,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container className="page-container" component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -150,7 +152,7 @@ export default function SignIn() {
               endIcon={
                 loading && (
                   <CircularProgress
-                    size={26}
+                    size={20}
                     sx={{
                       color: 'white',
                     }}
@@ -162,7 +164,9 @@ export default function SignIn() {
             </Button>
 
             <Grid container>
-              <Grid item xs>
+              {// ! Important Comment
+              // ? Forgot Password functionality
+              /* <Grid item xs>
                 <div
                   style={{ cursor: "pointer" }}
                   onClick={() => navigate("/forgot-password")}
@@ -171,7 +175,7 @@ export default function SignIn() {
                     Forgot password?
                   </Typography>
                 </div>
-              </Grid>
+              </Grid> */}
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("/sign-up")}
