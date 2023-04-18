@@ -27,15 +27,12 @@ import { UserContext } from "../../context/user";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import ReactGa from "react-ga";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import "./styles.css";
-
 
 const theme = createTheme();
 
 export default function SignUp() {
-
-
   const [loading, setLoading] = React.useState(false);
   const [Sign, setSign] = React.useState("Sign up");
 
@@ -43,18 +40,15 @@ export default function SignUp() {
     if (!loading) {
       setLoading(true);
       setSign("Signing Up");
-    }
-    else {
+    } else {
       setLoading(false);
     }
   };
 
-
-
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
-  
+
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const { user, setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
@@ -87,19 +81,21 @@ export default function SignUp() {
       await signup(user);
       navigate("/otp");
     }
+    handleButtonClick();
   };
 
   const onGoogleLoginSuccess = async (response) => {
+    handleButtonClick();
     const res = await Axios.get(
       import.meta.env.VITE_GOOGLE_PROFILE_FETCH_URL + response.access_token
     );
     const { given_name, family_name, email } = res.data;
     let googleUser = {
-      "firstName": given_name,
-      "lastName": family_name,
-      "email": email,
-      "isGoogleSignIn": true,
-      "role": "USER"
+      firstName: given_name,
+      lastName: family_name,
+      email: email,
+      isGoogleSignIn: true,
+      role: "USER",
     };
     try {
       await login(googleUser);
@@ -110,6 +106,7 @@ export default function SignUp() {
     } catch (error) {
       toast.error(error.response.data.message);
     }
+    handleButtonClick();
   };
 
   const onGoogleLoginFailure = (error) => {
@@ -239,7 +236,7 @@ export default function SignUp() {
                   <CircularProgress
                     size={20}
                     sx={{
-                      color: 'white',
+                      color: "white",
                     }}
                   />
                 )
