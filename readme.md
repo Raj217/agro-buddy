@@ -1,10 +1,10 @@
-# AgroBuddy
+# [AgroBuddy](https://agrobuddy.netlify.app)
 
 AgroBuddy is an agrotech web app that provides users with details about different crops, including humidity, rainfall, temperature, and more. Users can sign up and search for different crops to get the details they need to make informed decisions about their agricultural practices.
 
 ## Installation
 
-1. Clone the repository: `git clone [repository URL]`
+1. Clone the repository: `git clone https://github.com/Raj217/agro-buddy.git `
 2. Inside both frontend and backend directory install dependencies: `npm install`
 3. Set up the MongoDB database: AgroBuddy uses MongoDB to store information about different crops and their growing conditions. Follow the instructions in the [MongoDB documentation](https://docs.mongodb.com/manual/installation/) to install and set up MongoDB on your system.
 4. Run the backend server using nodemon: `nodemon`
