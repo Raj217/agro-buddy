@@ -78,33 +78,34 @@ export default function SignIn() {
       if (isLoggedIn) {
         navigate("/");
       }
-      setLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
     }
+    handleButtonClick();
   };
 
   const onGoogleLoginSuccess = async (response) => {
+    handleButtonClick();
     const res = await Axios.get(
       import.meta.env.VITE_GOOGLE_PROFILE_FETCH_URL + response.access_token
     );
     const { given_name, family_name, email } = res.data;
     let googleUser = {
-      "firstName": given_name,
-      "lastName": family_name,
-      "email": email,
-      "isGoogleSignIn": true,
-      "role": "USER"
+      firstName: given_name,
+      lastName: family_name,
+      email: email,
+      isGoogleSignIn: true,
+      role: "USER",
     };
     try {
       await login(googleUser);
       if (isLoggedIn) {
         navigate("/");
       }
-      setLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
     }
+    handleButtonClick();
   };
 
   const onGoogleLoginFailure = (error) => {
