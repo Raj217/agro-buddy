@@ -12,27 +12,51 @@ const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 const TOKEN_KEY = process.env.TOKEN_KEY;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-export const login = async (email, password) => {
+export const login = async (user) => {
+  const { email, password, isGoogleSignIn, name, role } = user;
+  const googleSignIn = isGoogleSignIn === "true";
+
   /// Check if required parameters are present
   if (!email)
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  if (!password)
+  if (!password && !googleSignIn)
     throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
+  if (!name && googleSignIn)
+    throw new Exception(
+      "Name is required in google sign in",
+      ExceptionCodes.BAD_INPUT
+    );
+  if (!role && googleSignIn)
+    throw new Exception(
+      "Role is required in google sign in",
+      ExceptionCodes.BAD_INPUT
+    );
 
   if (!Validators.isValidEmail(email))
     throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
   const existingUser = await User.findOne({ email }).select("+password");
-  if (!existingUser)
+  if (!existingUser && googleSignIn) {
+    await User.create({
+      email,
+      firstName: name,
+      role,
+      isEmailVerified: true,
+    });
+  } else if (!existingUser) {
     throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
-
-  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-  if (!isPasswordValid)
-    throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
-
-  /// User can't proceed if email is not verified
-  if (!existingUser.isEmailVerified)
-    throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
+  }
+  if (!googleSignIn) {
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    if (!isPasswordValid)
+      throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
+    /// User can't proceed if email is not verified
+    if (!existingUser.isEmailVerified)
+      throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
+  }
 
   const token = jwt.sign(
     {
@@ -76,28 +100,21 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
   await NotificationService.sendOtp(email, otpToken);
 };
 
+// TODO: restrict signup for admin users
 export const signUp = async (inputUser) => {
-  const { firstName, lastName, email, password, role, isGoogleSignIn } =
-    inputUser;
-
-  let googleSignIn = false;
-  if (!isGoogleSignIn) {
-    googleSignIn = false;
-  } else {
-    googleSignIn = isGoogleSignIn === "true";
-  }
+  const { firstName, lastName, email, password, role } = inputUser;
 
   /// Validate if all the required fields are present
   if (!firstName)
     throw new Exception("First name is required", ExceptionCodes.BAD_INPUT);
-  if (!lastName && !googleSignIn)
+  if (!lastName)
     throw new Exception("Last name is required", ExceptionCodes.BAD_INPUT);
   if (!role) throw new Exception("Role is required", ExceptionCodes.BAD_INPUT);
   if (!email)
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  if (!password && !googleSignIn)
+  if (!password)
     throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
-  if (!googleSignIn && password.length < 6)
+  if (password.length < 6)
     throw new Exception(
       "Password must be at least 6 characters",
       ExceptionCodes.BAD_INPUT
@@ -108,7 +125,7 @@ export const signUp = async (inputUser) => {
 
   const existingUser = await User.findOne({ email });
   /// Already someone exists with the same email
-  if (existingUser && !googleSignIn && existingUser.isEmailVerified == false) {
+  if (existingUser && existingUser.isEmailVerified == false) {
     await generateAndSendOtp(email);
     throw new Exception(
       "User already exists. OTP has been sent to your mail.",
@@ -120,29 +137,18 @@ export const signUp = async (inputUser) => {
       ExceptionCodes.CONFLICT
     );
   }
-  if (!googleSignIn) {
-    /// New user thus hash the password
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-    await User.create({
-      email,
-      password: hashedPassword,
-      firstName,
-      lastName,
-      role,
-      isEmailVerified: googleSignIn,
-    });
-    await generateAndSendOtp(email);
-    return "Welcome aboard, A verification mail has been sent to your mail";
-  } else {
-    await User.create({
-      email,
-      firstName,
-      role,
-      isEmailVerified: googleSignIn,
-    });
-    return "Welcome aboard!";
-  }
+  /// New user thus hash the password
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+  await User.create({
+    email,
+    password: hashedPassword,
+    firstName: firstName,
+    lastName: lastName,
+    role: role,
+  });
+  await generateAndSendOtp(email);
 };
 
 export const getUser = async (email) => {

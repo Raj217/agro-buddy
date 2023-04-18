@@ -67,16 +67,32 @@ Example:
 ```
 {
   "email": "johndoe@example.com",
-  "password": "buar13@iep"
+  "password": "buar13@iep",
+  "isGoogleSignedIn": "false"
 }
 ```
 
 **email**: required | String <br>
-**password**: required | String <br>
+**password**: optional | String <br>
+**isGoogleSignIn**: required | String <br>
+**name**: optional | String <br>
+**role**: optional | String <br>
 
 <h2>Logic:</h2>
 
 - if email and password are valid and correct data will be retrieved
+- If google sign in
+  - Not Required:
+    - password
+  - Required:
+    - name
+    - role
+- If not google sign in
+  - Not Required:
+    - name
+    - role
+  - Required:
+    - password
 <br>
 </details>
 

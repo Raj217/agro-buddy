@@ -2,7 +2,7 @@ import * as AuthService from "../services/auth.service.js";
 import { ExceptionCodes } from "../utils/Error.js";
 
 export const login = async (req, res, next) => {
-  AuthService.login(req.body.email, req.body.password)
+  AuthService.login(req.body)
     .then((token) => {
       res
         .status(ExceptionCodes.REQUEST_FULFILLED)
@@ -28,8 +28,11 @@ export const generateAndSendOtp = async (req, res, next) => {
 
 export const signUp = async (req, res, next) => {
   AuthService.signUp(req.body)
-    .then((message) => {
-      res.status(ExceptionCodes.CREATED).json(message);
+    .then(() => {
+      res.status(ExceptionCodes.CREATED).json({
+        message:
+          "Welcome aboard, A verification mail has been sent to your mail",
+      });
     })
     .catch((err) => {
       next(err);
