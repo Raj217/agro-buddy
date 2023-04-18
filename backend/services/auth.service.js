@@ -76,21 +76,28 @@ export const generateAndSendOtp = async (email, mailValidity = true) => {
   await NotificationService.sendOtp(email, otpToken);
 };
 
-// TODO: restrict signup for admin users
 export const signUp = async (inputUser) => {
-  const { firstName, lastName, email, password, role } = inputUser;
+  const { firstName, lastName, email, password, role, isGoogleSignIn } =
+    inputUser;
+
+  let googleSignIn = false;
+  if (!isGoogleSignIn) {
+    googleSignIn = false;
+  } else {
+    googleSignIn = isGoogleSignIn === "true";
+  }
 
   /// Validate if all the required fields are present
   if (!firstName)
     throw new Exception("First name is required", ExceptionCodes.BAD_INPUT);
-  if (!lastName)
+  if (!lastName && !googleSignIn)
     throw new Exception("Last name is required", ExceptionCodes.BAD_INPUT);
   if (!role) throw new Exception("Role is required", ExceptionCodes.BAD_INPUT);
   if (!email)
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  if (!password)
+  if (!password && !googleSignIn)
     throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
-  if (password.length < 6)
+  if (!googleSignIn && password.length < 6)
     throw new Exception(
       "Password must be at least 6 characters",
       ExceptionCodes.BAD_INPUT
@@ -101,7 +108,7 @@ export const signUp = async (inputUser) => {
 
   const existingUser = await User.findOne({ email });
   /// Already someone exists with the same email
-  if (existingUser && existingUser.isEmailVerified == false) {
+  if (existingUser && !googleSignIn && existingUser.isEmailVerified == false) {
     await generateAndSendOtp(email);
     throw new Exception(
       "User already exists. OTP has been sent to your mail.",
@@ -113,18 +120,29 @@ export const signUp = async (inputUser) => {
       ExceptionCodes.CONFLICT
     );
   }
+  if (!googleSignIn) {
+    /// New user thus hash the password
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-  /// New user thus hash the password
-  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
-  await User.create({
-    email,
-    password: hashedPassword,
-    firstName: firstName,
-    lastName: lastName,
-    role: role,
-  });
-  await generateAndSendOtp(email);
+    await User.create({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      role,
+      isEmailVerified: googleSignIn,
+    });
+    await generateAndSendOtp(email);
+    return "Welcome aboard, A verification mail has been sent to your mail";
+  } else {
+    await User.create({
+      email,
+      firstName,
+      role,
+      isEmailVerified: googleSignIn,
+    });
+    return "Welcome aboard!";
+  }
 };
 
 export const getUser = async (email) => {

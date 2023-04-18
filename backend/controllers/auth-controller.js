@@ -28,11 +28,8 @@ export const generateAndSendOtp = async (req, res, next) => {
 
 export const signUp = async (req, res, next) => {
   AuthService.signUp(req.body)
-    .then(() => {
-      res.status(ExceptionCodes.CREATED).json({
-        message:
-          "Welcome aboard, A verification mail has been sent to your mail",
-      });
+    .then((message) => {
+      res.status(ExceptionCodes.CREATED).json(message);
     })
     .catch((err) => {
       next(err);
