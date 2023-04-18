@@ -14,7 +14,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 export const login = async (user) => {
   const { email, password, isGoogleSignIn, firstName, lastName, role } = user;
-  const googleSignIn = isGoogleSignIn === "true";
+  const googleSignIn = isGoogleSignIn === "true" || isGoogleSignIn === true;
 
   /// Check if required parameters are present
   if (!email)
