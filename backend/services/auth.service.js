@@ -30,9 +30,9 @@ export const login = async (user) => {
   if (!Validators.isValidEmail(email))
     throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
-  const existingUser = await User.findOne({ email }).select("+password");
+  let existingUser = await User.findOne({ email }).select("+password");
   if (!existingUser && googleSignIn) {
-    await User.create({
+    existingUser = await User.create({
       email,
       firstName,
       lastName,
