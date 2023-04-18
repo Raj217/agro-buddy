@@ -14,6 +14,8 @@ import {
   Typography,
   Container,
 } from "@mui/material";
+import { Axios } from "../../api/axios_config";
+import Google from "../../assets/google.png";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -22,6 +24,7 @@ import * as Palette from "../../configs/pallete";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 import { UserContext } from "../../context/user";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import ReactGa from "react-ga";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -51,11 +54,18 @@ export default function SignUp() {
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
   }, []);
+  
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const { user, setUser } = React.useContext(UserContext);
   const navigate = useNavigate();
-  const { signup } = React.useContext(AuthContext);
+  const { signup, login, isLoggedIn } = React.useContext(AuthContext);
   const [showPassword, setShowPassword] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -78,6 +88,38 @@ export default function SignUp() {
       navigate("/otp");
     }
   };
+
+  const onGoogleLoginSuccess = async (response) => {
+    const res = await Axios.get(
+      import.meta.env.VITE_GOOGLE_PROFILE_FETCH_URL + response.access_token
+    );
+    const { given_name, family_name, email } = res.data;
+    let googleUser = {
+      "firstName": given_name,
+      "lastName": family_name,
+      "email": email,
+      "isGoogleSignIn": true,
+      "role": "USER"
+    };
+    try {
+      await login(googleUser);
+      if (isLoggedIn) {
+        navigate("/");
+      }
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const onGoogleLoginFailure = (error) => {
+    toast.error(error);
+  };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: onGoogleLoginSuccess,
+    onError: onGoogleLoginFailure,
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -214,6 +256,24 @@ export default function SignUp() {
                   Already have an account? Sign in
                 </Typography>
               </div>
+            </Grid>
+            <Grid container>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  color: Palette.dark,
+                  border: `1.5px solid ${Palette.dark}`,
+                  padding: "10px 0px",
+                  marginTop: "20px",
+                }}
+                startIcon={
+                  <img style={{ height: "15px", width: "15px" }} src={Google} />
+                }
+                onClick={handleGoogleLogin}
+              >
+                Sign In with Google
+              </Button>
             </Grid>
           </Box>
         </Box>
