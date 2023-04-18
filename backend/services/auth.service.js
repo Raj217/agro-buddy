@@ -13,7 +13,7 @@ const TOKEN_KEY = process.env.TOKEN_KEY;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
 export const login = async (user) => {
-  const { email, password, isGoogleSignIn, name, role } = user;
+  const { email, password, isGoogleSignIn, firstName, lastName, role } = user;
   const googleSignIn = isGoogleSignIn === "true";
 
   /// Check if required parameters are present
@@ -21,11 +21,6 @@ export const login = async (user) => {
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
   if (!password && !googleSignIn)
     throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
-  if (!name && googleSignIn)
-    throw new Exception(
-      "Name is required in google sign in",
-      ExceptionCodes.BAD_INPUT
-    );
   if (!role && googleSignIn)
     throw new Exception(
       "Role is required in google sign in",
@@ -39,7 +34,8 @@ export const login = async (user) => {
   if (!existingUser && googleSignIn) {
     await User.create({
       email,
-      firstName: name,
+      firstName,
+      lastName,
       role,
       isEmailVerified: true,
     });

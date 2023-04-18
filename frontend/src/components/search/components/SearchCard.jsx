@@ -15,12 +15,6 @@ import { CropContext } from "../../../context/crops";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 function SearchCard({ query, crop }) {
-
-
-
-
-
-
   const { crops, getCropDetails } = useContext(CropContext);
   const navigate = useNavigate()
   const random = Math.floor(Math.random() * crop.data.images.length);
@@ -41,7 +35,6 @@ function SearchCard({ query, crop }) {
     <Container maxWidth="lg">
       <Box
         margin="auto"
-
       >
         <Card sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
           <div to="/content" style={{ textDecoration: "none" }}>

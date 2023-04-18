@@ -1,4 +1,5 @@
 import * as React from "react";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import {
   Avatar,
   Button,
@@ -17,33 +18,34 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import GoogleIcon from "@mui/icons-material/Google";
+import { Axios } from "../../api/axios_config";
+import Google from "../../assets/google.png";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as Palette from "../../configs/pallete";
 import { AuthContext } from "../../context/auth";
 import ReactGa from "react-ga";
-import CircularProgress from '@mui/material/CircularProgress';
+import toast from "react-hot-toast";
+import CircularProgress from "@mui/material/CircularProgress";
 import "./styles.css";
 
 const theme = createTheme();
 
 export default function SignIn() {
-
   const [loading, setLoading] = React.useState(false);
   const [Sign, setSign] = React.useState("Sign in");
-  
+
   const handleButtonClick = () => {
     if (!loading) {
       setLoading(true);
       setSign("Signing in");
-    }
-    else {
+    } else {
       setLoading(false);
       setSign("Sign In");
     }
   };
-  
-  
+
   const { login, isLoggedIn } = React.useContext(AuthContext);
   React.useEffect(() => {
     ReactGa.pageview(window.location.pathname);
@@ -53,16 +55,18 @@ export default function SignIn() {
     password: "",
   });
   const navigate = useNavigate();
-  React.useEffect(()=>{
-    if (isLoggedIn){
-      navigate('/');
-    }}, [isLoggedIn]);
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  // "email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid"
   const handleSubmit = async (event) => {
     ReactGa.event({
       category: "Button",
@@ -76,10 +80,41 @@ export default function SignIn() {
       }
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
+  const onGoogleLoginSuccess = async (response) => {
+    const res = await Axios.get(
+      import.meta.env.VITE_GOOGLE_PROFILE_FETCH_URL + response.access_token
+    );
+    const { given_name, family_name, email } = res.data;
+    let googleUser = {
+      "firstName": given_name,
+      "lastName": family_name,
+      "email": email,
+      "isGoogleSignIn": true,
+      "role": "USER"
+    };
+    try {
+      await login(googleUser);
+      if (isLoggedIn) {
+        navigate("/");
+      }
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const onGoogleLoginFailure = (error) => {
+    toast.error(error);
+  };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: onGoogleLoginSuccess,
+    onError: onGoogleLoginFailure,
+  });
   return (
     <ThemeProvider theme={theme}>
       <Container className="page-container" component="main" maxWidth="xs">
@@ -94,8 +129,7 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: Palette.accent }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" padding='5px'>
-
+          <Typography component="h1" variant="h5" padding="5px">
             Sign In
           </Typography>
           <Box
@@ -154,7 +188,7 @@ export default function SignIn() {
                   <CircularProgress
                     size={20}
                     sx={{
-                      color: 'white',
+                      color: "white",
                     }}
                   />
                 )
@@ -164,9 +198,10 @@ export default function SignIn() {
             </Button>
 
             <Grid container>
-              {// ! Important Comment
-              // ? Forgot Password functionality
-              /* <Grid item xs>
+              {
+                // ! Important Comment
+                // ? Forgot Password functionality
+                /* <Grid item xs>
                 <div
                   style={{ cursor: "pointer" }}
                   onClick={() => navigate("/forgot-password")}
@@ -175,7 +210,8 @@ export default function SignIn() {
                     Forgot password?
                   </Typography>
                 </div>
-              </Grid> */}
+              </Grid> */
+              }
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("/sign-up")}
@@ -184,6 +220,24 @@ export default function SignIn() {
                   Don't have an account? Sign Up
                 </Typography>
               </div>
+            </Grid>
+            <Grid container>
+              <Button
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  color: Palette.dark,
+                  border: `1.5px solid ${Palette.dark}`,
+                  padding: "10px 0px",
+                  marginTop: "20px",
+                }}
+                startIcon={
+                  <img style={{ height: "15px", width: "15px" }} src={Google} />
+                }
+                onClick={handleGoogleLogin}
+              >
+                Sign In with Google
+              </Button>
             </Grid>
           </Box>
         </Box>
