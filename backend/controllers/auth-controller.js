@@ -2,7 +2,7 @@ import * as AuthService from "../services/auth.service.js";
 import { ExceptionCodes } from "../utils/Error.js";
 
 export const login = async (req, res, next) => {
-  AuthService.login(req.body.email, req.body.password)
+  AuthService.login(req.body)
     .then((token) => {
       res
         .status(ExceptionCodes.REQUEST_FULFILLED)

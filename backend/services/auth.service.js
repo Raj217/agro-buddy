@@ -12,27 +12,47 @@ const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 const TOKEN_KEY = process.env.TOKEN_KEY;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-export const login = async (email, password) => {
+export const login = async (user) => {
+  const { email, password, isGoogleSignIn, firstName, lastName, role } = user;
+  const googleSignIn = isGoogleSignIn === "true" || isGoogleSignIn === true;
+
   /// Check if required parameters are present
   if (!email)
     throw new Exception("Email is required", ExceptionCodes.BAD_INPUT);
-  if (!password)
+  if (!password && !googleSignIn)
     throw new Exception("Password is required", ExceptionCodes.BAD_INPUT);
+  if (!role && googleSignIn)
+    throw new Exception(
+      "Role is required in google sign in",
+      ExceptionCodes.BAD_INPUT
+    );
 
   if (!Validators.isValidEmail(email))
     throw new Exception("Invalid email", ExceptionCodes.UNAUTHORIZED);
 
   const existingUser = await User.findOne({ email }).select("+password");
-  if (!existingUser)
+  if (!existingUser && googleSignIn) {
+    await User.create({
+      email,
+      firstName,
+      lastName,
+      role,
+      isEmailVerified: true,
+    });
+  } else if (!existingUser) {
     throw new Exception("User not found", ExceptionCodes.NOT_FOUND);
-
-  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-  if (!isPasswordValid)
-    throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
-
-  /// User can't proceed if email is not verified
-  if (!existingUser.isEmailVerified)
-    throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
+  }
+  if (!googleSignIn) {
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    if (!isPasswordValid)
+      throw new Exception("Invalid password", ExceptionCodes.UNAUTHORIZED);
+    /// User can't proceed if email is not verified
+    if (!existingUser.isEmailVerified)
+      throw new Exception("Email not verified", ExceptionCodes.UNAUTHORIZED);
+  }
 
   const token = jwt.sign(
     {
