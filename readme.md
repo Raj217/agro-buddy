@@ -23,7 +23,7 @@ AgroBuddy is an agrotech web app that provides users with details about differen
 - <strong>Express</strong>: The Express framework is used to handle server-side requests and responses. The app uses the Passport library to handle user authentication.
 - <strong>React</strong>: AgroBuddy uses React to create a dynamic user interface that allows users to search for and view details about different crops. The app uses the React Router library to handle client-side routing.
 - <strong>Node.js</strong>: Node.js is used to build the server-side logic that handles database queries and serves data to the front-end. The app uses the Axios library to make HTTP requests to the server.
-- <strong>Google Cloud Integration</strong>: The Google Analytics API is used to provide analytics for developers. The app uses the Google Analytics API to provide analytics for developers.
+- <strong>Google Cloud Integration</strong>: The Google Analytics API is used to provide analytics for developers. The app uses the Google Analytics API to provide analytics for developers. AgroBuddy also has Google Login support for easy signup and login.
 <!-- 
 ## Contributors
 
